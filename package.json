@@ -1,0 +1,60 @@
+{
+  "name": "wizardamigosinstitute",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wizard Amigos Institute Website",
+  "main": "SOURCE/index.js",
+  "dependencies": {
+    "fastdom": "^0.8.6",
+    "minixhr": "^1.1.0",
+    "webpage": "^0.1.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "html2js-browserify": "0.0.2"
+  },
+  "scripts": {
+    "bundle": "browserify -s $npm_package_name SOURCE/index.js > bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      "html2js-browserify"
+    ]
+  },
+  "keywords": [
+    "teaching",
+    "teacher",
+    "learning",
+    "javascript",
+    "berlin",
+    "learner",
+    "programming",
+    "school",
+    "university",
+    "academy",
+    "institute",
+    "wizard",
+    "amigos",
+    "node",
+    "nodejs",
+    "html",
+    "css"
+  ],
+  "author": {
+    "name": "serapath",
+    "email": "dev@serapath.de",
+    "url": "http://www.github.com/serapath"
+  },
+  "license": "GNU AGPL",
+  "bugs": {
+    "url": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io/issues"
+  },
+  "homepage": "http://wizard.amigos.institute"
+}
