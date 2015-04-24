@@ -40,7 +40,6 @@ function wizardamigosinstitute(dom, data) {
   var __logo = COMPONENT.querySelectorAll('.wizardamigos__logo')[0];
   var __menu = COMPONENT.querySelectorAll('.wizardamigos__menu')[0];
   var __a = '';
-
   /******** WIRE UP ********/
   // __Heart.addEventListener('click', function onclick (event) {
   //   eventstop(event);
@@ -59,8 +58,28 @@ function wizardamigosinstitute(dom, data) {
 },{"./index.template.html":2,"_config":3,"fastdom":4,"webpage":5}],2:[function(require,module,exports){
 module.exports = '<div class="wizardamigos">\n' +
     '  <style>\n' +
-    '    body {\n' +
-    '      background-color: #ff0000;\n' +
+    '    body               {\n' +
+    '      background-color : #ff00ff;\n' +
+    '      margin           : 0;\n' +
+    '      padding          : 0;\n' +
+    '    }\n' +
+    '    .wizardamigos      {\n' +
+    '      font-size        : 3vmin;\n' +
+    '      width            : 50vw;\n' +
+    '      margin           : 0 auto;\n' +
+    '    }\n' +
+    '    .wizardamigos__intro,\n' +
+    '    .wizardamigos__scrolls,\n' +
+    '    .wizardamigos__schedule,\n' +
+    '    .wizardamigos__requirements,\n' +
+    '    .wizardamigos__about,\n' +
+    '    .wizardamigos__application,\n' +
+    '    .wizardamigos__join {\n' +
+    '      background-color : #cc00cc;\n' +
+    '      padding          : 2vmin;\n' +
+    '      border           : 2vmin solid #990099;\n' +
+    '      margin-top       : 2vmin;\n' +
+    '      margin-bottom    : 2vmin;\n' +
     '    }\n' +
     '  </style>\n' +
     '  <div class="wizardamigos__logo"></div>\n' +
@@ -121,7 +140,7 @@ module.exports = '<div class="wizardamigos">\n' +
     '\n' +
     '  </div>\n' +
     '  <div class="wizardamigos__about">\n' +
-    '    Who is Wizard Amigos Institute for?\n' +
+    '    Who is Wizard Amigos Institute for\n' +
     '\n' +
     '    It is for girls and guys who want to learn special magic programming wizardry. You have to be at least 8yrs old and have basic computer skills.\n' +
     '\n' +
@@ -763,11 +782,15 @@ module.exports={
   },
   "devDependencies": {
     "babelify": "^6.0.2",
+    "browser-sync": "^2.6.4",
     "browserify": "^9.0.8",
-    "html2js-browserify": "0.0.2"
+    "html2js-browserify": "0.0.2",
+    "watchify": "^3.1.2"
   },
   "scripts": {
-    "bundle": "browserify -s $npm_package_name SOURCE/index.js > bundle.js",
+    "bundle": "mkdir -p BUNDLE && browserify -s $npm_package_name SOURCE/index.js -o BUNDLE/bundle.js",
+    "watch": "mkdir -p BUNDLE && watchify -s $npm_package_name SOURCE/index.js -o BUNDLE/bundle.js",
+    "sync": "browser-sync start --files 'BUNDLE/bundle.js, BUNDLE/assets/*.*' --server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -11,11 +11,15 @@
   },
   "devDependencies": {
     "babelify": "^6.0.2",
+    "browser-sync": "^2.6.4",
     "browserify": "^9.0.8",
-    "html2js-browserify": "0.0.2"
+    "html2js-browserify": "0.0.2",
+    "watchify": "^3.1.2"
   },
   "scripts": {
-    "bundle": "browserify -s $npm_package_name SOURCE/index.js > bundle.js",
+    "bundle": "mkdir -p BUNDLE && browserify -s $npm_package_name SOURCE/index.js -o BUNDLE/bundle.js",
+    "watch": "mkdir -p BUNDLE && watchify -s $npm_package_name SOURCE/index.js -o BUNDLE/bundle.js",
+    "sync": "browser-sync start --files 'BUNDLE/bundle.js, BUNDLE/assets/*.*' --server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

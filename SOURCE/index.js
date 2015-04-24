@@ -36,7 +36,6 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
   const __logo    = COMPONENT.querySelectorAll('.wizardamigos__logo')[0];
   const __menu    = COMPONENT.querySelectorAll('.wizardamigos__menu')[0];
   const __a ='';
-  
   /******** WIRE UP ********/
       // __Heart.addEventListener('click', function onclick (event) {
       //   eventstop(event);
