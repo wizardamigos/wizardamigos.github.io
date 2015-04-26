@@ -4,33 +4,85 @@
   "private": true,
   "description": "Wizard Amigos Institute Website",
   "main": "SOURCE/index.js",
+  "style": "SOURCE/index.css",
   "dependencies": {
     "fastdom": "^0.8.6",
     "minixhr": "^1.1.0",
+    "resrcify": "^1.1.3",
     "webpage": "^0.1.0"
   },
   "devDependencies": {
-    "babelify": "^6.0.2",
-    "browser-sync": "^2.6.4",
-    "browserify": "^9.0.8",
-    "html2js-browserify": "0.0.2",
-    "watchify": "^3.1.2"
+    "atomify": "^7.1.0",
+    "babelify": "^6.0.2"
   },
   "scripts": {
-    "bundle": "mkdir -p BUNDLE && browserify -s $npm_package_name SOURCE/index.js -o BUNDLE/bundle.js",
-    "watch": "mkdir -p BUNDLE && watchify -s $npm_package_name SOURCE/index.js -o BUNDLE/bundle.js",
-    "sync": "browser-sync start --files 'BUNDLE/bundle.js, BUNDLE/assets/*.*' --server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "atomify": "atomify",
+    "test": "echo \"Error: no test specified\" && exit 1 #testem start --singleRun",
+    "---": "----------------------------------------------------------------",
+    "build:scripts": "#browserify -d assets/scripts/main.js -p [minifyify --compressPath . --map main.js.map --output dist/main.js.map] | hashmark -n dist/main.js -s -l 8 -m assets.json 'dist/{name}{hash}{ext}'",
+    "jscs": "#jscs eshint eslint...",
+    "uglify": "#uglify",
+    "png": "#optimg",
+    "jpg": "#jpgo",
+    "cssm": "#ycssmin **.css #cssmin",
+    "cssv": "#css-validator **.css",
+    "cssp": "#css-prettifier **.css",
+    "html": "#html5-lint **.html",
+    "buildV": "#rm -rf RELEASE && mkdir RELEASE && node node_modules/browserify/bin/cmd.js SOURCE/index.js -d -o RELEASE/index.v$(cat package.json | grep version | grep -Po '(?<=version\": \").*(?=\")').bundle.js",
+    "watchV": "#rm -rf RELEASE && mkdir RELEASE && node node_modules/watchify/bin/cmd.js SOURCE/index.js -o RELEASE/index.v$(cat package.json | grep version | grep -Po '(?<=version\": \").*(?=\")').bundle.js",
+    "open:prod": "#opener http://example.com",
+    "open:stage": "#opener http://staging.example.internal",
+    "open:dev": "#opener http://localhost:9090",
+    "deploy:prod": "#s3-cli sync ./dist/ s3://example-com/prod-site/",
+    "deploy:stage": "#s3-cli sync ./dist/ s3://example-com/stage-site/"
+  },
+  "atomify": {
+    "server": {
+      "open": true,
+      "path": "index.html",
+      "lr": {
+        "verbose": true,
+        "quiet": false,
+        "port": 31337,
+        "sync": true
+      }
+    },
+    "js": {
+      "entry": "SOURCE/index.js",
+      "alias": "bundle.js",
+      "output": "BUNDLE/bundle.js",
+      "debug": true,
+      "watch": true,
+      "transform": [
+        "babelify"
+      ],
+      "standalone": "API"
+    },
+    "css": {
+      "entry": "SOURCE/index.css",
+      "alias": "bundle.css",
+      "output": "BUNDLE/bundle.css",
+      "debug": true,
+      "watch": true,
+      "autoprefixer": {
+        "browsers": [
+          "> 1%",
+          "IE 7"
+        ],
+        "cascade": false
+      },
+      "compress": false,
+      "plugin": []
+    },
+    "assets": {
+      "dest": "BUNDLE/assets/",
+      "prefix": "/BUNDLE/assets/",
+      "retainName": false
+    }
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git"
-  },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "html2js-browserify"
-    ]
   },
   "keywords": [
     "teaching",

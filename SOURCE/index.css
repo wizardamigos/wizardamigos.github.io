@@ -1,0 +1,16 @@
+/*@import '_style/reset';*/
+@import '_style';
+:root {
+  /* THEME */
+  --WizardAmigosInstitute-color1: #7A68F2;
+  --WizardAmigosInstitute-color2: #3627B4;
+  --WizardAmigosInstitute-color3: #E2FCEF;
+  --WizardAmigosInstitute-color4: #9B287B;
+  --WizardAmigosInstitute-color5: #2D4042;
+  --WizardAmigosInstitute-color6: #FFFFFF;
+  --WizardAmigosInstitute-color7: #000000;
+  /*--WizardAmigosInstitute-color7: #wizardFaceColor;*/
+}
+body {
+  /*background-color: var(--WizardAmigosInstitute-color3);*/
+}

@@ -19,7 +19,7 @@ const fastdom   = require('fastdom');
 ******************************************************************************/
   // no cli tool
 /******************************************************************************
-  MODULE INTERNALS
+  MODULE INTERNALS & HELPERS
 ******************************************************************************/
 const config    = require('_config')();
 const template  = require('./index.template.html');
