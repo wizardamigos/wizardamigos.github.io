@@ -9,7 +9,8 @@
     "fastdom": "^0.8.6",
     "minixhr": "^1.1.0",
     "resrcify": "^1.1.3",
-    "webpage": "^0.2.0"
+    "social-share": "^0.1.0",
+    "webpage": "^0.3.0"
   },
   "devDependencies": {
     "atomify": "^7.1.0",
