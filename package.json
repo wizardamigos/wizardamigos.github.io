@@ -7,9 +7,12 @@
   "style": "SOURCE/index.css",
   "dependencies": {
     "fastdom": "^0.8.6",
+    "holon-markdownbox": "^0.1.0",
+    "json-matter": "^1.0.2",
+    "json-meta-marked": "^1.1.2",
+    "marked": "^0.3.3",
     "minixhr": "^1.1.0",
     "resrcify": "^1.1.3",
-    "social-share": "^0.1.0",
     "webpage": "^0.3.0"
   },
   "devDependencies": {
@@ -17,7 +20,7 @@
     "babelify": "^6.0.2"
   },
   "scripts": {
-    "atomify": "atomify",
+    "start": "atomify",
     "test": "echo \"Error: no test specified\" && exit 1 #testem start --singleRun",
     "---": "#----------------------------------------------------------------",
     "build:scripts": "#browserify -d assets/scripts/main.js -p [minifyify --compressPath . --map main.js.map --output dist/main.js.map] | hashmark -n dist/main.js -s -l 8 -m assets.json 'dist/{name}{hash}{ext}'",

@@ -1,16 +1,38 @@
 /*@import '_style/reset';*/
 @import '_style';
+@import 'holon-markdownbox';
+@font-face                       {
+  font-family                    : Pixelade;
+  src                            : url('assets/PIXELADE.ttf');
+}
 :root {
   /* THEME */
-  --WizardAmigosInstitute-color1: #7A68F2;
-  --WizardAmigosInstitute-color2: #3627B4;
-  --WizardAmigosInstitute-color3: #E2FCEF;
-  --WizardAmigosInstitute-color4: #9B287B;
-  --WizardAmigosInstitute-color5: #2D4042;
-  --WizardAmigosInstitute-color6: #FFFFFF;
-  --WizardAmigosInstitute-color7: #000000;
-  /*--WizardAmigosInstitute-color7: #wizardFaceColor;*/
-}
-body {
-  /*background-color: var(--WizardAmigosInstitute-color3);*/
+  --Theme-color1                 : #7A68F2;
+  --Theme-color2                 : #3627B4;
+  --Theme-color3                 : #E2FCEF;
+  --Theme-color4                 : #9B287B;
+  --Theme-color5                 : #2D4042;
+  --Theme-color6                 : #FFFFFF;
+  --Theme-color7                 : #000000;
+  /*--Theme-color8                 : #wizardFaceColor; */
+  --Theme-font1                  : Ubuntu Mono, Open Sans, monaco, sans-serif;
+  --Theme-font2                  : Pixelade;
+  /* APPLY THEME */
+  --WizardAmigosInstitute-color1 : var(--Theme-color1);
+  --WizardAmigosInstitute-color2 : var(--Theme-color2);
+  --WizardAmigosInstitute-color3 : var(--Theme-color3);
+  --WizardAmigosInstitute-color4 : var(--Theme-color4);
+  --WizardAmigosInstitute-color5 : var(--Theme-color5);
+  --WizardAmigosInstitute-color6 : var(--Theme-color6);
+  --WizardAmigosInstitute-color7 : var(--Theme-color7);
+  /*--WizardAmigosInstitute-color8 : var(--Theme-color8);*/
+  --WizardAmigosInstitute-font1  : var(--Theme-font1);
+  --WizardAmigosInstitute-font2  : var(--Theme-font2);
+  --Markdownbox-color1           : var(--Theme-color1);
+  --Markdownbox-color2           : var(--Theme-color2);
+  --Markdownbox-color3           : var(--Theme-color3);
+  --Markdownbox-color4           : var(--Theme-color4);
+  --Markdownbox-color5           : var(--Theme-color5);
+  --Markdownbox-font1            : var(--Theme-font1);
+  --Markdownbox-font2            : var(--Theme-font2);
 }

@@ -27,3 +27,4 @@ build/Release
 node_modules/
 !SOURCE/node_modules/
 npm-debug.log
+WORKBENCH/
