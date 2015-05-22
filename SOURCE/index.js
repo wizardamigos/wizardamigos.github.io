@@ -30,40 +30,42 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
   var CONTENT     = [];
   var LANGUAGES   = {};
 
-  minixhr({ url: config.contentSRC }, function (data, response, xhr) {
-    var temp    = {};
-    var CONTENT = undefined;
-    var array   = JSON.parse(data);
-    array.forEach(function (item) {
-      minixhr({ url: item.url }, function (data, response, xhr) {
-        function b64_to_utf8( str ) {
-          return decodeURIComponent(escape(window.atob( str )));
-        }
-        var object      = JSON.parse(data);
-        var jsonmarked  = b64_to_utf8(object.content);
-        var name        = object.name.split('.')[0];
-        if (name === 'index') {
-          CONTENT = jmm.parse(jsonmarked).CONTENT;
-          prepareArrayContainer(CONTENT);
-          CONTENT.forEach(function (title, idx) {
-            if(temp[title]) {
-              addContent(idx, title, temp[title]);
-            }
-          });
-        } else if (!CONTENT) {
-          temp[name] = jsonmarked;
-        } else {
-          CONTENT.forEach(function (title, idx) {
-            if(name === title) {
-              addContent(idx, name, jsonmarked);
-            }
-          });
-        }
+  function getContent() {
+    minixhr({ url: config.contentSRC }, function (data, response, xhr, header) {
+      // debugger;
+      var temp    = {};
+      var CONTENT = undefined;
+      var array   = JSON.parse(data);
+      array.forEach(function (item) {
+        minixhr({ url: item.url }, function (data, response, xhr, header) {
+          function b64_to_utf8( str ) {
+            return decodeURIComponent(escape(window.atob( str )));
+          }
+          var object      = JSON.parse(data);
+          var jsonmarked  = b64_to_utf8(object.content);
+          var name        = object.name.split('.')[0];
+          if (name === 'index') {
+            CONTENT = jmm.parse(jsonmarked).CONTENT;
+            prepareArrayContainer(CONTENT);
+            CONTENT.forEach(function (title, idx) {
+              if(temp[title]) {
+                addContent(idx, title, temp[title]);
+              }
+            });
+          } else if (!CONTENT) {
+            temp[name] = jsonmarked;
+          } else {
+            CONTENT.forEach(function (title, idx) {
+              if(name === title) {
+                addContent(idx, name, jsonmarked);
+              }
+            });
+          }
+        });
       });
     });
-  });
-
-  INIT();
+  }
+  getContent();
 
   function prepareArrayContainer (CONTENT) {
     SEMAPHORE = CONTENT.length;
