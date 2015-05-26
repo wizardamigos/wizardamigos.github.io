@@ -5,8 +5,6 @@
 const webpage     = require('webpage');
 const fastdom     = require('fastdom');
 const minixhr     = require('minixhr');
-// const marked      = require('marked');
-// const jsonmatter  = require('json-matter');
 const jmm         = require('json-meta-marked');
 const markdownbox = require('holon-markdownbox');
 /******************************************************************************
@@ -18,8 +16,10 @@ const markdownbox = require('holon-markdownbox');
   MODULE INTERNALS & HELPERS
 ******************************************************************************/
 const config      = require('_config')();
+const githubLevel = require('_githubLevel');
 const template    = require('./index.template.html');
 let __            = document.createElement('div');
+
 function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for event delegation pattern
   const COMPONENT = (__.innerHTML=template,__.childNodes[0]);
   const __logo    = COMPONENT.querySelectorAll('.wizardamigos__logo')[0];
@@ -30,42 +30,51 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
   var CONTENT     = [];
   var LANGUAGES   = {};
 
-  function getContent() {
-    minixhr({ url: config.contentSRC }, function (data, response, xhr, header) {
-      // debugger;
-      var temp    = {};
-      var CONTENT = undefined;
-      var array   = JSON.parse(data);
-      array.forEach(function (item) {
-        minixhr({ url: item.url }, function (data, response, xhr, header) {
-          function b64_to_utf8( str ) {
-            return decodeURIComponent(escape(window.atob( str )));
-          }
-          var object      = JSON.parse(data);
-          var jsonmarked  = b64_to_utf8(object.content);
-          var name        = object.name.split('.')[0];
-          if (name === 'index') {
-            CONTENT = jmm.parse(jsonmarked).CONTENT;
-            prepareArrayContainer(CONTENT);
-            CONTENT.forEach(function (title, idx) {
-              if(temp[title]) {
-                addContent(idx, title, temp[title]);
-              }
-            });
-          } else if (!CONTENT) {
-            temp[name] = jsonmarked;
-          } else {
-            CONTENT.forEach(function (title, idx) {
-              if(name === title) {
-                addContent(idx, name, jsonmarked);
-              }
-            });
-          }
-        });
+
+  // // // a version stream for a single key between versions 100 and 1000
+  // // db.createVersionStream(key, {minVersion: 100, maxVersion: 1000}).pipe(/* ... */)
+  // //
+  // // // stream all keys, but only the most recent version of each
+  // // db.createReadStream({versionLimit: 1}).pipe(/* ... */)
+
+  // USAGE
+  githubLevel({ url: process.env.BACKEND_CONTENT }, function (error, data, version) {
+    if (error) { console.error(error); throw error; }
+
+    var temp    = {};
+    var CONTENT = undefined;
+
+    data.forEach(function (item) {
+      githubLevel({ url:item.url }, function (error, data, version) {
+
+        function b64_to_utf8( str ) {
+          return decodeURIComponent(escape(window.atob( str )));
+        }
+
+        var jsonmarked  = b64_to_utf8(data.content); // @TODO: factor into jsonmarked
+        var name        = data.name.split('.')[0];
+        if (name === 'index') {
+          CONTENT = jmm.parse(jsonmarked).CONTENT;
+          prepareArrayContainer(CONTENT);
+          CONTENT.forEach(function (title, idx) {
+            if(temp[title]) {
+              addContent(idx, title, temp[title]);
+            }
+          });
+        } else if (!CONTENT) {
+          temp[name] = jsonmarked;
+        } else {
+          CONTENT.forEach(function (title, idx) {
+            if(name === title) {
+              addContent(idx, name, jsonmarked);
+            }
+          });
+        }
       });
     });
-  }
-  getContent();
+
+  });
+
 
   function prepareArrayContainer (CONTENT) {
     SEMAPHORE = CONTENT.length;
@@ -76,7 +85,7 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
       name: name,
       lang: {}
     };
-    var object = jmm.parse(jsonmarked);
+    var object = jmm.parse(jsonmarked); // @TODO: factor into jsonmarked
     var html   = object.__content__;
     var langs  = html.split('<hr>').filter(function(x){return x;});
     var reg = /<p><a href="@([\s\S]*)"><\/a><\/p>([\s\S]*)/;
