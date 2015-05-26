@@ -31,11 +31,11 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
   var LANGUAGES   = {};
 
 
-  // // // a version stream for a single key between versions 100 and 1000
-  // // db.createVersionStream(key, {minVersion: 100, maxVersion: 1000}).pipe(/* ... */)
-  // //
-  // // // stream all keys, but only the most recent version of each
-  // // db.createReadStream({versionLimit: 1}).pipe(/* ... */)
+  // // a version stream for a single key between versions 100 and 1000
+  // db.createVersionStream(key, {minVersion: 100, maxVersion: 1000}).pipe(/* ... */)
+  //
+  // // stream all keys, but only the most recent version of each
+  // db.createReadStream({versionLimit: 1}).pipe(/* ... */)
 
   // USAGE
   githubLevel({ url: process.env.BACKEND_CONTENT }, function (error, data, version) {
