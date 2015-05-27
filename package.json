@@ -6,8 +6,8 @@
   "main": "SOURCE/index.js",
   "style": "SOURCE/index.css",
   "scripts": {
-    "start": "atomify",
-    "preview": "atomify --envlocalify [ --localenvfile false ]",
+    "start": "atomify --envlocalify [ --localenvfile false ]",
+    "dev": "atomify",
     "test": "echo \"Error: no test specified\" && exit 1 #testem start --singleRun",
     "---": "#----------------------------------------------------------------",
     "build:scripts": "#browserify -d assets/scripts/main.js -p [minifyify --compressPath . --map main.js.map --output dist/main.js.map] | hashmark -n dist/main.js -s -l 8 -m assets.json 'dist/{name}{hash}{ext}'",
@@ -106,6 +106,7 @@
   },
   "homepage": "http://wizard.amigos.institute",
   "dependencies": {
+    "eventstopper": "^1.1.0",
     "fastdom": "^0.8.6",
     "holon-markdownbox": "^0.1.0",
     "json-meta-marked": "^1.1.2",
