@@ -28,6 +28,10 @@
   /*--WizardAmigosInstitute-color8 : var(--Theme-color8);*/
   --WizardAmigosInstitute-font1  : var(--Theme-font1);
   --WizardAmigosInstitute-font2  : var(--Theme-font2);
+  --WizardAmigosInstitute-font-size1       : 5vw; /*6.5vw;*/
+  --WizardAmigosInstitute-font-size2       : 3vw;
+  --WizardAmigosInstitute-font-size3       : 2.3vw;
+  --WizardAmigosInstitute-borderwidth      : 4vw;
   --Markdownbox-color1           : var(--Theme-color1);
   --Markdownbox-color2           : var(--Theme-color2);
   --Markdownbox-color3           : var(--Theme-color3);
@@ -35,8 +39,8 @@
   --Markdownbox-color5           : var(--Theme-color5);
   --Markdownbox-font1            : var(--Theme-font1);
   --Markdownbox-font2            : var(--Theme-font2);
-  --Markdownbox-font-size1       : 6.5vw; /*6.5vw;*/
-  --Markdownbox-font-size2       : 3.7vw;
-  --Markdownbox-font-size3       : 3vw;
+  --Markdownbox-font-size1       : 5vw; /*6.5vw;*/
+  --Markdownbox-font-size2       : 3vw;
+  --Markdownbox-font-size3       : 2.3vw;
   --Markdownbox-borderwidth      : 4vw;
 }
