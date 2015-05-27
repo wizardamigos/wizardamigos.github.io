@@ -35,4 +35,8 @@
   --Markdownbox-color5           : var(--Theme-color5);
   --Markdownbox-font1            : var(--Theme-font1);
   --Markdownbox-font2            : var(--Theme-font2);
+  --Markdownbox-font-size1       : 6.5vw; /*6.5vw;*/
+  --Markdownbox-font-size2       : 3.7vw;
+  --Markdownbox-font-size3       : 3vw;
+  --Markdownbox-borderwidth      : 4vw;
 }
