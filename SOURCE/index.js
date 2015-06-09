@@ -13,6 +13,9 @@ const markdownbox = require('holon-markdownbox');
 ******************************************************************************/
   // no cli tool
   // $paramName = process.argv[2];
+  var env         = {
+    backend         : process.env.BACKEND_CONTENT
+  };
 /******************************************************************************
   MODULE INTERNALS & HELPERS
 ******************************************************************************/
@@ -37,9 +40,8 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
   var __Menu__activeLanguage  = null;
   var currentLanguage         = config.language;
 
-
   // USAGE
-  githubLevel({ url: process.env.BACKEND_CONTENT }, function (error, data, version) {
+  githubLevel({ url: env.backend }, function (error, data, version) {
     if (error) { console.error(error); throw error; }
 
     var temp    = {};
@@ -170,6 +172,7 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
 }
 
 function b64_to_utf8( str ) {
+  str = str.replace(/(\r\n|\n|\r)/gm,"");
   return decodeURIComponent(escape(window.atob( str )));
 }
 /******************************************************************************
