@@ -19,10 +19,11 @@ const markdownbox = require('holon-markdownbox');
 /******************************************************************************
   MODULE INTERNALS & HELPERS
 ******************************************************************************/
-const config      = require('_config')();
-const githubLevel = require('_githubLevel');
-const template    = require('./index.template.html');
-let __            = document.createElement('div');
+const config              = require('_config')();
+const githubLevel         = require('_githubLevel');
+const organizationprofile = require('_organizationprofile');
+const template            = require('./index.template.html');
+let __                    = document.createElement('div');
 
 function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for event delegation pattern
   const COMPONENT = (__.innerHTML=template,__.childNodes[0]);
@@ -30,7 +31,7 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
   const __menu    = COMPONENT.querySelectorAll('.wizardamigos__menu')[0];
   const __news    = COMPONENT.querySelectorAll('.wizardamigos__news')[0];
   const __content = COMPONENT.querySelectorAll('.wizardamigos__content')[0];
-
+  const __partners = COMPONENT.querySelectorAll('.wizardamigos__partners')[0];
 
   var SEMAPHORE   = null;
   var CONTENT     = [];
@@ -98,9 +99,8 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
     if (!SEMAPHORE) { INIT(); }
 
   }
-  function prepare () {
-    // @TODO: use fastdom
-    // ADD CONTENT TO PAGE
+  // FILL "CONTENT" & FILL "NEWS"
+  function UPDATE_contentAndNews () {
     CONTENT.forEach(function (x, idx) {
       if (x.name === 'news') {
         var API = (function (languages) {
@@ -123,7 +123,9 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
         __content.appendChild(tmp);
       }
     });
-    // ADD LANGUAGE TO MENU
+  }
+  // FILL "MENU"
+  function UPDATE_languages () {
     for (var lang in LANGUAGES) {
       (function (lang) {
         var isCurrentLanguage = (lang === currentLanguage);
@@ -135,9 +137,58 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
         __menu.appendChild(tmp);
       })(lang);
     }
+  }
+  // FILL "WEBRING"
+  function UPDATE_webring () {
+    githubLevel({ url: env.backend }, function (error, data, version) {
+      if (error) { console.error(error); throw error; }
+
+      data.forEach(function (item) {
+        var name = item.name.split('.')[0];
+        if (name === 'wallofinspiration') {
+          githubLevel({ url: item.url }, function (error, data, version) {
+            var jsonmarked        = b64_to_utf8(data.content);
+            var wallofinspiration = jmm.parse(jsonmarked).__content__;
+
+            var div = document.createElement('div');
+            div.innerHTML = wallofinspiration;
+
+            var partners = [];
+
+            [].forEach.call(div.querySelectorAll('h3'), function (item) {
+              partners.push({ name: item.innerHTML });
+            });
+            [].forEach.call(div.querySelectorAll('a'), function (item, i) {
+              partners[i].website = item.getAttribute('href');
+            });
+            [].forEach.call(div.querySelectorAll('img'), function (item, i) {
+              partners[i].logo = item.getAttribute('src');
+              partners[i].location = item.getAttribute('alt');
+            });
+
+            partners.forEach(function add (partner) {
+              organizationprofile(__partners, {
+                name: partner.name,
+                logo: partner.logo,
+                location: partner.location,
+                website: partner.website
+              });
+            });
+
+          });
+        }
+      });
+    });
+  }
+
+  function prepare () {
+    // @TODO: use fastdom
+    UPDATE_contentAndNews();
+    UPDATE_languages();
+    UPDATE_webring();
 
     /******** WIRE UP ********/
-    // @TODO: should use delegator pattern instead
+    // @TODO: should maybe use delegator pattern instead
     __menu.addEventListener('click', function onclick (event) {
       eventstopper(event);
       var el          = event.target;
