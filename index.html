@@ -1,1 +1,85 @@
-<body><script src="BUNDLE/bundle.js"></script></body>
+<body><script data="BUNDLE/bundle.js">
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET','BUNDLE/bundle.js');
+  xhr.onload=function(response){
+    var headerJSON = {}, h = xhr.getAllResponseHeaders();
+    h.match(/([^\n\r:]+):([^\n\r]+)/g).forEach(function(item){
+      var tmp = item.split(': ');
+      headerJSON[tmp[0]] = tmp[1];
+    });
+    handler(this.response, response, xhr, headerJSON);
+  };
+  xhr.send();
+  function handler (data, response, xhr, header) {
+  	console.log(header);
+  	debugger;
+	// localStorage.setItem('myCat', 'Tom');
+  }
+</script></body>
+<!-- <body><script>
+  // Create/open database
+  (function (APP) {
+    var request = indexedDB.open(APP);
+    request.onsuccess = function (event) {
+
+      event.result; // has ETag + has CONTENT
+      // https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
+      /* @TODO:
+        - generate index.html with holonify + inform in readme.md
+        - add github.api (-> SOURCE of bundle.js)
+        - check localstorage
+
+          console.log("Success creating/accessing IndexedDB database");
+              db = request.result;
+
+              db.onerror = function (event) {
+                  console.log("Error creating/accessing IndexedDB database");
+              };
+
+              // Interim solution for Google Chrome to create an objectStore. Will be deprecated
+              if (db.setVersion) {
+                  if (db.version != dbVersion) {
+                      var setVersion = db.setVersion(dbVersion);
+                      setVersion.onsuccess = function () {
+                          createObjectStore(db);
+                          getImageFile();
+                      };
+                  }
+                  else {
+                      getImageFile();
+                  }
+              }
+              else {
+                  getImageFile();
+              }
+
+
+        - see _githubLevel
+        - check github for updates
+      */
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', APP);
+      xhr.onload=function(response){
+      var headerJSON = {}, h = xhr.getAllResponseHeaders();
+      h.match(/([^\n\r:]+):([^\n\r]+)/g).forEach(function(item){
+        var tmp = item.split(': ');
+        headerJSON[tmp[0]] = tmp[1];
+      });
+      handler(this.response, response, xhr, headerJSON);
+      };
+      xhr.send();
+      function handler (data, response, xhr, header) {
+        /*
+          - put into localstorage with ETag bundle.js if update
+          - put bundle.js content into page
+
+          - @TODO:
+            - make BUNDLE.js grab content of BUNDLE.css from github api
+            - do the same with ASSETS
+        */
+        console.log(header);
+        debugger;
+      }
+    };
+  })('BUNDLE/bundle.js');
+</script></body> -->
