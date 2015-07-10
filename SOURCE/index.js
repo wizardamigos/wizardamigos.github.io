@@ -218,6 +218,7 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
     });
   }
   /******** RETURN *********/
+  scrollToHash();
   var API = {}; // should be an event emitter too
   return API;
 }
@@ -231,6 +232,13 @@ function b64_to_utf8( str ) {
 ******************************************************************************/
 module.exports    = wizardamigosinstitute(webpage(config), config);
 
+function scrollToHash () {
+  if(location.hash) {
+    var a = document.createElement('a');
+    a.setAttribute('href', location.hash);
+    a.click();
+  }
+}
 
 
       // // <div id="fb-root"></div>
