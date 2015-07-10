@@ -215,10 +215,10 @@ function wizardamigosinstitute (dom, data) { // 'data' maybe also to use for eve
     fastdom.write(function () {
       prepare();
       dom.appendChild(COMPONENT);
+      scrollToHash();
     });
   }
   /******** RETURN *********/
-  scrollToHash();
   var API = {}; // should be an event emitter too
   return API;
 }
