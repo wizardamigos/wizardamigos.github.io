@@ -3,31 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "Wizard Amigos Institute Website",
-  "main": "SOURCE/index.js",
-  "style": "SOURCE/index.css",
-  "scripts": {
-    "start": "holonify",
-    "prod": "holonify --mode=production --envlocalify [ --localenvfile false ] && npm run minifyjs && npm run minifycss",
-    "minifyjs": "uglifyjs BUNDLE/bundle.js -o BUNDLE/bundle.js --source-map BUNDLE/bundle.js.map -mc",
-    "minifycss": "cleancss BUNDLE/bundle.css --ss0 -o BUNDLE/bundle.css #https://github.com/jakubpawlowicz/clean-css",
-    "stats": "discify BUNDLE/bundle.js > disc.html",
-    "test": "echo \"Error: no test specified\" && exit 1 #testem start --singleRun",
-    "---": "#----------------------------------------------------------------",
-    "jscs": "#jscs eshint eslint...",
-    "png": "#optimg",
-    "jpg": "#jpgo",
-    "cssv": "#css-validator **.css",
-    "html": "#html5-lint **.html",
-    "open:prod": "#opener http://example.com",
-    "open:stage": "#opener http://staging.example.internal",
-    "open:dev": "#opener http://localhost:9090",
-    "deploy:prod": "#s3-cli sync ./dist/ s3://example-com/prod-site/",
-    "deploy:stage": "#s3-cli sync ./dist/ s3://example-com/stage-site/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git"
-  },
+  "main": "./index.html",
+  "style": "./style.css",
+  "repository": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git",
   "keywords": [
     "teaching",
     "teacher",
@@ -53,24 +31,6 @@
     "url": "http://www.github.com/serapath"
   },
   "license": "GNU AGPL",
-  "bugs": {
-    "url": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io/issues"
-  },
-  "homepage": "http://wizard.amigos.institute",
-  "dependencies": {
-    "eventstopper": "^1.1.0",
-    "fastdom": "^0.8.6",
-    "holon-markdownbox": "^0.1.1",
-    "json-meta-marked": "^1.1.4",
-    "minixhr": "^1.2.1",
-    "webpage": "^0.3.0"
-  },
-  "devDependencies": {
-    "babelify": "^6.1.1",
-    "clean-css": "^3.3.1",
-    "envlocalify": "^1.0.0",
-    "holonify": "^1.0.0",
-    "resrcify": "^1.1.3",
-    "uglifyjs": "^2.4.10"
-  }
+  "bugs": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io/issues",
+  "homepage": "http://wizard.amigos.institute/"
 }

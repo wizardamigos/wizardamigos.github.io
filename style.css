@@ -1,0 +1,132 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-size: 110%;
+	line-height: 1.25;
+	font-family: "Helvetica Neue", sans-serif;
+	font-weight: normal;
+	color: #333;
+	background-color: white;
+}
+html {
+	box-sizing: border-box;
+}
+body{
+	margin-top: 3em;
+	margin-bottom: 5em;
+}
+
+
+
+@font-face {
+	font-family: "Silkscreen";
+	src: url("./silkscreen.ttf") format("truetype");
+}
+
+h1 {
+	margin: 2em 0;
+	text-align: center;
+	font-size: 3em;
+	font-family: Silkscreen;
+	color: #444;
+}
+h2 {
+	margin: 1em 0;
+	font-size: 1.4em;
+	font-family: Silkscreen;
+	letter-spacing: -.05em;
+}
+p {
+	margin: 1em 0;
+	text-align: justify;
+}
+a {
+	color: #3627b4;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+ul{
+	margin: 1em 0;
+	padding-left: 1em;
+}
+
+
+
+.section {
+	margin: 0;
+	padding: 1em 0;
+	clear: both;
+}
+.section:nth-child(2n) {
+	background-color: #7a68f2;
+	color: white;
+}
+.section:nth-child(2n) a {
+	color: #bef;
+}
+
+.section > .column {
+	margin: 0 auto;
+	max-width: 50em;
+}
+.section > .column:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.section > .column > .german, .section > .column > .english {
+	max-width: 50%;
+}
+.section > .column > .german {
+	float: left;
+}
+.section > .column > .english {
+	float: right;
+}
+.section > .column > .german h2{
+	text-align: right;
+}
+
+.section > .column > .german > .box, .section > .column > .english > .box {
+	display: inline-block;
+	margin: 0 1em;
+	max-width: 30em;
+}
+
+@media screen and (max-width: 50em) {
+	.section > .column > .german, .section > .column > .english {
+		float: none;
+	}
+	.section > .column > .german h2{
+		text-align: left;
+	}
+	.section > .column > .german, .section > .column > .english {
+		max-width: none;
+	}
+}
+
+
+
+footer {
+	margin: 5em 0;
+	color: #555;
+}
+
+footer h2 {
+	text-align: center;
+}
+
+footer p {
+	margin: 0 auto;
+	max-width: 30em;
+	text-align: center;
+	line-height: 1.7;
+}
+
+footer p a {
+	color: #555;
+}
