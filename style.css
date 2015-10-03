@@ -18,18 +18,39 @@ body{
 
 
 
+@font-face {
+	font-family: "Silkscreen";
+	src: url("./silkscreen.ttf") format("truetype");
+}
+
 h1 {
+	margin: 2em 0;
 	text-align: center;
 	font-size: 3em;
-	margin: 1em 0;
+	font-family: Silkscreen;
+	color: #444;
 }
 h2 {
-	font-size: 1.5em;
 	margin: 1em 0;
+	font-size: 1.5em;
+	font-family: Silkscreen;
+	letter-spacing: -.05em;
 }
 p {
 	margin: 1em 0;
 	text-align: justify;
+}
+a {
+	color: #3627b4;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+ul{
+	margin: 1em 0;
+	padding-left: 1em;
 }
 
 
@@ -39,29 +60,38 @@ p {
 	padding: 1em 0;
 	clear: both;
 }
-.section:after {
-	content: "";
-	display: table;
-	clear: both;
-}
 .section:nth-child(2n) {
 	background-color: #7a68f2;
 	color: white;
 }
+.section:nth-child(2n) a {
+	color: #bef;
+}
 
-.section .german, .section .english {
+.section > .column {
+	margin: 0 auto;
+	max-width: 60em;
+}
+.section > .column:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.section > .column > .german, .section > .column > .english {
 	max-width: 50%;
 }
-.section .german {
+.section > .column > .german {
 	float: left;
+}
+.section > .column > .english {
+	float: right;
+}
+.section > .column > .german h2{
 	text-align: right;
 }
-.section .english {
-	float: right;
-	text-align: left;
-}
 
-.section .box, .section .box {
+.section > .column > .german > .box, .section > .column > .english > .box {
 	display: inline-block;
 	margin: 0 1em;
 	max-width: 30em;
