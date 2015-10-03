@@ -108,3 +108,25 @@ ul{
 		max-width: none;
 	}
 }
+
+
+
+footer {
+	margin: 5em 0;
+	color: #555;
+}
+
+footer h2 {
+	text-align: center;
+}
+
+footer p {
+	margin: 0 auto;
+	max-width: 30em;
+	text-align: center;
+	line-height: 1.7;
+}
+
+footer p a {
+	color: #555;
+}
