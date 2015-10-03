@@ -1,0 +1,68 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	font-size: 110%;
+	line-height: 1.25;
+	font-family: "Helvetica Neue", sans-serif;
+	font-weight: normal;
+	color: #333;
+	background-color: white;
+}
+html {
+	box-sizing: border-box;
+}
+body{
+	margin-top: 3em;
+	margin-bottom: 5em;
+}
+
+
+
+h1 {
+	text-align: center;
+	font-size: 3em;
+	margin: 1em 0;
+}
+h2 {
+	font-size: 1.5em;
+	margin: 1em 0;
+}
+p {
+	margin: 1em 0;
+	text-align: justify;
+}
+
+
+
+.section {
+	margin: 0;
+	padding: 1em 0;
+	clear: both;
+}
+.section:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.section:nth-child(2n) {
+	background-color: #7a68f2;
+	color: white;
+}
+
+.section .german, .section .english {
+	max-width: 50%;
+}
+.section .german {
+	float: left;
+	text-align: right;
+}
+.section .english {
+	float: right;
+	text-align: left;
+}
+
+.section .box, .section .box {
+	display: inline-block;
+	margin: 0 1em;
+	max-width: 30em;
+}
