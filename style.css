@@ -70,7 +70,7 @@ ul{
 
 .section > .column {
 	margin: 0 auto;
-	max-width: 60em;
+	max-width: 50em;
 }
 .section > .column:after {
 	content: "";
@@ -95,4 +95,16 @@ ul{
 	display: inline-block;
 	margin: 0 1em;
 	max-width: 30em;
+}
+
+@media screen and (max-width: 50em) {
+	.section > .column > .german, .section > .column > .english {
+		float: none;
+	}
+	.section > .column > .german h2{
+		text-align: left;
+	}
+	.section > .column > .german, .section > .column > .english {
+		max-width: none;
+	}
 }
