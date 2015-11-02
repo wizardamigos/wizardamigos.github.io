@@ -70,7 +70,7 @@ ul{
 
 .section > .column {
 	margin: 0 auto;
-	max-width: 50em;
+	max-width: 52em;
 }
 .section > .column:after {
 	content: "";
