@@ -1,0 +1,192 @@
+@import '_style/reset';
+@import '_style';
+@import 'holon-markdownbox';
+@import '_organizationprofile';
+@font-face                       {
+  font-family                    : Pixelade;
+  src                            : url('assets/PIXELADE.ttf');
+}
+
+:root {
+  /* THEME */
+  --Theme-color1                 : #7A68F2;
+  --Theme-color2                 : #3627B4;
+  --Theme-color3                 : #E2FCEF;
+  --Theme-color4                 : #9B287B;
+  --Theme-color5                 : #2D4042;
+  --Theme-color6                 : #FFFFFF;
+  --Theme-color7                 : #000000;
+  --Theme-color8                 : #f8da95;
+  --Theme-font1                  : Ubuntu Mono, Open Sans, monaco, sans-serif;
+  --Theme-font2                  : Pixelade;
+  --Theme-font-size1             : 6.5vw;
+  --Theme-font-size2             : 3vw;
+  --Theme-font-size3             : 2.3vw;
+  --Theme-borderwidth            : 4vw;
+  /* BREAK POINTS with MEDIA QUERIES */
+  --Theme-mini-font-size1      : 6.7vw;
+  --Theme-mini-font-size2      : 5.5vw;
+  --Theme-mini-font-size3      : 5vw;
+  --Theme-mini-borderwidth     : 6vw;
+  --Theme-mini-margin          : 0vw;
+
+  --Theme-watch-font-size1      : 6.7vw;
+  --Theme-watch-font-size2      : 5.5vw;
+  --Theme-watch-font-size3      : 5vw;
+  --Theme-watch-borderwidth     : 6vw;
+  --Theme-watch-margin          : 0vw;
+
+  --Theme-smartphone-font-size1   : 7.5vw;
+  --Theme-smartphone-font-size2   : 4.2vw;
+  --Theme-smartphone-font-size3   : 3.6vw;
+  --Theme-smartphone-borderwidth  : 4vw;
+  --Theme-smartphone-margin       : 0vw;
+
+  --Theme-tablet-font-size1   : 6vw;
+  --Theme-tablet-font-size2   : 4vw;
+  --Theme-tablet-font-size3   : 3vw;
+  --Theme-tablet-borderwidth  : 6vw;
+  --Theme-tablet-margin       : 8vw;
+
+  --Theme-desktop-font-size1   : 4. 5vw;
+  --Theme-desktop-font-size2   : 3vw;
+  --Theme-desktop-font-size3   : 2.5vw;
+  --Theme-desktop-borderwidth  : 5vw;
+  --Theme-desktop-margin       : 16vw;
+
+  --Theme-highres-font-size1   : 4vw;
+  --Theme-highres-font-size2   : 2.5vw;
+  --Theme-highres-font-size3   : 2vw;
+  --Theme-highres-borderwidth  : 4vw;
+  --Theme-highres-margin       : 20vw;
+
+  /* APPLY THEME */
+  --Organizationprofile-color1         : var(--Theme-color1);
+  --Organizationprofile-color2         : var(--Theme-color2);
+  --Organizationprofile-color3         : var(--Theme-color3);
+  --Organizationprofile-color4         : var(--Theme-color4);
+  --Organizationprofile-font1          : var(--Theme-font1);
+  --Organizationprofile-font2          : var(--Theme-font2);
+  --Organizationprofile-font-size1     : var(--Theme-font-size1);
+  --Organizationprofile-font-size2     : var(--Theme-font-size2);
+  --Organizationprofile-font-size3     : var(--Theme-font-size3);
+  --Organizationprofile-borderwidth    : var(--Theme-borderwidth);
+
+  --Organizationprofile-mini-font-size1      : var(--Theme-mini-font-size1);
+  --Organizationprofile-mini-font-size2      : var(--Theme-mini-font-size2);
+  --Organizationprofile-mini-font-size3      : var(--Theme-mini-font-size3);
+  --Organizationprofile-mini-borderwidth     : var(--Theme-mini-borderwidth);
+  --Organizationprofile-mini-margin          : var(--Theme-mini-margin);
+
+  --Organizationprofile-watch-font-size1      : var(--Theme-watch-font-size1);
+  --Organizationprofile-watch-font-size2      : var(--Theme-watch-font-size2);
+  --Organizationprofile-watch-font-size3      : var(--Theme-watch-font-size3);
+  --Organizationprofile-watch-borderwidth     : var(--Theme-watch-borderwidth);
+  --Organizationprofile-watch-margin          : var(--Theme-watch-margin);
+
+  --Organizationprofile-smartphone-font-size1   : var(--Theme-smartphone-font-size1);
+  --Organizationprofile-smartphone-font-size2   : var(--Theme-smartphone-font-size2);
+  --Organizationprofile-smartphone-font-size3   : var(--Theme-smartphone-font-size3);
+  --Organizationprofile-smartphone-borderwidth  : var(--Theme-smartphone-borderwidth);
+  --Organizationprofile-smartphone-margin       : var(--Theme-smartphone-margin);
+
+  --Organizationprofile-tablet-font-size1   : var(--Theme-tablet-font-size1);
+  --Organizationprofile-tablet-font-size2   : var(--Theme-tablet-font-size2);
+  --Organizationprofile-tablet-font-size3   : var(--Theme-tablet-font-size3);
+  --Organizationprofile-tablet-borderwidth  : var(--Theme-tablet-borderwidth);
+  --Organizationprofile-tablet-margin       : var(--Theme-tablet-margin);
+
+  --Organizationprofile-desktop-font-size1   : var(--Theme-desktop-font-size1);
+  --Organizationprofile-desktop-font-size2   : var(--Theme-desktop-font-size2);
+  --Organizationprofile-desktop-font-size3   : var(--Theme-desktop-font-size3);
+  --Organizationprofile-desktop-borderwidth  : var(--Theme-desktop-borderwidth);
+  --Organizationprofile-desktop-margin       : var(--Theme-desktop-margin);
+
+  --Organizationprofile-highres-font-size1   : var(--Theme-highres-font-size1);
+  --Organizationprofile-highres-font-size2   : var(--Theme-highres-font-size2);
+  --Organizationprofile-highres-font-size3   : var(--Theme-highres-font-size3);
+  --Organizationprofile-highres-borderwidth  : var(--Theme-highres-borderwidth);
+  --Organizationprofile-highres-margin       : var(--Theme-highres-margin);
+
+  --WizardAmigosInstitute-color1       : var(--Theme-color1);
+  --WizardAmigosInstitute-color2       : var(--Theme-color2);
+  --WizardAmigosInstitute-color3       : var(--Theme-color3);
+  --WizardAmigosInstitute-color4       : var(--Theme-color4);
+  --WizardAmigosInstitute-color5       : var(--Theme-color5);
+  --WizardAmigosInstitute-color6       : var(--Theme-color6);
+  --WizardAmigosInstitute-color7       : var(--Theme-color7);
+  --WizardAmigosInstitute-color8       : var(--Theme-color8);
+  --WizardAmigosInstitute-font1        : var(--Theme-font1);
+  --WizardAmigosInstitute-font2        : var(--Theme-font2);
+  --WizardAmigosInstitute-font-size1   : var(--Theme-font-size1);
+  --WizardAmigosInstitute-font-size2   : var(--Theme-font-size2);
+  --WizardAmigosInstitute-font-size3   : var(--Theme-font-size3);
+  --WizardAmigosInstitute-borderwidth  : var(--Theme-borderwidth);
+
+  --WizardAmigosInstitute-mini-font-size1             : var(--Theme-mini-font-size1);
+  --WizardAmigosInstitute-mini-font-size2             : var(--Theme-mini-font-size2);
+  --WizardAmigosInstitute-mini-font-size3             : var(--Theme-mini-font-size3);
+  --WizardAmigosInstitute-mini-borderwidth            : var(--Theme-mini-borderwidth);
+
+  --WizardAmigosInstitute-watch-font-size1             : var(--Theme-watch-font-size1);
+  --WizardAmigosInstitute-watch-font-size2             : var(--Theme-watch-font-size2);
+  --WizardAmigosInstitute-watch-font-size3             : var(--Theme-watch-font-size3);
+  --WizardAmigosInstitute-watch-borderwidth            : var(--Theme-watch-borderwidth);
+
+  --WizardAmigosInstitute-smartphone-font-size1          : var(--Theme-smartphone-font-size1);
+  --WizardAmigosInstitute-smartphone-font-size2          : var(--Theme-smartphone-font-size2);
+  --WizardAmigosInstitute-smartphone-font-size3          : var(--Theme-smartphone-font-size3);
+  --WizardAmigosInstitute-smartphone-borderwidth         : var(--Theme-smartphone-borderwidth);
+  --WizardAmigosInstitute-tablet-font-size1          : var(--Theme-tablet-font-size1);
+  --WizardAmigosInstitute-tablet-font-size2          : var(--Theme-tablet-font-size2);
+  --WizardAmigosInstitute-tablet-font-size3          : var(--Theme-tablet-font-size3);
+  --WizardAmigosInstitute-tablet-borderwidth         : var(--Theme-tablet-borderwidth);
+
+  --Markdownbox-color1                 : var(--Theme-color1);
+  --Markdownbox-color2                 : var(--Theme-color2);
+  --Markdownbox-color3                 : var(--Theme-color3);
+  --Markdownbox-color4                 : var(--Theme-color4);
+  --Markdownbox-color5                 : var(--Theme-color5);
+  --Markdownbox-font1                  : var(--Theme-font1);
+  --Markdownbox-font2                  : var(--Theme-font2);
+  --Markdownbox-font-size1             : var(--Theme-font-size1);
+  --Markdownbox-font-size2             : var(--Theme-font-size2);
+  --Markdownbox-font-size3             : var(--Theme-font-size3);
+  --Markdownbox-borderwidth            : var(--Theme-borderwidth);
+
+  --Markdownbox-mini-font-size1             : var(--Theme-mini-font-size1);
+  --Markdownbox-mini-font-size2             : var(--Theme-mini-font-size2);
+  --Markdownbox-mini-font-size3             : var(--Theme-mini-font-size3);
+  --Markdownbox-mini-borderwidth            : var(--Theme-mini-borderwidth);
+  --Markdownbox-mini-margin                 : var(--Theme-mini-margin);
+
+  --Markdownbox-watch-font-size1             : var(--Theme-watch-font-size1);
+  --Markdownbox-watch-font-size2             : var(--Theme-watch-font-size2);
+  --Markdownbox-watch-font-size3             : var(--Theme-watch-font-size3);
+  --Markdownbox-watch-borderwidth            : var(--Theme-watch-borderwidth);
+  --Markdownbox-watch-margin                 : var(--Theme-watch-margin);
+
+  --Markdownbox-smartphone-font-size1          : var(--Theme-smartphone-font-size1);
+  --Markdownbox-smartphone-font-size2          : var(--Theme-smartphone-font-size2);
+  --Markdownbox-smartphone-font-size3          : var(--Theme-smartphone-font-size3);
+  --Markdownbox-smartphone-borderwidth         : var(--Theme-smartphone-borderwidth);
+  --Markdownbox-smartphone-margin              : var(--Theme-smartphone-margin);
+
+  --Markdownbox-tablet-font-size1          : var(--Theme-tablet-font-size1);
+  --Markdownbox-tablet-font-size2          : var(--Theme-tablet-font-size2);
+  --Markdownbox-tablet-font-size3          : var(--Theme-tablet-font-size3);
+  --Markdownbox-tablet-borderwidth         : var(--Theme-tablet-borderwidth);
+  --Markdownbox-tablet-margin              : var(--Theme-tablet-margin);
+
+  --Markdownbox-desktop-font-size1          : var(--Theme-desktop-font-size1);
+  --Markdownbox-desktop-font-size2          : var(--Theme-desktop-font-size2);
+  --Markdownbox-desktop-font-size3          : var(--Theme-desktop-font-size3);
+  --Markdownbox-desktop-borderwidth         : var(--Theme-desktop-borderwidth);
+  --Markdownbox-desktop-margin              : var(--Theme-desktop-margin);
+
+  --Markdownbox-highres-font-size1          : var(--Theme-highres-font-size1);
+  --Markdownbox-highres-font-size2          : var(--Theme-highres-font-size2);
+  --Markdownbox-highres-font-size3          : var(--Theme-highres-font-size3);
+  --Markdownbox-highres-borderwidth         : var(--Theme-highres-borderwidth);
+  --Markdownbox-highres-margin              : var(--Theme-highres-margin);
+}
