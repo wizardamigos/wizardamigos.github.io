@@ -368,7 +368,7 @@ h2.badge-label
     height  100%
     width 100% /*Make sure the animation is over the whole element*/
     -webkit-animation-name  ShineAnimation
-    -webkit-animation-duration  3s
+    -webkit-animation-duration  4s
     -webkit-animation-iteration-count  infinite
     -webkit-animation-timing-function  cubic-bezier(.12,.89,.98,.47)
     -webkit-animation-delay 4s
@@ -380,10 +380,9 @@ h2.badge-label
         background-image:-webkit-linear-gradient(
             top left,
             rgba(255, 255, 255, 0.0) 0%,
-            rgba(255, 255, 255, 0.0) 47%,
+            rgba(255, 255, 255, 0.0) 46%,
             $color4 48%,
             $color4 50%,
-            $color4 51%,
             rgba(255, 255, 255, 0.0) 52%,
             rgba(255, 255, 255, 0.0) 100%
         );
@@ -573,3 +572,13 @@ nav.disabled-nav
 
 #toggle-chat.disabled-chat
     right 0%
+
+
+
+.beta-message
+    color #eee
+    padding 5px 20px 20px 20px
+    font-size .8em
+    a
+        color $color4
+        display inline

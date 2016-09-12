@@ -196,13 +196,13 @@ $( ".close-btn" ).on("click", function( event ) {
   $("#map-modal-bg").removeClass("open-map")
 });
 
-function hideChat(){
+function toggleChat(){
     $("#chat").toggleClass("disabled-chat")
     $("#content").toggleClass("disabled-chat")
     $("#toggle-chat").toggleClass("disabled-chat")
 }
 
-function hideNav(){
+function toggleNav(){
     $("#nav").toggleClass("disabled-nav")
     $("#content").toggleClass("disabled-nav")
     $("#map").toggleClass("disabled-nav")
