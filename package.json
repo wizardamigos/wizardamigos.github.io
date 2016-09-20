@@ -1,36 +1,15 @@
 {
-  "name": "wizardamigosinstitute",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Wizard Amigos Institute Website",
-  "main": "./index.html",
-  "style": "./style.css",
-  "repository": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git",
-  "keywords": [
-    "teaching",
-    "teacher",
-    "learning",
-    "javascript",
-    "berlin",
-    "learner",
-    "programming",
-    "school",
-    "university",
-    "academy",
-    "institute",
-    "wizard",
-    "amigos",
-    "node",
-    "nodejs",
-    "html",
-    "css"
-  ],
-  "author": {
-    "name": "serapath",
-    "email": "dev@serapath.de",
-    "url": "http://www.github.com/serapath"
-  },
-  "license": "GNU AGPL",
-  "bugs": "https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io/issues",
-  "homepage": "http://wizard.amigos.institute/"
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-headerfooter": "^1.0.3",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rsync": "0.0.5",
+    "gulp-stylus": "^2.5.0",
+    "gulp-uglify": "^1.5.4",
+    "pump": "^1.0.1"
+  }
 }
