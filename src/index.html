@@ -6,7 +6,7 @@
         <div class="youtubeComponent">
             <div id="player"></div>
             <div class="prev" onclick="prevVideo()"><i aria-hidden="true" class="previcon fa fa-chevron-left"></i> Previous</div>
-            <div class="index" onclick="openIndex()"><i aria-hidden="true" class="indexicon fa fa-list"></i> Index</div>
+            <div class="index" onclick="toggleIndex()"><i aria-hidden="true" class="indexicon fa fa-list"></i> Index</div>
             <div class="next" onclick="nextVideo()">Next <i aria-hidden="true" class="nexticon fa fa-chevron-right"></i></div>
         </div>
 
@@ -16,7 +16,7 @@
         </div>
 
         <div class="modal-wrapper">
-            <div class="modal-bg" onclick="closeIndex()"></div>
+            <div class="modal-bg" onclick="toggleIndex()"></div>
             <div class="modal-index"></div>
         </div>
     </div>
