@@ -2,14 +2,54 @@
 // Initialize Firebase
 // ---------------------------------------------------------------------------------------------------------------------------
 var config = {
-  apiKey: 'AIzaSyBRxFRRmMpXY1RmDSFvf-OOpf76kDK7dw8',
-  authDomain: 'project-6372607757339212977.firebaseapp.com',
-  databaseURL: 'https://wizard-amigos.firebaseio.com/',
-  storageBucket: 'project-6372607757339212977.appspot.com'
+  apiKey: 'AIzaSyB6yBDZDm5CrTfSyB1ZZLtTcvim2kBCfYU',
+  authDomain: 'wizard-amigos.firebaseapp.com',
+  databaseURL: 'https://wizard-amigos.firebaseio.com/'
 }
 
 firebase.initializeApp(config)
-var ref = new Firebase('https://wizard-amigos.firebaseio.com/')
+var ref = firebase.database().ref()
+
+// ---------------------------------------------------------------------------------------------------------------------------
+// LOGIN
+// ---------------------------------------------------------------------------------------------------------------------------
+/*
+document.getElementById('login-form').addEventListener('keydown', function (e) {
+  if (e.keyCode == 13) {
+    login(document.getElementById('login-mail').value, document.getElementById('login-pw').value)
+  }
+}, false)
+*/
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    console.log('// User is signed in.')
+  } else {
+    console.log('// No user is signed in.')
+  }
+})
+
+function login (email, password) {
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+    // Handle Errors here.
+    var errorCode = error.code
+    var errorMessage = error.message
+    console.log(errorCode + ' - ' + errorMessage)
+  })
+}
+
+function register (email, password) {
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+    // Handle Errors here.
+    var errorCode = error.code
+    var errorMessage = error.message
+    console.log(errorCode + ' - ' + errorMessage)
+  })
+}
+
+function getCurrentUser () {
+  var user = firebase.auth().currentUser
+  console.log(user.displayName)
+}
 
 // ---------------------------------------------------------------------------------------------------------------------------
 // LOAD LESSON DATA
@@ -30,6 +70,7 @@ ref.child('videos').once('value', function (data) {
   $('.modal-index').html(dom)
 
   // ADD VIDEO METADATA
+
   updateLessonData()
 })
 
