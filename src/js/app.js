@@ -69,9 +69,9 @@ ref.child('videos').once('value', function (data) {
   dom += '</ul>'
   $('.modal-index').html(dom)
 
-  // ADD VIDEO METADATA
-
+  // hacky solution, check for both lessonData loaded and PlayerReady before doing both, later
   updateLessonData()
+  loadVideo()
 })
 
 function updateLessonData () {
@@ -101,6 +101,8 @@ function onYouTubePlayerAPIReady () {
 }
 
 function onPlayerReady (event) {
+  // hacky solution, check for both lessonData loaded and PlayerReady before doing both, later
+  updateLessonData()
   loadVideo()
 }
 
