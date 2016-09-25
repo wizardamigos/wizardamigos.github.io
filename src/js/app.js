@@ -78,14 +78,33 @@ function onPlayerStateChange(event) {
     }
 }
 
-function getYoutubePlaylist(){
-    $.get( "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PLbtP2pUMT_hukdtCayfrk592awflW5GEe&key=AIzaSyB6yBDZDm5CrTfSyB1ZZLtTcvim2kBCfYU", function( data ) {
-        playlistData = data
-        for (i in playlistData.items){
-            playlist.push(playlistData.items[i].snippet.resourceId.videoId)
-        }
-        player.cueVideoById(playlist[0])
-    })
+function minixhr (url, cb) {
+  var items
+  $.get(url, function (data) {
+    items = data.items.map(function(x){return x.snippet.resourceId.videoId})
+    cb({ items: items, next: data.nextPageToken})
+  })
+}
+
+function getYoutubePlaylist () {
+  minixhr(makeURL(), function response (data) {
+    player.cueVideoById(data.items[0])
+    addMore(data)
+  })
+  function addMore (data) {
+    playlist = playlist.concat(data.items)
+    if (data.next) minixhr(makeURL(data.next), addMore)
+  }
+}
+var counter = 0
+function makeURL (next, size) {
+  next = "&pageToken=" + (next || '')
+  size = size || 50
+  var id = "PLbtP2pUMT_hukdtCayfrk592awflW5GEe"
+  var key = "AIzaSyB6yBDZDm5CrTfSyB1ZZLtTcvim2kBCfYU"
+  var base   = "https://www.googleapis.com/youtube/v3/playlistItems?"
+  var params = "part=snippet&maxResults="+size+"&playlistId="+id+"&key="+key
+  return base + params + next
 }
 
 function loadVideo(){
