@@ -10,6 +10,7 @@ Our program is **online** and for **free**. We also encourage local chapters to 
 * In the end they create a mobile iPhone app from that quiz web application.
 * In the future we plan to also teach how to make standalone desktop apps and realtime multiuser apps
 
+[![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/codingamigos/learners)
 
 ## Usage
 
@@ -23,10 +24,10 @@ Create a localised Github page from it
 
 > In Serbia they created an e-learning platform reusing our content to help reduce youth unemployment. They added intros and outros to the screencasts, added quiz at the end of each lesson and did a voice over for the screencasts [See their page] (http://app.esova.rs/)
 
-### Want to start a local chapter? Contact us to help you get started!
+### Want to start a local chapter? 
+[![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wizardamigosinstitute/wizardamigo)
 
 ## Contributing
 
 If you **have a question**, **found a bug** or want to **propose a feature**, have a look at [the issues page](https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io/issues).
 
-[![Join the learners' chat at https://gitter.im/wizardamigosinstitute/wizardamigo](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wizardamigosinstitute/wizardamigo)
