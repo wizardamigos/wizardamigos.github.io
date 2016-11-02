@@ -17,7 +17,11 @@ Click fork on https://github.com/wizardamigosinstitute/wizardamigosinstitute.git
 
 Change the Cname file 
 
-Create a Github page from it
+Create a localised Github page from it 
+
+**Example**
+
+In Serbia they created an e-learning platform reusing our content to help reduce youth unemployment. They added intros and outros to the screencasts, added quiz at the end of each lesson and did a voice over for the screencasts [See the app.esova.rs page] (http://app.esova.rs/)
 
 
 ## Contributing
