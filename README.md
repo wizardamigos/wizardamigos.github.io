@@ -26,7 +26,9 @@ Our program is **online** and for **free**. We also encourage local chapters to 
 > In Serbia they created an e-learning platform reusing our content to help reduce youth unemployment. They added intros and outros to the screencasts, added quiz at the end of each lesson and did a voice over for the screencasts [See their page] (http://app.esova.rs/)
 
 ### Want to start a local chapter? 
-Contact us to help you get started. [![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wizardamigosinstitute/wizardamigo)
+Contact us to help you get started. [![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wizardamigosinstitute/wizardamigo).
+
+You can also check out [Freelance marketplace app] (https://github.com/ninabreznik/RefugeesWork/blob/master/README.markdown) we created for refugees in Berlin.
 
 ## Contributing
 
