@@ -1,7 +1,7 @@
 # Wizard Amigos online JavaScript school
 [wizardamigos.com](http://wizardamigos.com/)
 
-Our program is **online** and for **free**. We have also encourage local meetups, where learners can meet with other learners and more experience developers 2x a week (see [Coding Amigos] (http://www.codingamigos.com)), but they can 24/7 access [support chat] (https://gitter.im/codingamigos/learners), integrated into the page.
+Our program is **online** and for **free**. We also encourage local chapters to organise meetups, where learners can meet with other learners and more experience developers. Berlin chapter organises a meetup 2x a week (see [Coding Amigos] (http://www.meetup.com/codingamigos)). All the learners can also access a [support chat] (https://gitter.im/codingamigos/learners), integrated into the page and get 24/7 help.
 
 * The program can be started by people who never touched a computer. It starts explaining and exercising typing, making an email account, explaining a browser, searching on google and many other basics.
 * After that there is a long phase teaching the basics of the javascript programming language and all its constructs (loops, if/else, variables, functions, objects, and so on...)
@@ -23,6 +23,7 @@ Create a localised Github page from it
 
 > In Serbia they created an e-learning platform reusing our content to help reduce youth unemployment. They added intros and outros to the screencasts, added quiz at the end of each lesson and did a voice over for the screencasts [See their page] (http://app.esova.rs/)
 
+### Want to start a local chapter? Contact us to help you get started!
 
 ## Contributing
 
