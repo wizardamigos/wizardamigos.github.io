@@ -19,9 +19,9 @@ Change the Cname file
 
 Create a localised Github page from it 
 
-**Example**
+> **Example**
 
-In Serbia they created an e-learning platform reusing our content to help reduce youth unemployment. They added intros and outros to the screencasts, added quiz at the end of each lesson and did a voice over for the screencasts [See the app.esova.rs page] (http://app.esova.rs/)
+> In Serbia they created an e-learning platform reusing our content to help reduce youth unemployment. They added intros and outros to the screencasts, added quiz at the end of each lesson and did a voice over for the screencasts [See their page] (http://app.esova.rs/)
 
 
 ## Contributing
