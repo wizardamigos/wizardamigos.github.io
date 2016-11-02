@@ -14,7 +14,9 @@ Our program is **online** and for **free**. We have also encourage local meetups
 ## Usage
 
 Click fork on https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git
+
 Change the Cname file 
+
 Create a Github page from it
 
 
