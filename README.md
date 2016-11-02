@@ -14,11 +14,11 @@ Our program is **online** and for **free**. We also encourage local chapters to 
 
 ## Usage
 
-Click fork on https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git
+1. Click fork on https://github.com/wizardamigosinstitute/wizardamigosinstitute.github.io.git
 
-Change the Cname file 
+2. Change the CName file 
 
-Create a localised Github page from it 
+3. Create a localised Github page from it 
 
 > **Example**
 
