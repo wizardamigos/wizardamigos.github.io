@@ -12,6 +12,12 @@ Our program is **online** and for **free**. We also encourage local chapters to 
 * In the end they create a mobile iPhone app from that quiz web application.
 * In the future we plan to also teach how to make standalone desktop apps and realtime multiuser apps
 
+## Ecosystem
+* LEARN with e-learning platform - [WizardAmigos](http://www.wizardamigos.com)
+* MEET at local meetups - [CodingAmigos](http://www.codingamigos)
+* WORK with co-owned marketplace - [WorkingAmigos - comming soon] ()
+    * in the context of Refugees - [RefugeesWork marketplace](http://www.refugeeswork)
+
 
 ## Usage
 
