@@ -1,7 +1,7 @@
 # Wizard Amigos online JavaScript school
 [wizardamigos.com](http://wizardamigos.com/)
 
-Our program is **online** and for **free**. We also encourage local chapters to organise meetups, where learners can meet with other learners and more experience developers. Berlin chapter organises a meetup 2x a week (see [Coding Amigos] (http://www.meetup.com/codingamigos)). All the learners can also access a [support chat] (https://gitter.im/codingamigos/learners), integrated into the page and get 24/7 help.
+Our program is **online** and for **free**. We also encourage local chapters to organise meetups, where learners can meet with other learners and more experience developers. Berlin chapter organises a meetup 2x a week (see [Coding Amigos] (http://www.meetup.com/codingamigos)). All the learners can also access a [support chat](https://gitter.im/codingamigos/learners), integrated into the page and get 24/7 help.
 
 [![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/codingamigos/learners)
 
@@ -14,9 +14,9 @@ Our program is **online** and for **free**. We also encourage local chapters to 
 
 ## Ecosystem
 * LEARN with e-learning platform - [WizardAmigos](http://www.wizardamigos.com)
-* MEET at local meetups - [CodingAmigos](http://www.codingamigos)
+* MEET at local meetups - [CodingAmigos](http://www.codingamigos.com)
 * WORK with co-owned marketplace - [WorkingAmigos - comming soon] ()
-    * in the context of Refugees - [RefugeesWork marketplace](http://www.refugeeswork)
+    * in the context of Refugees - [RefugeesWork marketplace](http://www.refugeeswork.com)
 
 
 ## Usage
