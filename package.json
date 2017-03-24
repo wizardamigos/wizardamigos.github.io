@@ -1,18 +1,30 @@
 {
-  "devDependencies": {
-    "browser-sync": "^2.11.1",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-headerfooter": "^1.0.3",
-    "gulp-htmlmin": "^2.0.0",
-    "gulp-notify": "^2.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-rsync": "0.0.5",
-    "gulp-stylus": "^2.5.0",
-    "gulp-uglify": "^1.5.4",
-    "pump": "^1.0.1"
-  },
+  "name": "cofundersclub",
+  "version": "1.0.0",
+  "description": "Referrals for Rewards - Raise Capital in 10X Speed",
+  "main": "src/index.js",
   "scripts": {
-    "start": "gulp"
+    "watch": "watchify src/index.js  -p [ urify-emitter -l 100 -o public/browser -b public/browser ] --it urify -p [ browserify-livereload --host 127.0.0.1 --port 1337 ] -o public/browser/bundle.js",
+    "www": "ecstatic ./ -p 5000 -H 'Access-Control-Allow-Origin: *'",
+    "start": "npm run watch & npm run www",
+    "build": "browserify -p [ urify-emitter -l 100 -o public/browser -b public/browser ] --it urify src/index.js > public/browser/bundle.js",
+    "open": "opn http://0.0.0.0:5000/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@ninabreznik, @serapath",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "browserify-livereload": "^1.0.8",
+    "ecstatic": "^2.1.0",
+    "opn-cli": "^3.1.0",
+    "urify-emitter": "^1.1.2",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "csjs-inject": "^1.0.1",
+    "datauri": "^1.0.4",
+    "minixhr": "^3.1.0",
+    "yo-yo": "^1.3.1"
   }
 }
