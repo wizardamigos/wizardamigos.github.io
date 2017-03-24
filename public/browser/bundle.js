@@ -2233,7 +2233,7 @@ function pitchComponent () {
     return yo`
       <div class=${css.pitch}>
         <div class=${css.title}>
-          Learn programming with JavaScript
+          Learn programming in JavaScript
         </div>
         <div class=${css.description}>
           How does it work?
@@ -2268,7 +2268,7 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local Wizard Amigos code camp and meet on regular basis
+              Visit a local WizardAmigos CodeCamp and meet on regular basis
               with other JavaScript wizards. If there is no local meetups
               in your neighbourhood, you can start organizing one yourself or
               you can connect with other learners and mentors on our <a href='http://app.wizardamigos.com'>community chat.</a>
@@ -2503,7 +2503,7 @@ function call2actionComponent () {
       align-items         : center;
       justify-content     : center;
       margin-top          : 15px;
-      padding             : 10px;
+      padding             : 20px;
       background-color    : ${blue};
       color               : ${lightYellow};
       font-size           : ${fontXS}px;
@@ -2513,7 +2513,7 @@ function call2actionComponent () {
       text-decoration     : none;
       transition          : all 0.5s ease;
     }
-    .button:hover {
+    .button:hover a {
       background-color    : ${lightYellow};
       color               : ${violet};
     }
@@ -2581,7 +2581,7 @@ function call2actionComponent () {
               INTERMEDIATE LEVEL
             </div>
             <div class=${css.subdescription}>
-              We prepared a really comprehensive overview of available online
+              For more advanced learners we prepared a really comprehensive overview of available online
               resources - from the basics all the way to hypermodular development,
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
