@@ -1938,6 +1938,7 @@ var wizardamigos4 = 'public/browser/92255389c7b28997acb9ae880f4ea5d3.jpg'
 var wizardamigos5 = 'public/browser/f2c8f761ce19a29ab3ca62639b34ff27.jpg'
 var wizardamigos6 = 'public/browser/1c868aca01887b7044d57c753c0d9de6.jpg'
 var wizardamigos7 = 'public/browser/d42048c886c0784722814eebe93d1e76.png'
+var wizardamigos8 = 'public/browser/233c9e2ce476270fd2059d5e0fa63e48.png'
 // var collaborate1 = datauri(__dirname + '/assets/collaborate1.jpg')
 // var growth1 = datauri(__dirname + '/assets/growth1.jpg')
 // var growth3 = datauri(__dirname + '/assets/growth3.jpg')
@@ -2057,13 +2058,13 @@ function headerComponent () {
       font-size   : ${fontXXL}px;
       font-weight : 900;
       white-space : nowrap;
-      color       : white;
+      color       : ${W};
     }
     .subtitle {
       font-size   : ${fontXXM}px;
       font-weight : 600;
       white-space : nowrap;
-      color       : white;
+      color       : ${W};
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -2203,7 +2204,7 @@ function pitchComponent () {
       }
       .step {
         width             : 100%;
-        margin            : 5px;
+        margin            : 10px;
       }
       .subtitle {
         font-size         : ${fontXM}px;
@@ -2436,7 +2437,7 @@ function portfolioComponent () {
           You can do it on your own or at a code camp nearby.
         </div>
         <div class=${css.categories}>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos7})" href="http://app.wizardamigos.com">
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://app.wizardamigos.com">
             Web app
           </a>
           <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="https://www.facebook.com/groups/369246343421803/photos/">
@@ -2608,7 +2609,7 @@ function testimonialsComponent () {
       justify-content     : center;
       width               : 100%;
       height              : 500px;
-      background-image    : url(${wizardamigos5});
+      background-image    : url(${wizardamigos7});
       background-size     : cover;
       background-repeat   : no-repeat;
       background-position : center;
