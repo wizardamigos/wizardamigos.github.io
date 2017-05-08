@@ -2112,7 +2112,7 @@ function headerComponent () {
       <div class=${css.header}>
         ${wizardLogo}
         <div class=${css.title}>Wizard Amigos</div>
-        <div class=${css.subtitle}>Open source JavaScript workshops and code camps</div>
+        <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
       </div>
     `
   }
@@ -2161,6 +2161,11 @@ function pitchComponent () {
     }
     .subdescription a {
       cursor            : pointer;
+      text-decoration   : underline;
+      color             : ${blue};
+    }
+    .subdescription a:hover {
+      opacity           : 0.8;
     }
     .step {
       display           : flex;
@@ -2234,7 +2239,7 @@ function pitchComponent () {
     return yo`
       <div class=${css.pitch}>
         <div class=${css.title}>
-          Learn programming in JavaScript
+          JavaScript for nomads
         </div>
         <div class=${css.description}>
           How does it work?
@@ -2252,7 +2257,7 @@ function pitchComponent () {
             <div class=${css.subdescription}>
               Join our tutorial for complete beginners. We prepared a set of 130 video
               lessons that will help you get started. No coding experiences is needed
-              and all you need is a computer and internet connection.
+              and all you need is a computer and internet connection.<br>
               <a href='http://app.wizardamigos.com'>Try it out, it's fun.</a>
             </div>
           </div>
@@ -2269,10 +2274,8 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local WizardAmigos CodeCamp and meet on regular basis
-              with other JavaScript wizards. If there is no local meetups
-              in your neighbourhood, you can start organizing one yourself or
-              you can connect with other learners and mentors on our <a href='http://app.wizardamigos.com'>community chat.</a>
+              Visit a local <a href='http://www.meetup.com/codingamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+              in your neighbourhood, you can start organizing one yourself.
             </div>
           </div>
           <div class=${css.step}>
@@ -2429,7 +2432,7 @@ function portfolioComponent () {
     return yo`
       <div class=${css.portfolio}>
         <div class=${css.title}>
-          Get started with tech
+          Get started
         </div>
         <div class=${css.description}>
           Programming is the new literacy. Learn it together with transparent, open minded,
@@ -2438,13 +2441,13 @@ function portfolioComponent () {
         </div>
         <div class=${css.categories}>
           <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://app.wizardamigos.com">
-            Web app
+            Online lessons
           </a>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="https://www.facebook.com/groups/369246343421803/photos/">
-            Code camps
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="http://www.codingamigos.com">
+            Profiles
           </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigosinstitute"> Github </a>
+        <a class=${css.button} href="https://github.com/wizardamigosinstitute">Github</a>
       </div>
     `
   }
@@ -2484,6 +2487,7 @@ function call2actionComponent () {
     }
     .action {
       min-width         : 200px;
+      width             : 50%;
       margin            : 20px;
       display           : flex;
       flex-direction    : column;
@@ -2566,11 +2570,10 @@ function call2actionComponent () {
         <div class=${css.calls}>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              BEGINNER LEVEL
+              HOW TO BUILD A MOBILE APP
             </div>
             <div class=${css.subdescription}>
-              We created a tutorial to help you get started. It contains
-              130 video lessons for complete beginners that will teach you the basics
+              WizardAmigos app consists of over 120 video lessons for complete beginners that will teach you the basics
               of JavaScript, HTML, CSS - from what is a variable to how to build your first mobile app.
             </div>
             <div class=${css.button}>
@@ -2579,7 +2582,7 @@ function call2actionComponent () {
           </div>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              INTERMEDIATE LEVEL
+              MORE RESOURCES
             </div>
             <div class=${css.subdescription}>
               For more advanced learners we prepared a really comprehensive overview of available online
@@ -2669,8 +2672,8 @@ function testimonialsComponent () {
     return yo`
       <div class=${css.testimonials}>
         <div class=${css.quote}>
-          Wizard Amigos is decentralized, open source and volunteer run.
-          Get in touch if you want to host an event or contribute new lessons.
+          We are a commmunity of self employed nomadic developers who collaborate
+          on projects, share skills and build awesome products and services.
         </div>
         <div class=${css.author}>
         </div>
