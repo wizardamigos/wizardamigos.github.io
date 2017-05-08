@@ -201,7 +201,7 @@ function headerComponent () {
       <div class=${css.header}>
         ${wizardLogo}
         <div class=${css.title}>Wizard Amigos</div>
-        <div class=${css.subtitle}>Open source JavaScript workshops and code camps</div>
+        <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
       </div>
     `
   }
@@ -323,7 +323,7 @@ function pitchComponent () {
     return yo`
       <div class=${css.pitch}>
         <div class=${css.title}>
-          Learn programming in JavaScript
+          JavaScript for nomads
         </div>
         <div class=${css.description}>
           How does it work?
@@ -358,10 +358,8 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local WizardAmigos CodeCamp and meet on regular basis
-              with other JavaScript wizards. If there is no local meetups
-              in your neighbourhood, you can start organizing one yourself or
-              you can connect with other learners and mentors on our <a href='http://app.wizardamigos.com'>community chat.</a>
+              Visit a local <a href='http://www.meetup.com/codingamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+              in your neighbourhood, you can start organizing one yourself.
             </div>
           </div>
           <div class=${css.step}>
@@ -518,7 +516,7 @@ function portfolioComponent () {
     return yo`
       <div class=${css.portfolio}>
         <div class=${css.title}>
-          Get started with tech
+          Get started
         </div>
         <div class=${css.description}>
           Programming is the new literacy. Learn it together with transparent, open minded,
@@ -527,13 +525,13 @@ function portfolioComponent () {
         </div>
         <div class=${css.categories}>
           <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://app.wizardamigos.com">
-            Web app
+            Free online lessons
           </a>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="https://www.facebook.com/groups/369246343421803/photos/">
-            Code camps
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="http://www.codingamigos.com">
+            Our profiles
           </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigosinstitute"> Github </a>
+        <a class=${css.button} href="https://github.com/wizardamigosinstitute"> Contribute on Github </a>
       </div>
     `
   }
@@ -655,11 +653,10 @@ function call2actionComponent () {
         <div class=${css.calls}>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              BEGINNER LEVEL
+              HOW TO BUILD A MOBILE APP?
             </div>
             <div class=${css.subdescription}>
-              We created a tutorial to help you get started. It contains
-              130 video lessons for complete beginners that will teach you the basics
+              We created over 120 video lessons for complete beginners that will teach you the basics
               of JavaScript, HTML, CSS - from what is a variable to how to build your first mobile app.
             </div>
             <div class=${css.button}>
@@ -668,7 +665,7 @@ function call2actionComponent () {
           </div>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              INTERMEDIATE LEVEL
+              MORE RESOURCES
             </div>
             <div class=${css.subdescription}>
               For more advanced learners we prepared a really comprehensive overview of available online
@@ -758,8 +755,9 @@ function testimonialsComponent () {
     return yo`
       <div class=${css.testimonials}>
         <div class=${css.quote}>
-          Wizard Amigos is decentralized, open source and volunteer run.
-          Get in touch if you want to host an event or contribute new lessons.
+          Wizard Amigos is decentralized, open source and made with zero budget.
+          We are a commmunity of self employed nomadic developers that collaborates
+          on projects, shares skills and build awesome future together.
         </div>
         <div class=${css.author}>
         </div>
