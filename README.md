@@ -1,15 +1,5 @@
-# Cofunders
+# WIZARD AMIGOS
 
-This is a landing page repository for [Cofunders.club] (www.cofunders.club)
+:turtle: Open source JavaScript e-learning for cyber nomads :sparkles: :watermelon:
 
----
-
-# Development
-Given `git`, `node` & `atom` are installed
-
-```bash
-git clone https://github.com/Cofunders/cofunders.github.io.git
-npm install
-atom .
-npm run open & npm start
-```
+:ramen: This repo hosting is a <a href='http://www.wizardamigos.com'>landing page</a> for our <a href='http://app.wizardamigos.com'>e-learning app</a> for JS nomads :palm_tree:
