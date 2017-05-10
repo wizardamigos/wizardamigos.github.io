@@ -28,7 +28,7 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules/
-!SOURCE/node_modules/
+!src/node_modules/
 npm-debug.log
 @TODO/
 .env.local
