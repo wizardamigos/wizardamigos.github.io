@@ -536,7 +536,7 @@ function portfolioComponent () {
             Profiles
           </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigosinstitute">Github</a>
+        <a class=${css.button} href="https://github.com/wizardamigos">Github</a>
       </div>
     `
   }
@@ -679,7 +679,7 @@ function call2actionComponent () {
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
             <div class=${css.button}>
-              <a href='https://github.com/wizardamigosinstitute/service/blob/master/skillTree.md'>Get started</a>
+              <a href='https://github.com/wizardamigos/service/blob/master/skillTree.md'>Get started</a>
             </div>
           </div>
       </div>
