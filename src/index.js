@@ -530,13 +530,13 @@ function portfolioComponent () {
         </div>
         <div class=${css.categories}>
           <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://app.wizardamigos.com">
-            Online lessons
+            E-learning app
           </a>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="http://www.codingamigos.com">
-            Profiles
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="https://github.com/wizardamigos/app/blob/master/skillTree.md">
+            Self directed learning
           </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigosinstitute">Github</a>
+        <a class=${css.button} href="https://github.com/wizardamigos/wizardamigos.github.io/blob/master/README.md">More</a>
       </div>
     `
   }
@@ -659,7 +659,7 @@ function call2actionComponent () {
         <div class=${css.calls}>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              HOW TO BUILD A MOBILE APP
+              ARE YOU A BEGINNER
             </div>
             <div class=${css.subdescription}>
               WizardAmigos app consists of over 120 video lessons for complete beginners that will teach you the basics
@@ -671,11 +671,11 @@ function call2actionComponent () {
           </div>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              MORE RESOURCES
+              SKILL TREE
             </div>
             <div class=${css.subdescription}>
               For more advanced learners we prepared a really comprehensive overview of available online
-              resources - from the basics all the way to hypermodular development,
+              resources - from the basics of HTML, CSS and JS all the way to hypermodular development,
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
             <div class=${css.button}>
