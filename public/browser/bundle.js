@@ -18,7 +18,6 @@ var BOOL_PROPS = {
   selected: 1,
   willvalidate: 1
 }
-var COMMENT_TAG = '!--'
 var SVG_TAGS = [
   'svg',
   'altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate', 'animateColor',
@@ -55,8 +54,6 @@ function belCreateElement (tag, props, children) {
   // Create the element
   if (ns) {
     el = document.createElementNS(ns, tag)
-  } else if (tag === COMMENT_TAG) {
-    return document.createComment(props.comment)
   } else {
     el = document.createElement(tag)
   }
@@ -125,7 +122,6 @@ function belCreateElement (tag, props, children) {
 
       if (typeof node === 'number' ||
         typeof node === 'boolean' ||
-        typeof node === 'function' ||
         node instanceof Date ||
         node instanceof RegExp) {
         node = node.toString()
@@ -149,7 +145,7 @@ function belCreateElement (tag, props, children) {
   return el
 }
 
-module.exports = hyperx(belCreateElement, {comments: true})
+module.exports = hyperx(belCreateElement)
 module.exports.default = module.exports
 module.exports.createElement = belCreateElement
 
@@ -657,36 +653,30 @@ var topLevel = typeof global !== 'undefined' ? global :
     typeof window !== 'undefined' ? window : {}
 var minDoc = require('min-document');
 
-var doccy;
-
 if (typeof document !== 'undefined') {
-    doccy = document;
+    module.exports = document;
 } else {
-    doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
+    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
 
     if (!doccy) {
         doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
     }
-}
 
-module.exports = doccy;
+    module.exports = doccy;
+}
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"min-document":2}],23:[function(require,module,exports){
 (function (global){
-var win;
-
 if (typeof window !== "undefined") {
-    win = window;
+    module.exports = window;
 } else if (typeof global !== "undefined") {
-    win = global;
+    module.exports = global;
 } else if (typeof self !== "undefined"){
-    win = self;
+    module.exports = self;
 } else {
-    win = {};
+    module.exports = {};
 }
-
-module.exports = win;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],24:[function(require,module,exports){
@@ -1015,15 +1005,17 @@ module.exports = function (css, options) {
 };
 
 },{}],27:[function(require,module,exports){
+var XMLHttpRequest  = require('xhrpolyfill')
 module.exports = function xhr2 (params, callback) {
   var url = typeof params === 'string' ? params : params.url
-  var method = params.method || (params.data ? 'POST' : 'GET')
+  var method = params.method || (params.data ? 'POST': 'GET')
   var body = params.data
   var H = params.headers ? params.headers : params.body ? {
     'X-Requested-With' :'XMLHttpRequest',
     'Content-Type'     :'application/x-www-form-urlencoded'
   } : {}
-  var xhr = new XMLHttpRequest()
+  var xhr = XMLHttpRequest()
+  if (!xhr) throw new Error('No AJAX support')
   xhr.open(method, url)
   for (var key in H) xhr.setRequestHeader(key, H[key])
   xhr.onload = xhr.onerror = function (response) {
@@ -1037,7 +1029,7 @@ module.exports = function xhr2 (params, callback) {
   xhr.send(body||null)
 }
 
-},{}],28:[function(require,module,exports){
+},{"xhrpolyfill":30}],28:[function(require,module,exports){
 'use strict';
 
 var range; // Create a range object for efficently rendering strings to elements.
@@ -1244,17 +1236,14 @@ var specialElHandlers = {
             fromEl.value = newValue;
         }
 
-        var firstChild = fromEl.firstChild;
-        if (firstChild) {
+        if (fromEl.firstChild) {
             // Needed for IE. Apparently IE sets the placeholder as the
             // node value and vise versa. This ignores an empty update.
-            var oldValue = firstChild.nodeValue;
-
-            if (oldValue == newValue || (!newValue && oldValue == fromEl.placeholder)) {
+            if (newValue === '' && fromEl.firstChild.nodeValue === fromEl.placeholder) {
                 return;
             }
 
-            firstChild.nodeValue = newValue;
+            fromEl.firstChild.nodeValue = newValue;
         }
     },
     SELECT: function(fromEl, toEl) {
@@ -1565,10 +1554,7 @@ function morphdomFactory(morphAttrs) {
                                 isCompatible = true;
                                 // Simply update nodeValue on the original node to
                                 // change the text value
-                                if (curFromNodeChild.nodeValue !== curToNodeChild.nodeValue) {
-                                    curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
-                                }
-
+                                curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
                             }
                         }
 
@@ -1667,10 +1653,7 @@ function morphdomFactory(morphAttrs) {
                 }
             } else if (morphedNodeType === TEXT_NODE || morphedNodeType === COMMENT_NODE) { // Text or comment node
                 if (toNodeType === morphedNodeType) {
-                    if (morphedNode.nodeValue !== toNode.nodeValue) {
-                        morphedNode.nodeValue = toNode.nodeValue;
-                    }
-
+                    morphedNode.nodeValue = toNode.nodeValue;
                     return morphedNode;
                 } else {
                     // Text node to something else
@@ -1811,6 +1794,24 @@ function eachMutation (nodes, fn) {
 }
 
 },{"global/document":22,"global/window":23}],30:[function(require,module,exports){
+var xhrFactory = (function getXHRfactory (factories) {
+  for (var i=0, xhr, X, len=factories.length; i<len; i++) {
+    try { X = factories[i]; xhr = X();
+      return window.XMLHttpRequest ? X : window.XMLHttpRequest = X;
+    } catch (e) { continue; }
+  }
+})([
+  function () {return new XMLHttpRequest();},// IE10+,FF,Chrome,Opera,Safari
+  function () {return new ActiveXObject("Msxml3.");},            // IE9
+  function () {return new ActiveXObject("Msxml2.XMLHTTP.6.0");}, // IE8
+  function () {return new ActiveXObject("Msxml2.XMLHTTP.3.0");}, // IE7
+  function () {return new ActiveXObject("Msxml2.XMLHTTP");},     // IE6
+  function () {return new ActiveXObject("Microsoft.XMLHTTP");},  // IE5
+  function () {return null;}
+]);
+module.exports = function getXHR() { return xhrFactory(); }
+
+},{}],31:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -1843,7 +1844,7 @@ module.exports.update = function (fromNode, toNode, opts) {
     var newValue = t.value
     // copy values for form elements
     if ((f.nodeName === 'INPUT' && f.type !== 'file') || f.nodeName === 'SELECT') {
-      if (!newValue && !t.hasAttribute('value')) {
+      if (!newValue) {
         t.value = f.value
       } else if (newValue !== oldValue) {
         f.value = newValue
@@ -1854,7 +1855,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":31,"bel":1,"morphdom":28}],31:[function(require,module,exports){
+},{"./update-events.js":32,"bel":1,"morphdom":28}],32:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -1892,7 +1893,7 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 var yo = require('yo-yo')
 var csjs = require('csjs-inject')
 var minixhr = require('minixhr')
@@ -2425,13 +2426,13 @@ function portfolioComponent () {
         </div>
         <div class=${css.categories}>
           <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://app.wizardamigos.com">
-            Online lessons
+            E-learning app
           </a>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="http://www.codingamigos.com">
-            Profiles
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="https://github.com/wizardamigos/app/blob/master/skillTree.md">
+            Self directed learning
           </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigos">Github</a>
+        <a class=${css.button} href="https://github.com/wizardamigos/wizardamigos.github.io/blob/master/README.md">More</a>
       </div>
     `
   }
@@ -2554,7 +2555,7 @@ function call2actionComponent () {
         <div class=${css.calls}>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              HOW TO BUILD A MOBILE APP
+              ARE YOU A BEGINNER
             </div>
             <div class=${css.subdescription}>
               WizardAmigos app consists of over 120 video lessons for complete beginners that will teach you the basics
@@ -2566,15 +2567,15 @@ function call2actionComponent () {
           </div>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              MORE RESOURCES
+              SKILL TREE
             </div>
             <div class=${css.subdescription}>
               For more advanced learners we prepared a really comprehensive overview of available online
-              resources - from the basics all the way to hypermodular development,
+              resources - from the basics of HTML, CSS and JS all the way to hypermodular development,
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
             <div class=${css.button}>
-              <a href='https://github.com/wizardamigos/service/blob/master/skillTree.md'>Get started</a>
+              <a href='https://github.com/wizardamigos/app/blob/master/skillTree.md'>Get started</a>
             </div>
           </div>
       </div>
@@ -2756,7 +2757,7 @@ function footerComponent () {
   return el
 }
 
-},{"_logo":33,"_pixelate":34,"csjs-inject":5,"minixhr":27,"yo-yo":30}],33:[function(require,module,exports){
+},{"_logo":34,"_pixelate":35,"csjs-inject":5,"minixhr":27,"yo-yo":31}],34:[function(require,module,exports){
 var yo = require('yo-yo')
 module.exports = function (size, width, height) {
   /* ---------------------------------------------------
@@ -2821,7 +2822,7 @@ module.exports = function (size, width, height) {
   return yo`<svg viewbox="0 0 100 100" width=${width} height=${height} >${draw()}</svg>`
 }
 
-},{"yo-yo":30}],34:[function(require,module,exports){
+},{"yo-yo":31}],35:[function(require,module,exports){
 var yo = require('yo-yo')
 module.exports = function (a,b,c) {
   /* ---------------------------------------------------
@@ -2838,4 +2839,4 @@ module.exports = function (a,b,c) {
   return yo`<svg viewbox="0 0 100 100" width="500" height="500" >${draw()}</svg>`
 }
 
-},{"yo-yo":30}]},{},[32]);
+},{"yo-yo":31}]},{},[33]);
