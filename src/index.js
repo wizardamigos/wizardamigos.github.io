@@ -679,7 +679,7 @@ function call2actionComponent () {
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
             <div class=${css.button}>
-              <a href='https://github.com/wizardamigosinstitute/service/blob/master/skillTree.md'>Get started</a>
+              <a href='https://github.com/wizardamigos/app/blob/master/skillTree.md'>Get started</a>
             </div>
           </div>
       </div>

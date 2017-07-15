@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://127.0.0.1:1337/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://127.0.0.1:1337");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var document = require('global/document')
 var hyperx = require('hyperx')
@@ -33,6 +18,7 @@ var BOOL_PROPS = {
   selected: 1,
   willvalidate: 1
 }
+var COMMENT_TAG = '!--'
 var SVG_TAGS = [
   'svg',
   'altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate', 'animateColor',
@@ -69,6 +55,8 @@ function belCreateElement (tag, props, children) {
   // Create the element
   if (ns) {
     el = document.createElementNS(ns, tag)
+  } else if (tag === COMMENT_TAG) {
+    return document.createComment(props.comment)
   } else {
     el = document.createElement(tag)
   }
@@ -137,6 +125,7 @@ function belCreateElement (tag, props, children) {
 
       if (typeof node === 'number' ||
         typeof node === 'boolean' ||
+        typeof node === 'function' ||
         node instanceof Date ||
         node instanceof RegExp) {
         node = node.toString()
@@ -160,7 +149,7 @@ function belCreateElement (tag, props, children) {
   return el
 }
 
-module.exports = hyperx(belCreateElement)
+module.exports = hyperx(belCreateElement, {comments: true})
 module.exports.default = module.exports
 module.exports.createElement = belCreateElement
 
@@ -668,30 +657,36 @@ var topLevel = typeof global !== 'undefined' ? global :
     typeof window !== 'undefined' ? window : {}
 var minDoc = require('min-document');
 
+var doccy;
+
 if (typeof document !== 'undefined') {
-    module.exports = document;
+    doccy = document;
 } else {
-    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
+    doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
 
     if (!doccy) {
         doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
     }
-
-    module.exports = doccy;
 }
+
+module.exports = doccy;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"min-document":2}],23:[function(require,module,exports){
 (function (global){
+var win;
+
 if (typeof window !== "undefined") {
-    module.exports = window;
+    win = window;
 } else if (typeof global !== "undefined") {
-    module.exports = global;
+    win = global;
 } else if (typeof self !== "undefined"){
-    module.exports = self;
+    win = self;
 } else {
-    module.exports = {};
+    win = {};
 }
+
+module.exports = win;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],24:[function(require,module,exports){
@@ -1020,17 +1015,15 @@ module.exports = function (css, options) {
 };
 
 },{}],27:[function(require,module,exports){
-var XMLHttpRequest  = require('xhrpolyfill')
 module.exports = function xhr2 (params, callback) {
   var url = typeof params === 'string' ? params : params.url
-  var method = params.method || (params.data ? 'POST': 'GET')
+  var method = params.method || (params.data ? 'POST' : 'GET')
   var body = params.data
   var H = params.headers ? params.headers : params.body ? {
     'X-Requested-With' :'XMLHttpRequest',
     'Content-Type'     :'application/x-www-form-urlencoded'
   } : {}
-  var xhr = XMLHttpRequest()
-  if (!xhr) throw new Error('No AJAX support')
+  var xhr = new XMLHttpRequest()
   xhr.open(method, url)
   for (var key in H) xhr.setRequestHeader(key, H[key])
   xhr.onload = xhr.onerror = function (response) {
@@ -1044,7 +1037,7 @@ module.exports = function xhr2 (params, callback) {
   xhr.send(body||null)
 }
 
-},{"xhrpolyfill":30}],28:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 var range; // Create a range object for efficently rendering strings to elements.
@@ -1251,14 +1244,17 @@ var specialElHandlers = {
             fromEl.value = newValue;
         }
 
-        if (fromEl.firstChild) {
+        var firstChild = fromEl.firstChild;
+        if (firstChild) {
             // Needed for IE. Apparently IE sets the placeholder as the
             // node value and vise versa. This ignores an empty update.
-            if (newValue === '' && fromEl.firstChild.nodeValue === fromEl.placeholder) {
+            var oldValue = firstChild.nodeValue;
+
+            if (oldValue == newValue || (!newValue && oldValue == fromEl.placeholder)) {
                 return;
             }
 
-            fromEl.firstChild.nodeValue = newValue;
+            firstChild.nodeValue = newValue;
         }
     },
     SELECT: function(fromEl, toEl) {
@@ -1569,7 +1565,10 @@ function morphdomFactory(morphAttrs) {
                                 isCompatible = true;
                                 // Simply update nodeValue on the original node to
                                 // change the text value
-                                curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
+                                if (curFromNodeChild.nodeValue !== curToNodeChild.nodeValue) {
+                                    curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
+                                }
+
                             }
                         }
 
@@ -1668,7 +1667,10 @@ function morphdomFactory(morphAttrs) {
                 }
             } else if (morphedNodeType === TEXT_NODE || morphedNodeType === COMMENT_NODE) { // Text or comment node
                 if (toNodeType === morphedNodeType) {
-                    morphedNode.nodeValue = toNode.nodeValue;
+                    if (morphedNode.nodeValue !== toNode.nodeValue) {
+                        morphedNode.nodeValue = toNode.nodeValue;
+                    }
+
                     return morphedNode;
                 } else {
                     // Text node to something else
@@ -1809,24 +1811,6 @@ function eachMutation (nodes, fn) {
 }
 
 },{"global/document":22,"global/window":23}],30:[function(require,module,exports){
-var xhrFactory = (function getXHRfactory (factories) {
-  for (var i=0, xhr, X, len=factories.length; i<len; i++) {
-    try { X = factories[i]; xhr = X();
-      return window.XMLHttpRequest ? X : window.XMLHttpRequest = X;
-    } catch (e) { continue; }
-  }
-})([
-  function () {return new XMLHttpRequest();},// IE10+,FF,Chrome,Opera,Safari
-  function () {return new ActiveXObject("Msxml3.");},            // IE9
-  function () {return new ActiveXObject("Msxml2.XMLHTTP.6.0");}, // IE8
-  function () {return new ActiveXObject("Msxml2.XMLHTTP.3.0");}, // IE7
-  function () {return new ActiveXObject("Msxml2.XMLHTTP");},     // IE6
-  function () {return new ActiveXObject("Microsoft.XMLHTTP");},  // IE5
-  function () {return null;}
-]);
-module.exports = function getXHR() { return xhrFactory(); }
-
-},{}],31:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -1859,7 +1843,7 @@ module.exports.update = function (fromNode, toNode, opts) {
     var newValue = t.value
     // copy values for form elements
     if ((f.nodeName === 'INPUT' && f.type !== 'file') || f.nodeName === 'SELECT') {
-      if (!newValue) {
+      if (!newValue && !t.hasAttribute('value')) {
         t.value = f.value
       } else if (newValue !== oldValue) {
         f.value = newValue
@@ -1870,7 +1854,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":32,"bel":1,"morphdom":28}],32:[function(require,module,exports){
+},{"./update-events.js":31,"bel":1,"morphdom":28}],31:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -1908,7 +1892,7 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 var yo = require('yo-yo')
 var csjs = require('csjs-inject')
 var minixhr = require('minixhr')
@@ -2447,7 +2431,7 @@ function portfolioComponent () {
             Profiles
           </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigosinstitute">Github</a>
+        <a class=${css.button} href="https://github.com/wizardamigos">Github</a>
       </div>
     `
   }
@@ -2590,7 +2574,7 @@ function call2actionComponent () {
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
             <div class=${css.button}>
-              <a href='https://github.com/wizardamigosinstitute/service/blob/master/skillTree.md'>Get started</a>
+              <a href='https://github.com/wizardamigos/service/blob/master/skillTree.md'>Get started</a>
             </div>
           </div>
       </div>
@@ -2772,7 +2756,7 @@ function footerComponent () {
   return el
 }
 
-},{"_logo":34,"_pixelate":35,"csjs-inject":5,"minixhr":27,"yo-yo":31}],34:[function(require,module,exports){
+},{"_logo":33,"_pixelate":34,"csjs-inject":5,"minixhr":27,"yo-yo":30}],33:[function(require,module,exports){
 var yo = require('yo-yo')
 module.exports = function (size, width, height) {
   /* ---------------------------------------------------
@@ -2837,7 +2821,7 @@ module.exports = function (size, width, height) {
   return yo`<svg viewbox="0 0 100 100" width=${width} height=${height} >${draw()}</svg>`
 }
 
-},{"yo-yo":31}],35:[function(require,module,exports){
+},{"yo-yo":30}],34:[function(require,module,exports){
 var yo = require('yo-yo')
 module.exports = function (a,b,c) {
   /* ---------------------------------------------------
@@ -2854,4 +2838,4 @@ module.exports = function (a,b,c) {
   return yo`<svg viewbox="0 0 100 100" width="500" height="500" >${draw()}</svg>`
 }
 
-},{"yo-yo":31}]},{},[33]);
+},{"yo-yo":30}]},{},[32]);
