@@ -1,12 +1,12 @@
 var yo = require('yo-yo')
 var csjs = require('csjs-inject')
 var minixhr = require('minixhr')
-var datauri = require('datauri')
+// var datauri = require('datauri')
 var pixelate = require('_pixelate')
 var logo = require('_logo')
+var urify = require('urify')
 
-// var path = require('path')
-// var urify = require('urify')
+var path = require('path')
 /********************************************************************
   ASSETS
 ********************************************************************/
@@ -20,14 +20,14 @@ var logo = require('_logo')
 // var growth7 = urify(path.join(__dirname, '/assets/growth7.jpg'))
 // var growth8 = urify(path.join(__dirname, '/assets/growth8.jpg'))
 // var work1 = urify(path.join(__dirname, '/assets/work1.jpg'))
-var wizardamigos1 = datauri(__dirname + '/assets/wizardamigos1.jpg')
-var wizardamigos2 = datauri(__dirname + '/assets/wizardamigos2.jpg')
-var wizardamigos3 = datauri(__dirname + '/assets/wizardamigos3.jpg')
-var wizardamigos4 = datauri(__dirname + '/assets/wizardamigos4.jpg')
-var wizardamigos5 = datauri(__dirname + '/assets/wizardamigos5.jpg')
-var wizardamigos6 = datauri(__dirname + '/assets/wizardamigos6.jpg')
-var wizardamigos7 = datauri(__dirname + '/assets/wizardamigos7.png')
-var wizardamigos8 = datauri(__dirname + '/assets/wizardamigos8.png')
+var wizardamigos1 = urify(path.join(__dirname, '/assets/wizardamigos1.jpg'))
+var wizardamigos2 = urify(path.join(__dirname, '/assets/wizardamigos2.jpg'))
+var wizardamigos3 = urify(path.join(__dirname, '/assets/wizardamigos3.jpg'))
+var wizardamigos4 = urify(path.join(__dirname, '/assets/wizardamigos4.jpg'))
+var wizardamigos5 = urify(path.join(__dirname, '/assets/wizardamigos5.jpg'))
+var wizardamigos6 = urify(path.join(__dirname, '/assets/wizardamigos6.jpg'))
+var wizardamigos7 = urify(path.join(__dirname, '/assets/wizardamigos7.png'))
+var wizardamigos8 = urify(path.join(__dirname, '/assets/wizardamigos8.png'))
 // var collaborate1 = datauri(__dirname + '/assets/collaborate1.jpg')
 // var growth1 = datauri(__dirname + '/assets/growth1.jpg')
 // var growth3 = datauri(__dirname + '/assets/growth3.jpg')
@@ -70,7 +70,7 @@ var fontXXL = fontXXS*6
 var banner     = wizardamigos2
 // var fontfamily = 'https://fonts.googleapis.com/css?family=Noto+Sans'
 // var font       = 'Noto Sans, sans-serif'
-var fontfamily = 'https://fonts.googleapis.com/css?family=Ubuntu'
+var fontfamily = urify(path.join(__dirname, '/ubuntu.woff2'))
 var font       = 'Ubuntu, sans-serif'
 /********************************************************************
   INIT
@@ -81,10 +81,16 @@ html { box-sizing: border-box; display: table; min-width: 100%; margin: 0; }
 body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }
 `
 var app = page()
-minixhr(fontfamily, function (data) {
-  csjs`${data}`
-  setTimeout(function () { document.body.appendChild(app) },100)
-})
+  csjs`
+    @font-face {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Noto Sans'), local('NotoSans'), url(${fontfamily}) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+    }
+  `
+  document.body.appendChild(app)
 /********************************************************************
   PAGE COMPONENT
 ********************************************************************/
