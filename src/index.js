@@ -4,7 +4,7 @@ var minixhr = require('minixhr')
 // var datauri = require('datauri')
 var pixelate = require('_pixelate')
 var logo = require('_logo')
-var urify = require('urify')
+var datauri = require('datauri')
 
 var path = require('path')
 /********************************************************************
@@ -20,14 +20,14 @@ var path = require('path')
 // var growth7 = urify(path.join(__dirname, '/assets/growth7.jpg'))
 // var growth8 = urify(path.join(__dirname, '/assets/growth8.jpg'))
 // var work1 = urify(path.join(__dirname, '/assets/work1.jpg'))
-var wizardamigos1 = urify(path.join(__dirname, '/assets/wizardamigos1.jpg'))
-var wizardamigos2 = urify(path.join(__dirname, '/assets/wizardamigos2.jpg'))
-var wizardamigos3 = urify(path.join(__dirname, '/assets/wizardamigos3.jpg'))
-var wizardamigos4 = urify(path.join(__dirname, '/assets/wizardamigos4.jpg'))
-var wizardamigos5 = urify(path.join(__dirname, '/assets/wizardamigos5.jpg'))
-var wizardamigos6 = urify(path.join(__dirname, '/assets/wizardamigos6.jpg'))
-var wizardamigos7 = urify(path.join(__dirname, '/assets/wizardamigos7.png'))
-var wizardamigos8 = urify(path.join(__dirname, '/assets/wizardamigos8.png'))
+var wizardamigos1 = datauri(__dirname + '/assets/wizardamigos1.jpg')
+var wizardamigos2 = datauri(__dirname + '/assets/wizardamigos2.jpg')
+var wizardamigos3 = datauri(__dirname + '/assets/wizardamigos3.jpg')
+var wizardamigos4 = datauri(__dirname + '/assets/wizardamigos4.jpg')
+var wizardamigos5 = datauri(__dirname + '/assets/wizardamigos5.jpg')
+var wizardamigos6 = datauri(__dirname + '/assets/wizardamigos6.jpg')
+var wizardamigos7 = datauri(__dirname + '/assets/wizardamigos7.png')
+var wizardamigos8 = datauri(__dirname + '/assets/wizardamigos8.png')
 // var collaborate1 = datauri(__dirname + '/assets/collaborate1.jpg')
 // var growth1 = datauri(__dirname + '/assets/growth1.jpg')
 // var growth3 = datauri(__dirname + '/assets/growth3.jpg')
@@ -70,7 +70,7 @@ var fontXXL = fontXXS*6
 var banner     = wizardamigos2
 // var fontfamily = 'https://fonts.googleapis.com/css?family=Noto+Sans'
 // var font       = 'Noto Sans, sans-serif'
-var fontfamily = urify(path.join(__dirname, '/ubuntu.woff2'))
+var fontfamily = datauri(__dirname + '/ubuntu.woff2')
 var font       = 'Ubuntu, sans-serif'
 /********************************************************************
   INIT
@@ -350,10 +350,8 @@ function pitchComponent () {
               1. Get to know the basics
             </div>
             <div class=${css.subdescription}>
-              Join our tutorial for complete beginners. We prepared a set of 130 video
-              lessons that will help you get started. No coding experiences is needed
-              and all you need is a computer and internet connection.<br>
-              <a href='http://app.wizardamigos.com'>Try it out, it's fun.</a>
+              We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
+              <a href='http://wizardamigos.com/workshop_app/'>Try it out, it's fun.</a>
             </div>
           </div>
           <div class=${css.step}>
@@ -433,13 +431,12 @@ function portfolioComponent () {
       margin            : 50px;
       display           : flex;
       width             : 90%;
-      height            : 400px;
+      height            : 430px;
       flex-direction    : row;
       justify-content   : center;
     }
     .card {
       flex-grow           : 1;
-      margin              : 10px;
       display             : flex;
       align-items         : center;
       justify-content     : center;
@@ -535,14 +532,11 @@ function portfolioComponent () {
           You can do it on your own or at a code camp nearby.
         </div>
         <div class=${css.categories}>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://app.wizardamigos.com">
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://wizardamigos.com/workshop_app/">
             E-learning app
           </a>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos3});" href="https://github.com/wizardamigos/app/blob/master/skillTree.md">
-            Self directed learning
-          </a>
         </div>
-        <a class=${css.button} href="https://github.com/wizardamigos/wizardamigos.github.io/blob/master/README.md">More</a>
+        <a class=${css.button} href="https://gitter.im/wizardamigosinstitute/program">Chat</a>
       </div>
     `
   }
@@ -657,10 +651,10 @@ function call2actionComponent () {
         </div>
         <div class=${css.description}>
           Our aim is to give tools and community to everyone who wants to better
-          understand technology and to build their ideas.
-          Learn prototyping, basic programming, buidling web, mobile and desktop apps
-          and get introduced to the world of technology. Wizard Amigos was born in
-          Berlin, Germany but is now a global, non-profit community.
+          understand technology and to work on their ideas.
+          Learn prototyping, how to use programming in science, how to build mobile and desktop apps,
+          and what posibilities can technology bring for your future. Wizard Amigos was born in
+          Berlin but is now a global, non-profit community.
         </div>
         <div class=${css.calls}>
           <div class=${css.action}>
@@ -668,24 +662,24 @@ function call2actionComponent () {
               ARE YOU A BEGINNER
             </div>
             <div class=${css.subdescription}>
-              WizardAmigos app consists of over 120 video lessons for complete beginners that will teach you the basics
-              of JavaScript, HTML, CSS - from what is a variable to how to build your first mobile app.
+              WizardAmigos free e-learning app is built exactly for you. Our learners come from very different backgrounds - from journalists,
+              translators, biologists, physicists to activists, students and many other backgrounds. What we have in common? We are interested in technology, we
+              love to travel and we want to work remote.
             </div>
             <div class=${css.button}>
-              <a href='http://app.wizardamigos.com'>Get started</a>
+              <a href='https://www.facebook.com/groups/369246343421803/'>Join us</a>
             </div>
           </div>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              SKILL TREE
+              WHAT CAN I LEARN?
             </div>
             <div class=${css.subdescription}>
-              For more advanced learners we prepared a really comprehensive overview of available online
-              resources - from the basics of HTML, CSS and JS all the way to hypermodular development,
-              using node modules, P2P techniques and open source to build web, mobile and desktop apps.
+              In our community we are focusing on learning Javascript so we can build web, mobile and desktop apps. Our tools are node modules, P2P techniques and open source. We are also active citizens, working for
+              more transparency, less discrimination and better collaboration within our society.
             </div>
             <div class=${css.button}>
-              <a href='https://github.com/wizardamigos/app/blob/master/skillTree.md'>Get started</a>
+            <a href='http://wizardamigos.com/workshop_app/'>Start learning</a>
             </div>
           </div>
       </div>
