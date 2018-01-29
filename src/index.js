@@ -675,11 +675,11 @@ function call2actionComponent () {
               WHAT CAN I LEARN?
             </div>
             <div class=${css.subdescription}>
-              In our community we are focusing on learning Javascript so we can build web, mobile and desktop apps. Our tools are node modules, P2P techniques and open source. We are also active citizens, working for
+              In our community we are focusing on learning Javascript, blockchain and P2P web and everything about cyber nomadic lifestyle. Our tools are native javascript, node modules and open source. We are also active citizens, working for
               more transparency, less discrimination and better collaboration within our society.
             </div>
             <div class=${css.button}>
-            <a href='http://wizardamigos.com/workshop_app/'>Start learning</a>
+            <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md'>Skill tree</a>
             </div>
           </div>
       </div>
