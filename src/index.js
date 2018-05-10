@@ -400,8 +400,8 @@ function pitchComponent () {
 ********************************************************************/
 function portfolioComponent () {
   // var svg = pixelate(b,dB,b)
-  // svg.setAttribute('xmlns','//www.w3.org/2000/svg')
-  // svg.setAttribute('xmlns:xlink','//www.w3.org/1999/xlink')
+  // svg.setAttribute('xmlns','http://www.w3.org/2000/svg')
+  // svg.setAttribute('xmlns:xlink','http://www.w3.org/1999/xlink')
   // svg.setAttribute('version','1.1')
   // background-image  : url('data:image/svg+xml;base64,${btoa(svg.outerHTML)}');
   var css = csjs`
@@ -532,7 +532,7 @@ function portfolioComponent () {
           You can do it on your own or at a code camp nearby.
         </div>
         <div class=${css.categories}>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="//wizardamigos.com/workshop_app/">
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="https://wizardamigos.com/workshop_app/">
             E-learning app
           </a>
         </div>
