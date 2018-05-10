@@ -351,7 +351,7 @@ function pitchComponent () {
             </div>
             <div class=${css.subdescription}>
               We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
-              <a href='http://wizardamigos.com/workshop_app/'>Try it out, it's fun.</a>
+              <a href='https://wizardamigos.com/workshop_app/'>Try it out, it's fun.</a>
             </div>
           </div>
           <div class=${css.step}>
@@ -367,7 +367,7 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local <a href='http://www.meetup.com/codingamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+              Visit a local <a href='https://www.meetup.com/codingamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
               in your neighbourhood, you can start organizing one yourself.
             </div>
           </div>
@@ -400,8 +400,8 @@ function pitchComponent () {
 ********************************************************************/
 function portfolioComponent () {
   // var svg = pixelate(b,dB,b)
-  // svg.setAttribute('xmlns','http://www.w3.org/2000/svg')
-  // svg.setAttribute('xmlns:xlink','http://www.w3.org/1999/xlink')
+  // svg.setAttribute('xmlns','//www.w3.org/2000/svg')
+  // svg.setAttribute('xmlns:xlink','//www.w3.org/1999/xlink')
   // svg.setAttribute('version','1.1')
   // background-image  : url('data:image/svg+xml;base64,${btoa(svg.outerHTML)}');
   var css = csjs`
@@ -532,7 +532,7 @@ function portfolioComponent () {
           You can do it on your own or at a code camp nearby.
         </div>
         <div class=${css.categories}>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="http://wizardamigos.com/workshop_app/">
+          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="//wizardamigos.com/workshop_app/">
             E-learning app
           </a>
         </div>
