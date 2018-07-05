@@ -1173,7 +1173,7 @@ var inserted = {};
 module.exports = function (css, options) {
     if (inserted[css]) return;
     inserted[css] = true;
-    
+
     var elem = document.createElement('style');
     elem.setAttribute('type', 'text/css');
 
@@ -1182,7 +1182,7 @@ module.exports = function (css, options) {
     } else {
       elem.styleSheet.cssText = css;
     }
-    
+
     var head = document.getElementsByTagName('head')[0];
     if (options && options.prepend) {
         head.insertBefore(elem, head.childNodes[0]);
@@ -2680,7 +2680,7 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local <a href='http://www.meetup.com/codingamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+              Visit a local <a href='http://www.meetup.com/wizardamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
               in your neighbourhood, you can start organizing one yourself.
             </div>
           </div>
@@ -2996,7 +2996,7 @@ function call2actionComponent () {
               using node modules, P2P techniques and open source to build web, mobile and desktop apps.
             </div>
             <div class=${css.button}>
-              <a href='https://github.com/wizardamigos/app/blob/master/skillTree.md'>Get started</a>
+              <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md'>Get started</a>
             </div>
           </div>
       </div>
