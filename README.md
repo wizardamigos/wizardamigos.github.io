@@ -6,7 +6,7 @@
 
 
 ### 24/7 Mentoring & Support Channel
-> http://gitter.im/wizardamigosinstitute/program
+> [Discord chat](https://discord.gg/8FzZPHkp44)
 ### Info 
 > **Page:** https://wizardamigos.com
 > **App:** https://app.wizardamigos.com (130 learning videos for beginners)
@@ -16,9 +16,9 @@
 > **More:** https://github.com/wizardamigos/app/blob/master/skillTree.md
 > Ask in the support channel how & where to start learning :-)
 ### Facebook Community Group
-> https://www.facebook.com/groups/369246343421803/
-### Face2Face Community Meetups
-> https://meetup.com/codingamigos
+> [Facebook Community](https://www.facebook.com/groups/369246343421803)
+### Meetups
+> https://meetup.com/wizardamigos
 > We have two regular meetups (one in berlin and one in taipei)
 > ...but we have occasional meetups in slovenia and thailand
 ## About Us
