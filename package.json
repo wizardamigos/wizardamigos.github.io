@@ -15,7 +15,6 @@
     "budo": "^11.7.0"
   },
   "dependencies": {
-    "csjs-inject": "^1.0.1",
-    "yo-yo": "^1.4.1"
+    "csjs-inject": "^1.0.1"
   }
 }

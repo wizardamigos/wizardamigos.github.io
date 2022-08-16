@@ -1,9 +1,4 @@
-var yo = require('yo-yo')
 var csjs = require('csjs-inject')
-// var datauri = require('datauri')
-var pixelate = require('_pixelate')
-var logo = require('_logo')
-var path = require('path')
 
 /********************************************************************
   THEME
@@ -105,7 +100,7 @@ function headerComponent () {
       transition          : all 0.5s ease;
     }
     .logo {
-      width: 400px;
+      width: 500px;
     }
     .title {
       font-family: 'Magic School One', sans-serif;
@@ -114,10 +109,10 @@ function headerComponent () {
       font-size   : ${fontXXL}px;
       white-space : nowrap;
       color       : ${white};
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
     .subtitle {
-      font-size   : ${fontXXM}px;
+      font-size   : ${fontL}px;
       font-weight : 600;
       white-space : nowrap;
       color       : ${white};
@@ -164,8 +159,8 @@ function headerComponent () {
   el.classList.add(css.header)
   el.innerHTML = `
   <div class=${css.title}>Wizard Amigos</div>
-  <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
-  <img class=${css.logo} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---WIZARD-DUO---TRANSPARENT---2022.png?raw=true'></img>
+  <div class=${css.subtitle}>Learning the magical literacy of the future</div>
+  <img class=${css.logo} src= https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---WIZARD-DUO---TRANSPARENT---2022.png?raw=true'></img>
   ` 
   return el
 }
@@ -290,70 +285,67 @@ function pitchComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    function hover () { this.classList.toggle(css.subtitle_hover) }
-    return yo`
-      <div class=${css.pitch}>
-        <div class=${css.title}>
-          JavaScript for nomads
-        </div>
-        <div class=${css.description}>
-          How does it work?
-        </div>
-        <div class=${css.steps}>
-          <div class=${css.step}>
-            <svg class=${css.icon1} viewBox="0 0 512 512">
-              <g>
-              	<path style="fill:${violet};" d="M256,96C144.341,96,47.559,161.021,0,256c47.559,94.979,144.341,160,256,160c111.656,0,208.439-65.021,256-160   C464.441,161.021,367.656,96,256,96z M382.225,180.852c30.082,19.187,55.572,44.887,74.719,75.148   c-19.146,30.261-44.639,55.961-74.719,75.148C344.428,355.257,300.779,368,256,368c-44.78,0-88.428-12.743-126.225-36.852   c-30.08-19.188-55.57-44.888-74.717-75.148c19.146-30.262,44.637-55.962,74.717-75.148c1.959-1.25,3.938-2.461,5.929-3.65   C130.725,190.866,128,205.613,128,221c0,70.691,57.308,128,128,128c70.691,0,128-57.309,128-128   c0-15.387-2.725-30.134-7.703-43.799C378.285,178.39,380.266,179.602,382.225,180.852z M256,205c0,26.51-21.49,48-48,48   s-48-21.49-48-48s21.49-48,48-48S256,178.49,256,205z"/>
-              </g>
-            </svg>
-            <div class=${css.subtitle}>
-              1. Get to know the basics
-            </div>
-            <div class=${css.subdescription}>
-              We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
-              <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists' target='_blank'>Try it out, it's fun.</a>
-            </div>
-          </div>
-          <div class=${css.step}>
-          <svg class=${css.icon2} viewBox="0 0 489.9 489.9">
-          	<g>
-          		<path style="fill:${violet};" d="M90.3,96.956c-3.8,3.9-3.8,10.2,0.2,14c3.9,3.8,10.2,3.8,14-0.2c35.8-36.7,83.8-57.2,135-57.8    c50-0.6,97.4,18,133.7,52.2l-18.2,0.2c-5.5,0.1-9.8,4.5-9.8,10c0.1,5.4,4.5,9.8,9.9,9.8h0.1l42.2-0.5c5.5-0.1,9.8-4.5,9.8-10    l-0.4-42.1c-0.1-5.4-4.5-9.8-9.9-9.8h-0.1c-5.5,0.1-9.8,4.5-9.8,10l0.2,18.4c-40.1-38-92.6-58.6-147.9-58    C182.7,33.956,129.8,56.556,90.3,96.956z"/>
-          		<path style="fill:${violet};" d="M378.9,379.056c-35.8,36.7-83.8,57.2-135,57.8c-50,0.6-97.4-18-133.7-52.2l18.2-0.2    c5.5-0.1,9.8-4.5,9.8-10c-0.1-5.4-4.5-9.8-9.9-9.8h-0.1l-42.2,0.5c-5.5,0.1-9.8,4.5-9.8,10l0.5,42.2c0.1,5.4,4.5,9.8,9.9,9.8h0.1    c5.5-0.1,9.8-4.5,9.8-10l-0.2-18.4c39.5,37.4,90.9,58,145.4,58c0.8,0,1.7,0,2.5,0c56.5-0.7,109.5-23.3,149-63.7    c3.8-3.9,3.8-10.2-0.2-14C389,375.056,382.8,375.156,378.9,379.056z"/>
-          		<path style="fill:${violet};" d="M78.2,240.256c0-3.3-1.7-6.4-4.4-8.2c-1.8-1.2-2.8-3.2-2.8-5.3v-36.1c0-12.5,10.1-22.6,22.6-22.6    h7.8c12.5,0,22.6,10.1,22.6,22.6v36.1c0,2.1-1.1,4.1-2.8,5.3c-2.8,1.8-4.4,4.9-4.4,8.2v34.8c0,4.4,2.5,8.4,6.5,10.3    c4.5,2.2,27.8,14,49.4,31.7c1.7,1.4,2.7,3.6,2.7,5.9v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7c0-8.2-3.6-15.9-10-21.2    c-18.9-15.6-39.2-26.9-48.6-31.8v-25.1c4.6-4.8,7.3-11.3,7.3-18.1v-36.1c0-23.4-19-42.4-42.4-42.4h-7.8c-23.4,0-42.4,19-42.4,42.4    v36.1c0,6.8,2.6,13.3,7.3,18.1v25.1c-9.5,4.9-29.7,16.3-48.6,31.8c-6.3,5.2-10,12.9-10,21.2v24.7c0,5.5,4.4,9.9,9.9,9.9    s9.9-4.4,9.9-9.9v-24.7c0-2.3,1-4.4,2.7-5.9c21.5-17.7,44.9-29.5,49.4-31.7c3.9-1.9,6.5-6,6.5-10.3v-34.8H78.2z"/>
-          		<path style="fill:${violet};" d="M479.9,301.856c-18.9-15.6-39.2-26.9-48.6-31.8v-25.1c4.6-4.8,7.3-11.3,7.3-18.1v-36.1    c0-23.4-19-42.4-42.4-42.4h-7.8c-23.4,0-42.4,19-42.4,42.4v36.1c0,6.8,2.6,13.3,7.3,18.1v25c-9.5,4.9-29.7,16.3-48.6,31.8    c-6.3,5.2-10,12.9-10,21.2v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7c0-2.3,1-4.4,2.7-5.9c21.5-17.7,44.9-29.5,49.4-31.7    c3.9-1.9,6.4-6,6.4-10.3v-34.8c0-3.3-1.7-6.4-4.4-8.2c-1.8-1.2-2.8-3.2-2.8-5.3v-36.1c0-12.5,10.1-22.6,22.6-22.6h7.8    c12.5,0,22.6,10.1,22.6,22.6v36.1c0,2.1-1.1,4.1-2.8,5.3c-2.8,1.8-4.4,4.9-4.4,8.2v34.8c0,4.4,2.5,8.4,6.4,10.3    c4.5,2.2,27.9,14,49.4,31.7c1.7,1.4,2.7,3.6,2.7,5.9v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7    C489.8,314.756,486.2,307.056,479.9,301.856z"/>
-          	</g>
-          </svg>
-            <div class=${css.subtitle}>
-              2. Meet other learners
-            </div>
-            <div class=${css.subdescription}>
-              Visit a local <a href='https://www.meetup.com/wizardamigos' target='_blank'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
-              in your neighbourhood, you can start organizing one yourself.
-            </div>
-          </div>
-          <div class=${css.step}>
-            <svg class=${css.icon3} viewBox="0 0 489.8 489.8">
-            	<g>
-            		<path style="fill:${violet};" d="M268.5,286.9h-11.6v-70.5v-9.1h47.7c6.6,0,12-5.4,12-12s-5.4-12-12-12h-47.7V66.1L281.8,91c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17l-45.3-45.3c-2.3-2.3-5.3-3.5-8.5-3.5s-6.2,1.3-8.5,3.5l-45.4,45.4c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5    s6.1-1.2,8.5-3.5l24.8-24.9v117.1h-11.6c-35.2,0-63.8,28.6-63.8,63.8s28.6,63.8,63.8,63.8h11.6v69.4v10.2h-49.3    c-6.6,0-12,5.4-12,12s5.4,12,12,12h49.3v38.1c0,6.6,5.4,12,12,12s12-5.4,12-12v-38.1h11.6c35.2,0,63.8-28.6,63.8-63.8    S303.7,286.9,268.5,286.9z M221.3,286.9c-21.9,0-39.8-17.9-39.8-39.8s17.9-39.8,39.8-39.8h11.6v9.1v70.5H221.3z M268.5,390.5    h-11.6v-10.2v-69.4h11.6c21.9,0,39.8,17.9,39.8,39.8C308.3,372.7,290.5,390.5,268.5,390.5z"/>
-            		<path style="fill:${violet};" d="M437.2,281.3h-6.5v-52.4v-4.5h34.7c6.6,0,12-5.4,12-12s-5.4-12-12-12h-34.7v-82.7l14.9,14.9c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17l-35.4-35.4c-4.7-4.7-12.3-4.7-17,0l-35.5,35.5c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5s6.1-1.2,8.5-3.5    l14.9-14.9v82.5h-6.5c-28.9,0-52.5,23.5-52.5,52.5s23.5,52.5,52.5,52.5h6.5v51.6v5.3h-35.7c-6.6,0-12,5.4-12,12s5.4,12,12,12h35.9    v27.2c0,6.6,5.4,12,12,12s12-5.4,12-12v-27.2h6.5c28.9,0,52.5-23.5,52.5-52.5S466.2,281.3,437.2,281.3z M400.3,281.3    c-15.7,0-28.5-12.8-28.5-28.5s12.8-28.5,28.5-28.5h6.5v4.5v52.4h-6.5V281.3z M437.2,362.2h-6.5v-5.3v-51.6h6.5    c15.7,0,28.5,12.8,28.5,28.5C465.7,349.4,452.9,362.2,437.2,362.2z"/>
-            		<path style="fill:${violet};" d="M89.5,281.3H83v-52.4v-4.5h34.7c6.6,0,12-5.4,12-12s-5.4-12-12-12H83v-82.7l14.9,14.9c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17L79.6,80.3c-4.7-4.7-12.3-4.7-17,0l-35.5,35.5c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5s6.1-1.2,8.5-3.5    L59,117.9v82.5h-6.5C23.6,200.4,0,223.9,0,252.9s23.5,52.5,52.5,52.5H59v51.5v5.3H23.2c-6.6,0-12,5.4-12,12s5.4,12,12,12h35.9    v27.2c0,6.6,5.4,12,12,12s12-5.4,12-12v-27.2h6.5c28.9,0,52.5-23.5,52.5-52.5S118.4,281.3,89.5,281.3z M52.6,281.3    c-15.7,0-28.5-12.8-28.5-28.5s12.8-28.5,28.5-28.5h6.5v4.5v52.4h-6.5V281.3z M89.5,362.2H83v-5.3v-51.6h6.5    c15.7,0,28.5,12.8,28.5,28.5C118,349.4,105.2,362.2,89.5,362.2z"/>
-            	</g>
-            </svg>
-            <div class=${css.subtitle}>
-              3. Earn while you learn
-            </div>
-            <div class=${css.subdescription}>
-              Once you have the basic knowledge of JavaScript programming language,
-              you can join our remote internship program, where you will be able
-              to work together with experienced developers on different paid tasks.
-            </div>
-          </div>
-        </div>
+  function hover () { this.classList.toggle(css.subtitle_hover) }
+  const el = document.createElement('pitch')
+  el.classList.add(css.pitch)
+  el.innerHTML = `
+    <div class=${css.title}>
+    JavaScript for nomads
+  </div>
+  <div class=${css.description}>
+    How does it work?
+  </div>
+  <div class=${css.steps}>
+    <div class=${css.step}>
+      <svg class=${css.icon1} viewBox="0 0 512 512">
+        <g>
+          <path style="fill:${violet};" d="M256,96C144.341,96,47.559,161.021,0,256c47.559,94.979,144.341,160,256,160c111.656,0,208.439-65.021,256-160   C464.441,161.021,367.656,96,256,96z M382.225,180.852c30.082,19.187,55.572,44.887,74.719,75.148   c-19.146,30.261-44.639,55.961-74.719,75.148C344.428,355.257,300.779,368,256,368c-44.78,0-88.428-12.743-126.225-36.852   c-30.08-19.188-55.57-44.888-74.717-75.148c19.146-30.262,44.637-55.962,74.717-75.148c1.959-1.25,3.938-2.461,5.929-3.65   C130.725,190.866,128,205.613,128,221c0,70.691,57.308,128,128,128c70.691,0,128-57.309,128-128   c0-15.387-2.725-30.134-7.703-43.799C378.285,178.39,380.266,179.602,382.225,180.852z M256,205c0,26.51-21.49,48-48,48   s-48-21.49-48-48s21.49-48,48-48S256,178.49,256,205z"/>
+        </g>
+      </svg>
+      <div class=${css.subtitle}>
+        1. Get to know the basics
       </div>
-    `
-  }
-  var el = template()
+      <div class=${css.subdescription}>
+        We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
+        <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists' target='_blank'>Try it out, it's fun.</a>
+      </div>
+    </div>
+    <div class=${css.step}>
+    <svg class=${css.icon2} viewBox="0 0 489.9 489.9">
+      <g>
+        <path style="fill:${violet};" d="M90.3,96.956c-3.8,3.9-3.8,10.2,0.2,14c3.9,3.8,10.2,3.8,14-0.2c35.8-36.7,83.8-57.2,135-57.8    c50-0.6,97.4,18,133.7,52.2l-18.2,0.2c-5.5,0.1-9.8,4.5-9.8,10c0.1,5.4,4.5,9.8,9.9,9.8h0.1l42.2-0.5c5.5-0.1,9.8-4.5,9.8-10    l-0.4-42.1c-0.1-5.4-4.5-9.8-9.9-9.8h-0.1c-5.5,0.1-9.8,4.5-9.8,10l0.2,18.4c-40.1-38-92.6-58.6-147.9-58    C182.7,33.956,129.8,56.556,90.3,96.956z"/>
+        <path style="fill:${violet};" d="M378.9,379.056c-35.8,36.7-83.8,57.2-135,57.8c-50,0.6-97.4-18-133.7-52.2l18.2-0.2    c5.5-0.1,9.8-4.5,9.8-10c-0.1-5.4-4.5-9.8-9.9-9.8h-0.1l-42.2,0.5c-5.5,0.1-9.8,4.5-9.8,10l0.5,42.2c0.1,5.4,4.5,9.8,9.9,9.8h0.1    c5.5-0.1,9.8-4.5,9.8-10l-0.2-18.4c39.5,37.4,90.9,58,145.4,58c0.8,0,1.7,0,2.5,0c56.5-0.7,109.5-23.3,149-63.7    c3.8-3.9,3.8-10.2-0.2-14C389,375.056,382.8,375.156,378.9,379.056z"/>
+        <path style="fill:${violet};" d="M78.2,240.256c0-3.3-1.7-6.4-4.4-8.2c-1.8-1.2-2.8-3.2-2.8-5.3v-36.1c0-12.5,10.1-22.6,22.6-22.6    h7.8c12.5,0,22.6,10.1,22.6,22.6v36.1c0,2.1-1.1,4.1-2.8,5.3c-2.8,1.8-4.4,4.9-4.4,8.2v34.8c0,4.4,2.5,8.4,6.5,10.3    c4.5,2.2,27.8,14,49.4,31.7c1.7,1.4,2.7,3.6,2.7,5.9v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7c0-8.2-3.6-15.9-10-21.2    c-18.9-15.6-39.2-26.9-48.6-31.8v-25.1c4.6-4.8,7.3-11.3,7.3-18.1v-36.1c0-23.4-19-42.4-42.4-42.4h-7.8c-23.4,0-42.4,19-42.4,42.4    v36.1c0,6.8,2.6,13.3,7.3,18.1v25.1c-9.5,4.9-29.7,16.3-48.6,31.8c-6.3,5.2-10,12.9-10,21.2v24.7c0,5.5,4.4,9.9,9.9,9.9    s9.9-4.4,9.9-9.9v-24.7c0-2.3,1-4.4,2.7-5.9c21.5-17.7,44.9-29.5,49.4-31.7c3.9-1.9,6.5-6,6.5-10.3v-34.8H78.2z"/>
+        <path style="fill:${violet};" d="M479.9,301.856c-18.9-15.6-39.2-26.9-48.6-31.8v-25.1c4.6-4.8,7.3-11.3,7.3-18.1v-36.1    c0-23.4-19-42.4-42.4-42.4h-7.8c-23.4,0-42.4,19-42.4,42.4v36.1c0,6.8,2.6,13.3,7.3,18.1v25c-9.5,4.9-29.7,16.3-48.6,31.8    c-6.3,5.2-10,12.9-10,21.2v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7c0-2.3,1-4.4,2.7-5.9c21.5-17.7,44.9-29.5,49.4-31.7    c3.9-1.9,6.4-6,6.4-10.3v-34.8c0-3.3-1.7-6.4-4.4-8.2c-1.8-1.2-2.8-3.2-2.8-5.3v-36.1c0-12.5,10.1-22.6,22.6-22.6h7.8    c12.5,0,22.6,10.1,22.6,22.6v36.1c0,2.1-1.1,4.1-2.8,5.3c-2.8,1.8-4.4,4.9-4.4,8.2v34.8c0,4.4,2.5,8.4,6.4,10.3    c4.5,2.2,27.9,14,49.4,31.7c1.7,1.4,2.7,3.6,2.7,5.9v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7    C489.8,314.756,486.2,307.056,479.9,301.856z"/>
+      </g>
+    </svg>
+      <div class=${css.subtitle}>
+        2. Meet other learners
+      </div>
+      <div class=${css.subdescription}>
+        Visit a local <a href='https://www.meetup.com/wizardamigos' target='_blank'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+        in your neighbourhood, you can start organizing one yourself.
+      </div>
+    </div>
+    <div class=${css.step}>
+      <svg class=${css.icon3} viewBox="0 0 489.8 489.8">
+        <g>
+          <path style="fill:${violet};" d="M268.5,286.9h-11.6v-70.5v-9.1h47.7c6.6,0,12-5.4,12-12s-5.4-12-12-12h-47.7V66.1L281.8,91c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17l-45.3-45.3c-2.3-2.3-5.3-3.5-8.5-3.5s-6.2,1.3-8.5,3.5l-45.4,45.4c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5    s6.1-1.2,8.5-3.5l24.8-24.9v117.1h-11.6c-35.2,0-63.8,28.6-63.8,63.8s28.6,63.8,63.8,63.8h11.6v69.4v10.2h-49.3    c-6.6,0-12,5.4-12,12s5.4,12,12,12h49.3v38.1c0,6.6,5.4,12,12,12s12-5.4,12-12v-38.1h11.6c35.2,0,63.8-28.6,63.8-63.8    S303.7,286.9,268.5,286.9z M221.3,286.9c-21.9,0-39.8-17.9-39.8-39.8s17.9-39.8,39.8-39.8h11.6v9.1v70.5H221.3z M268.5,390.5    h-11.6v-10.2v-69.4h11.6c21.9,0,39.8,17.9,39.8,39.8C308.3,372.7,290.5,390.5,268.5,390.5z"/>
+          <path style="fill:${violet};" d="M437.2,281.3h-6.5v-52.4v-4.5h34.7c6.6,0,12-5.4,12-12s-5.4-12-12-12h-34.7v-82.7l14.9,14.9c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17l-35.4-35.4c-4.7-4.7-12.3-4.7-17,0l-35.5,35.5c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5s6.1-1.2,8.5-3.5    l14.9-14.9v82.5h-6.5c-28.9,0-52.5,23.5-52.5,52.5s23.5,52.5,52.5,52.5h6.5v51.6v5.3h-35.7c-6.6,0-12,5.4-12,12s5.4,12,12,12h35.9    v27.2c0,6.6,5.4,12,12,12s12-5.4,12-12v-27.2h6.5c28.9,0,52.5-23.5,52.5-52.5S466.2,281.3,437.2,281.3z M400.3,281.3    c-15.7,0-28.5-12.8-28.5-28.5s12.8-28.5,28.5-28.5h6.5v4.5v52.4h-6.5V281.3z M437.2,362.2h-6.5v-5.3v-51.6h6.5    c15.7,0,28.5,12.8,28.5,28.5C465.7,349.4,452.9,362.2,437.2,362.2z"/>
+          <path style="fill:${violet};" d="M89.5,281.3H83v-52.4v-4.5h34.7c6.6,0,12-5.4,12-12s-5.4-12-12-12H83v-82.7l14.9,14.9c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17L79.6,80.3c-4.7-4.7-12.3-4.7-17,0l-35.5,35.5c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5s6.1-1.2,8.5-3.5    L59,117.9v82.5h-6.5C23.6,200.4,0,223.9,0,252.9s23.5,52.5,52.5,52.5H59v51.5v5.3H23.2c-6.6,0-12,5.4-12,12s5.4,12,12,12h35.9    v27.2c0,6.6,5.4,12,12,12s12-5.4,12-12v-27.2h6.5c28.9,0,52.5-23.5,52.5-52.5S118.4,281.3,89.5,281.3z M52.6,281.3    c-15.7,0-28.5-12.8-28.5-28.5s12.8-28.5,28.5-28.5h6.5v4.5v52.4h-6.5V281.3z M89.5,362.2H83v-5.3v-51.6h6.5    c15.7,0,28.5,12.8,28.5,28.5C118,349.4,105.2,362.2,89.5,362.2z"/>
+        </g>
+      </svg>
+      <div class=${css.subtitle}>
+        3. Earn while you learn
+      </div>
+      <div class=${css.subdescription}>
+        Once you have the basic knowledge of JavaScript programming language,
+        you can join our remote internship program, where you will be able
+        to work together with experienced developers on different paid tasks.
+      </div>
+    </div>
+  </div>
+  `
   return el
 }
 /********************************************************************
@@ -602,54 +594,39 @@ function call2actionComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    return yo`
-      <div class=${css.call2action}>
-        <div class=${css.title}>
-          Why should you join Wizard Amigos?
-        </div>
-        <div class=${css.description}>
-          Our aim is to give tools and community to everyone who wants to better
-          understand technology and to work on their ideas.
-          Learn prototyping, how to use programming in science, how to build mobile and desktop apps,
-          and what posibilities can technology bring for your future. Wizard Amigos was born in
-          Berlin but is now a global, non-profit community.
-        </div>
-        <div class=${css.calls}>
-          <div class=${css.action}>
-            <div class=${css.subtitle}>
-              WHO ARE WE
-            </div>
-            <div class=${css.subdescription}>
-              WizardAmigos learners come from very different backgrounds - from journalists,
-              translators, biologists, physicists to activists, students and many other backgrounds. What we have in common? We are interested in technology, we
-              love to travel and we want to work remote.
-            </div>
-            <div class=${css.button}>
-              <a href='https://discord.gg/8FzZPHkp44' target='_blank'>Join us</a>
-            </div>
-          </div>
-          <div class=${css.action}>
-            <div class=${css.subtitle}>
-              WHAT CAN I LEARN?
-            </div>
-            <div class=${css.subdescription}>
-              In our community we are focusing on learning Javascript, blockchain and P2P web and everything about cyber nomadic lifestyle. Our tools are native javascript, node modules and open source. We are also active citizens, working for
-              more transparency, less discrimination and better collaboration within our society.
-            </div>
-            <div class=${css.button}>
-            <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md' target='_blank'>Skill tree</a>
-            </div>
-          </div>
+  const el = document.createElement('div')
+  el.classList.add(css.call2action)
+  el.innerHTML = `
+    <div class=${css.title}> Why should you join Wizard Amigos? </div>
+    <div class=${css.description}>
+      Our aim is to give tools and community to everyone who wants to better
+      understand technology and to work on their ideas.
+      Learn prototyping, how to use programming in science, how to build mobile and desktop apps,
+      and what posibilities can technology bring for your future. Wizard Amigos was born in
+      Berlin but is now a global, non-profit community.
+    </div>
+    <div class=${css.calls}>
+    <div class=${css.action}>
+      <div class=${css.subtitle}> WHO ARE WE </div>
+      <div class=${css.subdescription}>
+        WizardAmigos learners come from very different backgrounds - from journalists,
+        translators, biologists, physicists to activists, students and many other backgrounds. What we have in common? We are interested in technology, we
+        love to travel and we want to work remote.
       </div>
-    `
-  }
-  var el = template()
+      <div class=${css.button}> <a href='https://discord.gg/8FzZPHkp44' target='_blank'>Join us</a> </div>
+    </div>
+    <div class=${css.action}>
+      <div class=${css.subtitle}> WHAT CAN I LEARN? </div>
+      <div class=${css.subdescription}>
+        In our community we are focusing on learning Javascript, blockchain and P2P web and everything about cyber nomadic lifestyle. Our tools are native javascript, node modules and open source. We are also active citizens, working for
+        more transparency, less discrimination and better collaboration within our society.
+      </div>
+      <div class=${css.button}>
+      <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md' target='_blank'>Skill tree</a>
+      </div>
+    </div>
+  `
   return el
-
-  function open_chat () {
-    window.open('https://discord.gg/8FzZPHkp44')
-  }
 }
 /********************************************************************
   TESTIMONIALS COMPONENT
@@ -787,39 +764,36 @@ function footerComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    return yo`
-      <div class=${css.footer}>
-        <div class=${css.socialmedia}>
-          <a href="https://www.facebook.com/groups/369246343421803/" target='_blank' class=${css.iconFacebook}>
-            <svg viewBox="-1 -1 114 114">
-              <g>
-              	<circle style="fill:#3B5998;" cx="56.098" cy="56.098" r="56.098"/>
-              	<path style="fill:#FFFFFF;" d="M70.201,58.294h-10.01v36.672H45.025V58.294h-7.213V45.406h7.213v-8.34   c0-5.964,2.833-15.303,15.301-15.303L71.56,21.81v12.51h-8.151c-1.337,0-3.217,0.668-3.217,3.513v7.585h11.334L70.201,58.294z"/>
-              </g>
-            </svg>
-          </a>
-          <a href="https://twitter.com/wizardamigos" target='_blank' class=${css.iconTwitter}>
-            <svg viewBox="-1 -1 412 412">
-              <path style="fill:#76A9EA;" d="M403.632,74.18c-9.113,4.041-18.573,7.229-28.28,9.537c10.696-10.164,18.738-22.877,23.275-37.067  l0,0c1.295-4.051-3.105-7.554-6.763-5.385l0,0c-13.504,8.01-28.05,14.019-43.235,17.862c-0.881,0.223-1.79,0.336-2.702,0.336  c-2.766,0-5.455-1.027-7.57-2.891c-16.156-14.239-36.935-22.081-58.508-22.081c-9.335,0-18.76,1.455-28.014,4.325  c-28.672,8.893-50.795,32.544-57.736,61.724c-2.604,10.945-3.309,21.9-2.097,32.56c0.139,1.225-0.44,2.08-0.797,2.481  c-0.627,0.703-1.516,1.106-2.439,1.106c-0.103,0-0.209-0.005-0.314-0.015c-62.762-5.831-119.358-36.068-159.363-85.14l0,0  c-2.04-2.503-5.952-2.196-7.578,0.593l0,0C13.677,65.565,9.537,80.937,9.537,96.579c0,23.972,9.631,46.563,26.36,63.032  c-7.035-1.668-13.844-4.295-20.169-7.808l0,0c-3.06-1.7-6.825,0.485-6.868,3.985l0,0c-0.438,35.612,20.412,67.3,51.646,81.569  c-0.629,0.015-1.258,0.022-1.888,0.022c-4.951,0-9.964-0.478-14.898-1.421l0,0c-3.446-0.658-6.341,2.611-5.271,5.952l0,0  c10.138,31.651,37.39,54.981,70.002,60.278c-27.066,18.169-58.585,27.753-91.39,27.753l-10.227-0.006  c-3.151,0-5.816,2.054-6.619,5.106c-0.791,3.006,0.666,6.177,3.353,7.74c36.966,21.513,79.131,32.883,121.955,32.883  c37.485,0,72.549-7.439,104.219-22.109c29.033-13.449,54.689-32.674,76.255-57.141c20.09-22.792,35.8-49.103,46.692-78.201  c10.383-27.737,15.871-57.333,15.871-85.589v-1.346c-0.001-4.537,2.051-8.806,5.631-11.712c13.585-11.03,25.415-24.014,35.16-38.591  l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"/>
-            </svg>
-          </a>
-          <a href="https://discord.gg/8FzZPHkp44" target='_blank' class=${css.iconMail}>
-            <svg viewBox="-1 -1 553 553">
-            	<g>
-            		<path style="fill:#76A9EA;" d="M501.613,491.782c12.381,0,23.109-4.088,32.229-12.16L377.793,323.567c-3.744,2.681-7.373,5.288-10.801,7.767    c-11.678,8.604-21.156,15.318-28.434,20.129c-7.277,4.822-16.959,9.737-29.045,14.755c-12.094,5.024-23.361,7.528-33.813,7.528    h-0.306h-0.306c-10.453,0-21.72-2.503-33.813-7.528c-12.093-5.018-21.775-9.933-29.045-14.755    c-7.277-4.811-16.75-11.524-28.434-20.129c-3.256-2.387-6.867-5.006-10.771-7.809L16.946,479.622    c9.119,8.072,19.854,12.16,32.234,12.16H501.613z"/>
-            		<path style="fill:#76A9EA;" d="M31.047,225.299C19.37,217.514,9.015,208.598,0,198.555V435.98l137.541-137.541    C110.025,279.229,74.572,254.877,31.047,225.299z"/>
-            		<path style="fill:#76A9EA;" d="M520.059,225.299c-41.865,28.336-77.447,52.73-106.75,73.195l137.486,137.492V198.555    C541.98,208.396,531.736,217.306,520.059,225.299z"/>
-            		<path style="fill:#76A9EA;" d="M501.613,59.013H49.181c-15.784,0-27.919,5.33-36.42,15.979C4.253,85.646,0.006,98.97,0.006,114.949    c0,12.907,5.636,26.892,16.903,41.959c11.267,15.061,23.256,26.891,35.961,35.496c6.965,4.921,27.969,19.523,63.012,43.801    c18.917,13.109,35.368,24.535,49.505,34.395c12.05,8.396,22.442,15.667,31.022,21.701c0.985,0.691,2.534,1.799,4.59,3.269    c2.215,1.591,5.018,3.61,8.476,6.107c6.659,4.816,12.191,8.709,16.597,11.683c4.4,2.975,9.731,6.298,15.985,9.988    c6.249,3.685,12.143,6.456,17.675,8.299c5.533,1.842,10.655,2.766,15.367,2.766h0.306h0.306c4.711,0,9.834-0.924,15.368-2.766    c5.531-1.843,11.42-4.608,17.674-8.299c6.248-3.69,11.572-7.02,15.986-9.988c4.406-2.974,9.938-6.866,16.598-11.683    c3.451-2.497,6.254-4.517,8.469-6.102c2.057-1.476,3.605-2.577,4.596-3.274c6.684-4.651,17.1-11.892,31.104-21.616    c25.482-17.705,63.01-43.764,112.742-78.281c14.957-10.447,27.453-23.054,37.496-37.803c10.025-14.749,15.051-30.22,15.051-46.408    c0-13.525-4.873-25.098-14.598-34.737C526.461,63.829,514.932,59.013,501.613,59.013z"/>
-            	</g>
-            </svg>
-          </a>
-        </div>
-        <hr style="width:50%; border-color: #999999;">
-        <br> wizardamigos.com <br><br><br>
-      </div>
-    `
-  }
-  var el = template()
+  const el = document.createElement('div')
+  el.classList.add(css.footer)
+  el.innerHTML = `
+    <div class=${css.socialmedia}>
+    <a href="https://www.facebook.com/groups/369246343421803/" target='_blank' class=${css.iconFacebook}>
+      <svg viewBox="-1 -1 114 114">
+        <g>
+          <circle style="fill:#3B5998;" cx="56.098" cy="56.098" r="56.098"/>
+          <path style="fill:#FFFFFF;" d="M70.201,58.294h-10.01v36.672H45.025V58.294h-7.213V45.406h7.213v-8.34   c0-5.964,2.833-15.303,15.301-15.303L71.56,21.81v12.51h-8.151c-1.337,0-3.217,0.668-3.217,3.513v7.585h11.334L70.201,58.294z"/>
+        </g>
+      </svg>
+    </a>
+    <a href="https://twitter.com/wizardamigos" target='_blank' class=${css.iconTwitter}>
+      <svg viewBox="-1 -1 412 412">
+        <path style="fill:#76A9EA;" d="M403.632,74.18c-9.113,4.041-18.573,7.229-28.28,9.537c10.696-10.164,18.738-22.877,23.275-37.067  l0,0c1.295-4.051-3.105-7.554-6.763-5.385l0,0c-13.504,8.01-28.05,14.019-43.235,17.862c-0.881,0.223-1.79,0.336-2.702,0.336  c-2.766,0-5.455-1.027-7.57-2.891c-16.156-14.239-36.935-22.081-58.508-22.081c-9.335,0-18.76,1.455-28.014,4.325  c-28.672,8.893-50.795,32.544-57.736,61.724c-2.604,10.945-3.309,21.9-2.097,32.56c0.139,1.225-0.44,2.08-0.797,2.481  c-0.627,0.703-1.516,1.106-2.439,1.106c-0.103,0-0.209-0.005-0.314-0.015c-62.762-5.831-119.358-36.068-159.363-85.14l0,0  c-2.04-2.503-5.952-2.196-7.578,0.593l0,0C13.677,65.565,9.537,80.937,9.537,96.579c0,23.972,9.631,46.563,26.36,63.032  c-7.035-1.668-13.844-4.295-20.169-7.808l0,0c-3.06-1.7-6.825,0.485-6.868,3.985l0,0c-0.438,35.612,20.412,67.3,51.646,81.569  c-0.629,0.015-1.258,0.022-1.888,0.022c-4.951,0-9.964-0.478-14.898-1.421l0,0c-3.446-0.658-6.341,2.611-5.271,5.952l0,0  c10.138,31.651,37.39,54.981,70.002,60.278c-27.066,18.169-58.585,27.753-91.39,27.753l-10.227-0.006  c-3.151,0-5.816,2.054-6.619,5.106c-0.791,3.006,0.666,6.177,3.353,7.74c36.966,21.513,79.131,32.883,121.955,32.883  c37.485,0,72.549-7.439,104.219-22.109c29.033-13.449,54.689-32.674,76.255-57.141c20.09-22.792,35.8-49.103,46.692-78.201  c10.383-27.737,15.871-57.333,15.871-85.589v-1.346c-0.001-4.537,2.051-8.806,5.631-11.712c13.585-11.03,25.415-24.014,35.16-38.591  l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"/>
+      </svg>
+    </a>
+    <a href="https://discord.gg/8FzZPHkp44" target='_blank' class=${css.iconMail}>
+      <svg viewBox="-1 -1 553 553">
+        <g>
+          <path style="fill:#76A9EA;" d="M501.613,491.782c12.381,0,23.109-4.088,32.229-12.16L377.793,323.567c-3.744,2.681-7.373,5.288-10.801,7.767    c-11.678,8.604-21.156,15.318-28.434,20.129c-7.277,4.822-16.959,9.737-29.045,14.755c-12.094,5.024-23.361,7.528-33.813,7.528    h-0.306h-0.306c-10.453,0-21.72-2.503-33.813-7.528c-12.093-5.018-21.775-9.933-29.045-14.755    c-7.277-4.811-16.75-11.524-28.434-20.129c-3.256-2.387-6.867-5.006-10.771-7.809L16.946,479.622    c9.119,8.072,19.854,12.16,32.234,12.16H501.613z"/>
+          <path style="fill:#76A9EA;" d="M31.047,225.299C19.37,217.514,9.015,208.598,0,198.555V435.98l137.541-137.541    C110.025,279.229,74.572,254.877,31.047,225.299z"/>
+          <path style="fill:#76A9EA;" d="M520.059,225.299c-41.865,28.336-77.447,52.73-106.75,73.195l137.486,137.492V198.555    C541.98,208.396,531.736,217.306,520.059,225.299z"/>
+          <path style="fill:#76A9EA;" d="M501.613,59.013H49.181c-15.784,0-27.919,5.33-36.42,15.979C4.253,85.646,0.006,98.97,0.006,114.949    c0,12.907,5.636,26.892,16.903,41.959c11.267,15.061,23.256,26.891,35.961,35.496c6.965,4.921,27.969,19.523,63.012,43.801    c18.917,13.109,35.368,24.535,49.505,34.395c12.05,8.396,22.442,15.667,31.022,21.701c0.985,0.691,2.534,1.799,4.59,3.269    c2.215,1.591,5.018,3.61,8.476,6.107c6.659,4.816,12.191,8.709,16.597,11.683c4.4,2.975,9.731,6.298,15.985,9.988    c6.249,3.685,12.143,6.456,17.675,8.299c5.533,1.842,10.655,2.766,15.367,2.766h0.306h0.306c4.711,0,9.834-0.924,15.368-2.766    c5.531-1.843,11.42-4.608,17.674-8.299c6.248-3.69,11.572-7.02,15.986-9.988c4.406-2.974,9.938-6.866,16.598-11.683    c3.451-2.497,6.254-4.517,8.469-6.102c2.057-1.476,3.605-2.577,4.596-3.274c6.684-4.651,17.1-11.892,31.104-21.616    c25.482-17.705,63.01-43.764,112.742-78.281c14.957-10.447,27.453-23.054,37.496-37.803c10.025-14.749,15.051-30.22,15.051-46.408    c0-13.525-4.873-25.098-14.598-34.737C526.461,63.829,514.932,59.013,501.613,59.013z"/>
+        </g>
+      </svg>
+    </a>
+    </div>
+    <hr style="width:50%; border-color: #999999;">
+    <br> wizardamigos.com <br><br><br>
+  `
   return el
 }
