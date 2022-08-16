@@ -153,7 +153,7 @@ module.exports = hyperx(belCreateElement, {comments: true})
 module.exports.default = module.exports
 module.exports.createElement = belCreateElement
 
-},{"global/document":22,"hyperx":25,"on-load":30}],2:[function(require,module,exports){
+},{"global/document":22,"hyperx":25,"on-load":29}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
 (function (global){(function (){
@@ -1032,29 +1032,6 @@ module.exports = function (css, options) {
 };
 
 },{}],27:[function(require,module,exports){
-module.exports = function xhr2 (params, callback) {
-  var url = typeof params === 'string' ? params : params.url
-  var method = params.method || (params.data ? 'POST' : 'GET')
-  var body = params.data
-  var H = params.headers ? params.headers : params.body ? {
-    'X-Requested-With' :'XMLHttpRequest',
-    'Content-Type'     :'application/x-www-form-urlencoded'
-  } : {}
-  var xhr = new XMLHttpRequest()
-  xhr.open(method, url)
-  for (var key in H) xhr.setRequestHeader(key, H[key])
-  xhr.onload = xhr.onerror = function (response) {
-    var Hjson = {}, h = xhr.getAllResponseHeaders()
-    ;(h.match(/([^\n\r:]+):([^\n\r]+)/g)||[]).forEach(function(item){
-      var tmp = item.split(': ')
-      Hjson[tmp[0]] = tmp[1]
-    })
-    if (callback) callback(this.response, response, xhr, Hjson)
-  }
-  xhr.send(body||null)
-}
-
-},{}],28:[function(require,module,exports){
 'use strict';
 
 var DOCUMENT_FRAGMENT_NODE = 11;
@@ -1813,7 +1790,7 @@ var morphdom = morphdomFactory(morphAttrs);
 
 module.exports = morphdom;
 
-},{}],29:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 assert.notEqual = notEqual
 assert.notOk = notOk
 assert.equal = equal
@@ -1837,7 +1814,7 @@ function assert (t, m) {
   if (!t) throw new Error(m || 'AssertionError')
 }
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* global MutationObserver */
 var document = require('global/document')
 var window = require('global/window')
@@ -1941,7 +1918,7 @@ function eachMutation (nodes, fn) {
   }
 }
 
-},{"assert":29,"global/document":22,"global/window":23}],31:[function(require,module,exports){
+},{"assert":28,"global/document":22,"global/window":23}],30:[function(require,module,exports){
 (function (process){(function (){
 // 'path' module extracted from Node.js v8.11.1 (only the posix part)
 // transplited with Babel
@@ -2474,7 +2451,7 @@ posix.posix = posix;
 module.exports = posix;
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":32}],32:[function(require,module,exports){
+},{"_process":31}],31:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2660,7 +2637,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -2704,7 +2681,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":34,"bel":1,"morphdom":28}],34:[function(require,module,exports){
+},{"./update-events.js":33,"bel":1,"morphdom":27}],33:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -2742,10 +2719,9 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 var yo = require('yo-yo')
 var csjs = require('csjs-inject')
-var minixhr = require('minixhr')
 // var datauri = require('datauri')
 var pixelate = require('_pixelate')
 var logo = require('_logo')
@@ -2772,8 +2748,8 @@ var fontM   = fontXXS*2.0
 var fontXM  = fontXXS*2
 var fontXXM = fontXXS*2.2
 var fontL   = fontXXS*3
-var fontXL  = fontXXS*4.8
-var fontXXL = fontXXS*8
+var fontXL  = fontXXS*8
+var fontXXL = fontXXS*11
 // var fontfamily = 'https://fonts.googleapis.com/css?family=Noto+Sans'
 // var font       = 'Noto Sans, sans-serif'
 var fontfamily = '/ubuntu.woff2'
@@ -2786,6 +2762,10 @@ html { box-sizing: border-box; display: table; min-width: 100%; margin: 0; }
 *, *:before, *:after { box-sizing: inherit; }
 body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }
 `
+let magic_font = new FontFace('Magic School One', 'url("https://fonts.cdnfonts.com/s/56374/MagicSchoolOne.woff")')
+document.fonts.add(magic_font)
+magic_font.load()
+
 var app = page()
   csjs`
     @font-face {
@@ -2819,19 +2799,9 @@ function page () {
   var testimonials = testimonialsComponent()
   var footer = footerComponent()
 
-  function template (data) {
-    return yo`
-      <div class=${css.page}>
-        ${header}
-        ${pitch}
-        ${portfolio}
-        ${call2action}
-        ${testimonials}
-        ${footer}
-      </div>
-    `
-  }
-  var el = template()
+  const el = document.createElement('div')
+  el.classList.add(css.page)
+  el.append(header, pitch, portfolio, call2action, testimonials, footer)
   return el
 }
 /********************************************************************
@@ -2860,10 +2830,13 @@ function headerComponent () {
       width: 400px;
     }
     .title {
+      font-family: 'Magic School One', sans-serif;
+      line-height: 0.8;
+      font-weight : 100;
       font-size   : ${fontXXL}px;
-      font-weight : 900;
       white-space : nowrap;
       color       : ${white};
+      margin-bottom: 20px;
     }
     .subtitle {
       font-size   : ${fontXXM}px;
@@ -2935,7 +2908,9 @@ function pitchComponent () {
     }
     .title {
       font-size         : ${fontXL}px;
-      font-weight       : 700;
+      font-family       : 'Magic School One', sans-serif;
+      line-height       : 0.8;
+      font-weight       : 100;
     }
     .description {
       padding           : 50px;
@@ -3125,7 +3100,9 @@ function portfolioComponent () {
       margin-top        : 50px;
       padding           : 5px;
       font-size         : ${fontXL}px;
-      font-weight       : 900;
+      font-family       : 'Magic School One', sans-serif;
+      line-height       : 0.8;
+      font-weight       : 100;
       color             : ${neonGreen};
     }
     .description {
@@ -3259,7 +3236,10 @@ function call2actionComponent () {
     }
     .title {
       font-size         : ${fontXL}px;
-      font-weight       : 700;
+      font-size         : ${fontXL}px;
+      font-family       : 'Magic School One', sans-serif;
+      line-height       : 0.8;
+      font-weight       : 100;
     }
     .description {
       padding           : 50px;
@@ -3566,7 +3546,7 @@ function footerComponent () {
   return el
 }
 
-},{"_logo":36,"_pixelate":37,"csjs-inject":5,"minixhr":27,"path":31,"yo-yo":33}],36:[function(require,module,exports){
+},{"_logo":35,"_pixelate":36,"csjs-inject":5,"path":30,"yo-yo":32}],35:[function(require,module,exports){
 var yo = require('yo-yo')
 module.exports = function (size, width, height) {
   /* ---------------------------------------------------
@@ -3631,7 +3611,7 @@ module.exports = function (size, width, height) {
   return yo`<svg viewbox="0 0 100 100" width=${width} height=${height} >${draw()}</svg>`
 }
 
-},{"yo-yo":33}],37:[function(require,module,exports){
+},{"yo-yo":32}],36:[function(require,module,exports){
 var yo = require('yo-yo')
 module.exports = function (a,b,c) {
   /* ---------------------------------------------------
@@ -3648,4 +3628,4 @@ module.exports = function (a,b,c) {
   return yo`<svg viewbox="0 0 100 100" width="500" height="500" >${draw()}</svg>`
 }
 
-},{"yo-yo":33}]},{},[35]);
+},{"yo-yo":32}]},{},[34]);

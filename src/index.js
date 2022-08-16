@@ -1,6 +1,5 @@
 var yo = require('yo-yo')
 var csjs = require('csjs-inject')
-var minixhr = require('minixhr')
 // var datauri = require('datauri')
 var pixelate = require('_pixelate')
 var logo = require('_logo')
@@ -27,8 +26,8 @@ var fontM   = fontXXS*2.0
 var fontXM  = fontXXS*2
 var fontXXM = fontXXS*2.2
 var fontL   = fontXXS*3
-var fontXL  = fontXXS*4.8
-var fontXXL = fontXXS*8
+var fontXL  = fontXXS*8
+var fontXXL = fontXXS*11
 // var fontfamily = 'https://fonts.googleapis.com/css?family=Noto+Sans'
 // var font       = 'Noto Sans, sans-serif'
 var fontfamily = '/ubuntu.woff2'
@@ -41,6 +40,10 @@ html { box-sizing: border-box; display: table; min-width: 100%; margin: 0; }
 *, *:before, *:after { box-sizing: inherit; }
 body { margin: 0; display: flex; flex-flow: column; min-height: 100vh; }
 `
+let magic_font = new FontFace('Magic School One', 'url("https://fonts.cdnfonts.com/s/56374/MagicSchoolOne.woff")')
+document.fonts.add(magic_font)
+magic_font.load()
+
 var app = page()
   csjs`
     @font-face {
@@ -74,19 +77,9 @@ function page () {
   var testimonials = testimonialsComponent()
   var footer = footerComponent()
 
-  function template (data) {
-    return yo`
-      <div class=${css.page}>
-        ${header}
-        ${pitch}
-        ${portfolio}
-        ${call2action}
-        ${testimonials}
-        ${footer}
-      </div>
-    `
-  }
-  var el = template()
+  const el = document.createElement('div')
+  el.classList.add(css.page)
+  el.append(header, pitch, portfolio, call2action, testimonials, footer)
   return el
 }
 /********************************************************************
@@ -115,10 +108,13 @@ function headerComponent () {
       width: 400px;
     }
     .title {
+      font-family: 'Magic School One', sans-serif;
+      line-height: 0.8;
+      font-weight : 100;
       font-size   : ${fontXXL}px;
-      font-weight : 900;
       white-space : nowrap;
       color       : ${white};
+      margin-bottom: 20px;
     }
     .subtitle {
       font-size   : ${fontXXM}px;
@@ -190,7 +186,9 @@ function pitchComponent () {
     }
     .title {
       font-size         : ${fontXL}px;
-      font-weight       : 700;
+      font-family       : 'Magic School One', sans-serif;
+      line-height       : 0.8;
+      font-weight       : 100;
     }
     .description {
       padding           : 50px;
@@ -380,7 +378,9 @@ function portfolioComponent () {
       margin-top        : 50px;
       padding           : 5px;
       font-size         : ${fontXL}px;
-      font-weight       : 900;
+      font-family       : 'Magic School One', sans-serif;
+      line-height       : 0.8;
+      font-weight       : 100;
       color             : ${neonGreen};
     }
     .description {
@@ -514,7 +514,10 @@ function call2actionComponent () {
     }
     .title {
       font-size         : ${fontXL}px;
-      font-weight       : 700;
+      font-size         : ${fontXL}px;
+      font-family       : 'Magic School One', sans-serif;
+      line-height       : 0.8;
+      font-weight       : 100;
     }
     .description {
       padding           : 50px;
