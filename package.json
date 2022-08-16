@@ -4,18 +4,16 @@
   "description": "WizardAmigos",
   "main": "src/index.js",
   "scripts": {
-    "watch": "watchify src/index.js  -p [ urify-emitter -l 100 -o public/browser -b public/browser ] --it urify -p [ browserify-livereload --host 127.0.0.1 --port 1337 ] -o public/browser/bundle.js",
-    "www": "ecstatic ./ -p 5000 -H 'Access-Control-Allow-Origin: *'",
-    "start": "npm run watch & npm run www",
-    "build": "browserify -t urify/transform src/index.js > public/browser/bundle.js",
-    "open": "opn http://0.0.0.0:5000/",
+    "start": "budo src/index.js:bundle.js --open --live",
+    "build": "browserify src/index.js > bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "@ninabreznik, @serapath",
+  "author": "wizardamigos",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^13.1.1",
+    "browserify": "^17.0.0",
     "browserify-livereload": "^1.0.10",
+    "budo": "^11.7.0",
     "ecstatic": "^2.2.1",
     "opn-cli": "^3.1.0",
     "urify-emitter": "^1.1.2",

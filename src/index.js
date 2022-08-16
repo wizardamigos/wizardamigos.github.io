@@ -4,58 +4,21 @@ var minixhr = require('minixhr')
 // var datauri = require('datauri')
 var pixelate = require('_pixelate')
 var logo = require('_logo')
-var datauri = require('datauri')
-
 var path = require('path')
-/********************************************************************
-  ASSETS
-********************************************************************/
-// var collaborate1 = urify(path.join(__dirname, '/assets/collaborate1.jpg'))
-// var growth1 = urify(path.join(__dirname, '/assets/growth1.jpg'))
-// var growth2 = urify(path.join(__dirname, '/assets/growth2.jpg'))
-// var growth3 = urify(path.join(__dirname, '/assets/growth3.jpg'))
-// var growth4 = urify(path.join(__dirname, '/assets/growth4.jpg'))
-// var growth5 = urify(path.join(__dirname, '/assets/growth5.jpg'))
-// var growth6 = urify(path.join(__dirname, '/assets/growth6.jpg'))
-// var growth7 = urify(path.join(__dirname, '/assets/growth7.jpg'))
-// var growth8 = urify(path.join(__dirname, '/assets/growth8.jpg'))
-// var work1 = urify(path.join(__dirname, '/assets/work1.jpg'))
-var wizardamigos1 = datauri(__dirname + '/assets/wizardamigos1.jpg')
-var wizardamigos2 = datauri(__dirname + '/assets/wizardamigos2.jpg')
-var wizardamigos3 = datauri(__dirname + '/assets/wizardamigos3.jpg')
-var wizardamigos4 = datauri(__dirname + '/assets/wizardamigos4.jpg')
-var wizardamigos5 = datauri(__dirname + '/assets/wizardamigos5.jpg')
-var wizardamigos6 = datauri(__dirname + '/assets/wizardamigos6.jpg')
-var wizardamigos7 = datauri(__dirname + '/assets/wizardamigos7.png')
-var wizardamigos8 = datauri(__dirname + '/assets/wizardamigos8.png')
-// var collaborate1 = datauri(__dirname + '/assets/collaborate1.jpg')
-// var growth1 = datauri(__dirname + '/assets/growth1.jpg')
-// var growth3 = datauri(__dirname + '/assets/growth3.jpg')
-// var growth4 = datauri(__dirname + '/assets/growth4.jpg')
-// var growth5 = datauri(__dirname + '/assets/growth5.jpg')
-// var growth6 = datauri(__dirname + '/assets/growth6.jpg')
-// var growth7 = datauri(__dirname + '/assets/growth7.jpg')
-// var growth8 = datauri(__dirname + '/assets/growth8.jpg')
+
 /********************************************************************
   THEME
 ********************************************************************/
-// WIZARD COLORS
-var dB = '#43409a' // darkBlue
-var b  = '#3022bb' // blue
-var lB = '#6f68ae' // lightBlue
-var lP = '#f989ff' // lightPink
-var dP = '#730d61' // darkPink
-var B  = '#080707' // black
-var g  = '#2e3f41' // grey
-var sY = '#f7da8b' // skinYellow
-var W  = '#ffffff' // white
-var t  = 'rgba(255, 255, 255, .0)'
+
 // WEBSITE COLORS
-var violet       = '#331e38'
-var grey         = '#a0c1b9'
-var blue         = '#70a0af'
-var lightYellow  = '#f4e8c1'
-var yellow       = '#ffee33'
+var violet       = '#4539c5'
+var pink         = '#f1a0ff'
+var grey         = '#a9a8a8'
+var blue         = '#7f70f7'
+var lightYellow  = '#f8de96'
+var yellow       = '#f5bb71'
+var neonGreen    = '#4efc51'
+var white        = '#ffffff'
 // FONTS
 var fontXXS = '10'
 var fontXS  = fontXXS*1.3
@@ -64,13 +27,11 @@ var fontM   = fontXXS*2.0
 var fontXM  = fontXXS*2
 var fontXXM = fontXXS*2.2
 var fontL   = fontXXS*3
-var fontXL  = fontXXS*3.8
-var fontXXL = fontXXS*6
-// var banner     = 'https://user-assets.sharetribe.com/images/communities/cover_photos/31747/hd_header/conference_1.jpg?1476102178'
-var banner     = wizardamigos2
+var fontXL  = fontXXS*4.8
+var fontXXL = fontXXS*8
 // var fontfamily = 'https://fonts.googleapis.com/css?family=Noto+Sans'
 // var font       = 'Noto Sans, sans-serif'
-var fontfamily = datauri(__dirname + '/ubuntu.woff2')
+var fontfamily = '/ubuntu.woff2'
 var font       = 'Ubuntu, sans-serif'
 /********************************************************************
   INIT
@@ -135,7 +96,6 @@ function headerComponent () {
   var css = csjs`
     .header {
       width               : 100%;
-      height              : 70vmin;
       background-color    : ${violet};
       background-size     : cover;
       background-repeat   : no-repeat;
@@ -144,22 +104,27 @@ function headerComponent () {
       align-items         : center;
       justify-content     : center;
       flex-direction      : column;
+      transition          : all 0.5s ease;
+      padding             : 50px;
     }
     .header:hover {
       opacity             : 0.9;
       transition          : all 0.5s ease;
     }
+    .logo {
+      width: 400px;
+    }
     .title {
       font-size   : ${fontXXL}px;
       font-weight : 900;
       white-space : nowrap;
-      color       : ${W};
+      color       : ${white};
     }
     .subtitle {
       font-size   : ${fontXXM}px;
       font-weight : 600;
       white-space : nowrap;
-      color       : ${W};
+      color       : ${white};
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -199,19 +164,13 @@ function headerComponent () {
       }
     }
   `
-  // var search = searchComponent()
-  // ${search}
-  function template (data) {
-    var wizardLogo = logo(5,200,200)
-    return yo`
-      <div class=${css.header}>
-        ${wizardLogo}
-        <div class=${css.title}>Wizard Amigos</div>
-        <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
-      </div>
-    `
-  }
-  var el = template()
+  const el = document.createElement('div')
+  el.classList.add(css.header)
+  el.innerHTML = `
+  <div class=${css.title}>Wizard Amigos</div>
+  <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
+  <img class=${css.logo} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---WIZARD-DUO---TRANSPARENT---2022.png?raw=true'></img>
+  ` 
   return el
 }
 /********************************************************************
@@ -220,20 +179,21 @@ function headerComponent () {
 function pitchComponent () {
   var css = csjs`
     .pitch {
+      padding           : 50px;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
       align-items       : center;
-      padding-top       : 50px;
-      padding-bottom    : 50px;
       width             : 100%;
+      background-color  : ${neonGreen};
+      color             : ${violet};
     }
     .title {
       font-size         : ${fontXL}px;
       font-weight       : 700;
     }
     .description {
-      padding           : 10px;
+      padding           : 50px;
       font-size         : ${fontXXM}px;
       font-weight       : 700;
     }
@@ -246,27 +206,30 @@ function pitchComponent () {
       width             : 100%;
     }
     .subtitle {
-      font-size         : ${fontXXM}px;
+      font-size         : ${fontL}px;
       text-align        : center;
     }
     .subdescription {
       margin-top        : 15px;
       font-size         : ${fontS}px;
       text-align        : center;
+      line-height       : 1.4rem;
     }
     .subdescription a {
       cursor            : pointer;
       text-decoration   : underline;
       color             : ${blue};
+      transition        : all 0.5s ease;
     }
     .subdescription a:hover {
       opacity           : 0.8;
+      transition          : all 0.5s ease;
     }
     .step {
       display           : flex;
       flex-direction    : column;
       width             : 30%;
-      margin            : 5px;
+      margin            : 35px;
     }
     .icon1 {
       align-self        : center;
@@ -351,7 +314,7 @@ function pitchComponent () {
             </div>
             <div class=${css.subdescription}>
               We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
-              <a href='https://wizardamigos.com/workshop_app/'>Try it out, it's fun.</a>
+              <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists' target='_blank'>Try it out, it's fun.</a>
             </div>
           </div>
           <div class=${css.step}>
@@ -367,7 +330,7 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local <a href='https://www.meetup.com/codingamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+              Visit a local <a href='https://www.meetup.com/wizardamigos' target='_blank'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
               in your neighbourhood, you can start organizing one yourself.
             </div>
           </div>
@@ -411,29 +374,25 @@ function portfolioComponent () {
       flex-direction    : column;
       align-items       : center;
       width             : 100%;
-      background-color  : ${blue};
+      background-color  : ${violet};
     }
     .title {
       margin-top        : 50px;
       padding           : 5px;
       font-size         : ${fontXL}px;
       font-weight       : 900;
-      color             : ${lightYellow};
+      color             : ${neonGreen};
     }
     .description {
-      padding           : 40px;
-      font-size         : ${fontXM}px;
-      font-weight       : 500;
-      color             : ${lightYellow};
+      padding           : 50px;
+      width             : 50%;
+      font-size         : ${fontM}px;
+      font-weight       : 700;
+      color             : ${neonGreen};
       text-align        : center;
     }
-    .categories {
-      margin            : 50px;
-      display           : flex;
-      width             : 90%;
-      height            : 430px;
-      flex-direction    : row;
-      justify-content   : center;
+    .image {
+      width             : 250px;
     }
     .card {
       flex-grow           : 1;
@@ -443,20 +402,22 @@ function portfolioComponent () {
       background-size     : cover;
       background-repeat   : no-repeat;
       background-position : center;
-      color               : ${lightYellow};
       text-decoration     : none;
-      font-size           : ${fontL}px;
+      color               : ${yellow};
+      opacity             : 0.9;
+      font-size           : ${fontXXL}px;
+      color               : ${pink};
       font-weight         : 900;
       text-shadow:
-       -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-         1px 1px 0 #000;
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
       transition          : all 0.5s ease;
     }
     .card_hover {
       position            : relative;
-      color               : ${blue};
+      color               : ${neonGreen};
     }
     .card_hover::after {
       position            : absolute;
@@ -465,27 +426,27 @@ function portfolioComponent () {
       left                : 0;
       width               : 100%;
       height              : 100%;
-      background-color    : ${lightYellow};
-      opacity             : .3;
+      opacity             : 1;
     }
     .button {
       display             : flex;
       align-items         : center;
-      background-color    : ${lightYellow};
-      color               : ${blue};
+      background-color    : ${pink};
+      color               : ${neonGreen};
       justify-content     : center;
       margin-bottom       : 40px;
       padding             : 20px;
       font-size           : ${fontS}px;
       font-weight         : 700;
-      width               : 150px;
+      min-width           : 150px;
       border-radius       : 50px;
       text-decoration     : none;
       transition          : all 0.5s ease;
     }
     .button:hover {
-      background-color    : ${violet};
-      color               : ${lightYellow};
+      background-color    : ${neonGreen};
+      color               : ${violet};
+      transition          : all 0.5s ease;
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -500,8 +461,8 @@ function portfolioComponent () {
       }
     }
     @media only screen and (max-width: 768px) {
-      .categories {
-        flex-direction    : column;
+      .image {
+        width            : 200px;
       }
     }
     @media only screen and (max-width: 660px) {
@@ -519,28 +480,21 @@ function portfolioComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    function hover () { this.classList.toggle(css.card_hover) }
-    return yo`
-      <div class=${css.portfolio}>
-        <div class=${css.title}>
-          Get started
-        </div>
-        <div class=${css.description}>
-          Programming is the new literacy. Learn it together with transparent, open minded,
-          science loving, diverse and nomadic community of individuals with activist streak.
-          You can do it on your own or at a code camp nearby.
-        </div>
-        <div class=${css.categories}>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="https://wizardamigos.com/workshop_app/">
-            E-learning app
-          </a>
-        </div>
-        <a class=${css.button} href="https://gitter.im/wizardamigosinstitute/program">Chat</a>
+  function hover () { this.classList.toggle(css.card_hover) }
+  const el = document.createElement('div')
+  el.classList.add(css.portfolio)
+  el.innerHTML = `
+      <div class=${css.title}>
+        Wizard magic
       </div>
-    `
-  }
-  var el = template()
+      <div class=${css.description}>
+        Programming is the new literacy. Learn it together with transparent, open minded,
+        science loving, diverse and nomadic community of individuals with activist streak.
+        You can do it on your own or at a code camp nearby.
+      </div>
+      <img class=${css.image} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard%20Amigos%20-%20Stickers%20-%20WIZARD%20BALL%20-%20CIRCLE%20-%202022.png?raw=true'></img>
+      <a class=${css.button} href="https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists" target='_blank'>Start learning</a>
+  `
   return el
 }
 /********************************************************************
@@ -549,20 +503,21 @@ function portfolioComponent () {
 function call2actionComponent () {
   var css = csjs`
     .call2action {
-      padding-top       : 30px;
+      padding           : 50px;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
       align-items       : center;
-      width             : 90%;
-      padding-bottom    : 30px;
+      width             : 100%;
+      background-color  : ${pink};
+      color             : ${violet};
     }
     .title {
       font-size         : ${fontXL}px;
       font-weight       : 700;
     }
     .description {
-      padding           : 10px;
+      padding           : 50px;
       font-size         : ${fontXXM}px;
       font-weight       : 700;
       text-align        : center;
@@ -599,7 +554,7 @@ function call2actionComponent () {
       margin-top          : 15px;
       padding             : 20px;
       background-color    : ${blue};
-      color               : ${lightYellow};
+      color               : ${neonGreen};
       font-size           : ${fontXS}px;
       font-weight         : 700;
       width               : 150px;
@@ -608,8 +563,9 @@ function call2actionComponent () {
       transition          : all 0.5s ease;
     }
     .button:hover a {
-      background-color    : ${lightYellow};
+      background-color    : ${neonGreen};
       color               : ${violet};
+      transition          : all 0.5s ease;
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -647,7 +603,7 @@ function call2actionComponent () {
     return yo`
       <div class=${css.call2action}>
         <div class=${css.title}>
-          Why join Wizard Amigos?
+          Why should you join Wizard Amigos?
         </div>
         <div class=${css.description}>
           Our aim is to give tools and community to everyone who wants to better
@@ -659,15 +615,15 @@ function call2actionComponent () {
         <div class=${css.calls}>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              ARE YOU A BEGINNER
+              WHO ARE WE
             </div>
             <div class=${css.subdescription}>
-              WizardAmigos free e-learning app is built exactly for you. Our learners come from very different backgrounds - from journalists,
+              WizardAmigos learners come from very different backgrounds - from journalists,
               translators, biologists, physicists to activists, students and many other backgrounds. What we have in common? We are interested in technology, we
               love to travel and we want to work remote.
             </div>
             <div class=${css.button}>
-              <a href='https://www.facebook.com/groups/369246343421803/'>Join us</a>
+              <a href='https://discord.gg/8FzZPHkp44' target='_blank'>Join us</a>
             </div>
           </div>
           <div class=${css.action}>
@@ -679,7 +635,7 @@ function call2actionComponent () {
               more transparency, less discrimination and better collaboration within our society.
             </div>
             <div class=${css.button}>
-            <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md'>Skill tree</a>
+            <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md' target='_blank'>Skill tree</a>
             </div>
           </div>
       </div>
@@ -687,6 +643,10 @@ function call2actionComponent () {
   }
   var el = template()
   return el
+
+  function open_chat () {
+    window.open('https://discord.gg/8FzZPHkp44')
+  }
 }
 /********************************************************************
   TESTIMONIALS COMPONENT
@@ -694,39 +654,38 @@ function call2actionComponent () {
 function testimonialsComponent () {
   var css = csjs`
     .testimonials {
+      padding             : 50px;
       flex-grow           : 1;
       display             : flex;
       flex-direction      : column;
       align-items         : center;
       justify-content     : center;
       width               : 100%;
-      height              : 500px;
-      background-image    : url(${wizardamigos7});
+      background-image    : url('/assets/wizardamigos7.png');
       background-size     : cover;
       background-repeat   : no-repeat;
       background-position : center;
+      background-color    : ${yellow};
     }
     .quote {
-      padding             : 25%;
+      width               : 50%;
       text-align          : center;
+      font-size           : ${fontL}px;
+      font-weight         : 700;
+      color               : ${lightYellow};
+    }
+    .nomad {
+      width               : 350px;
+    }
+    .author a {
       font-size           : ${fontM}px;
       font-weight         : 900;
-      color               : ${lightYellow};
-      text-shadow:
-       -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-         1px 1px 0 #000;
+      text-decoration     : underline;
+      color               : ${violet};
     }
-    .author {
-      font-size           : ${fontS}px;
-      font-weight         : 900;
-      color               : ${lightYellow};
-      text-shadow:
-       -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-         1px 1px 0 #000;
+    .author a:hover {
+      cursor              : pointer;
+      color               : ${white};
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -757,19 +716,20 @@ function testimonialsComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    return yo`
-      <div class=${css.testimonials}>
-        <div class=${css.quote}>
-          We are a commmunity of self employed nomadic developers who collaborate
-          on projects, share skills and build awesome products and services.
-        </div>
-        <div class=${css.author}>
-        </div>
+  const el = document.createElement('div')
+  el.classList.add(css.testimonials)
+  el.innerHTML = `
+    <div class=${css.testimonials}>
+      <div class=${css.quote}>
+        We are a commmunity of self employed nomadic developers who collaborate
+        on projects, share skills and build awesome products and services.
       </div>
-    `
-  }
-  var el = template()
+      <img class=${css.nomad} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---CAT-NOMAD---TRANSPARENT---2022.png?raw=true'></img>
+      <div class=${css.author}>
+        <a href='https://wizardamigos.com/codecamp2022/' target='_blank'> Check out also our Code Camp in Wales. It is happening from Sep 26 until Oct 10 2022 </a>
+      </div>
+    </div>
+  `
   return el
 }
 /********************************************************************
@@ -828,7 +788,7 @@ function footerComponent () {
     return yo`
       <div class=${css.footer}>
         <div class=${css.socialmedia}>
-          <a href="https://www.facebook.com/groups/369246343421803/" class=${css.iconFacebook}>
+          <a href="https://www.facebook.com/groups/369246343421803/" target='_blank' class=${css.iconFacebook}>
             <svg viewBox="-1 -1 114 114">
               <g>
               	<circle style="fill:#3B5998;" cx="56.098" cy="56.098" r="56.098"/>
@@ -836,12 +796,12 @@ function footerComponent () {
               </g>
             </svg>
           </a>
-          <a href="https://twitter.com/wizardamigos" class=${css.iconTwitter}>
+          <a href="https://twitter.com/wizardamigos" target='_blank' class=${css.iconTwitter}>
             <svg viewBox="-1 -1 412 412">
               <path style="fill:#76A9EA;" d="M403.632,74.18c-9.113,4.041-18.573,7.229-28.28,9.537c10.696-10.164,18.738-22.877,23.275-37.067  l0,0c1.295-4.051-3.105-7.554-6.763-5.385l0,0c-13.504,8.01-28.05,14.019-43.235,17.862c-0.881,0.223-1.79,0.336-2.702,0.336  c-2.766,0-5.455-1.027-7.57-2.891c-16.156-14.239-36.935-22.081-58.508-22.081c-9.335,0-18.76,1.455-28.014,4.325  c-28.672,8.893-50.795,32.544-57.736,61.724c-2.604,10.945-3.309,21.9-2.097,32.56c0.139,1.225-0.44,2.08-0.797,2.481  c-0.627,0.703-1.516,1.106-2.439,1.106c-0.103,0-0.209-0.005-0.314-0.015c-62.762-5.831-119.358-36.068-159.363-85.14l0,0  c-2.04-2.503-5.952-2.196-7.578,0.593l0,0C13.677,65.565,9.537,80.937,9.537,96.579c0,23.972,9.631,46.563,26.36,63.032  c-7.035-1.668-13.844-4.295-20.169-7.808l0,0c-3.06-1.7-6.825,0.485-6.868,3.985l0,0c-0.438,35.612,20.412,67.3,51.646,81.569  c-0.629,0.015-1.258,0.022-1.888,0.022c-4.951,0-9.964-0.478-14.898-1.421l0,0c-3.446-0.658-6.341,2.611-5.271,5.952l0,0  c10.138,31.651,37.39,54.981,70.002,60.278c-27.066,18.169-58.585,27.753-91.39,27.753l-10.227-0.006  c-3.151,0-5.816,2.054-6.619,5.106c-0.791,3.006,0.666,6.177,3.353,7.74c36.966,21.513,79.131,32.883,121.955,32.883  c37.485,0,72.549-7.439,104.219-22.109c29.033-13.449,54.689-32.674,76.255-57.141c20.09-22.792,35.8-49.103,46.692-78.201  c10.383-27.737,15.871-57.333,15.871-85.589v-1.346c-0.001-4.537,2.051-8.806,5.631-11.712c13.585-11.03,25.415-24.014,35.16-38.591  l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"/>
             </svg>
           </a>
-          <a href="https://gitter.im/wizardamigosinstitute/program" class=${css.iconMail}>
+          <a href="https://discord.gg/8FzZPHkp44" target='_blank' class=${css.iconMail}>
             <svg viewBox="-1 -1 553 553">
             	<g>
             		<path style="fill:#76A9EA;" d="M501.613,491.782c12.381,0,23.109-4.088,32.229-12.16L377.793,323.567c-3.744,2.681-7.373,5.288-10.801,7.767    c-11.678,8.604-21.156,15.318-28.434,20.129c-7.277,4.822-16.959,9.737-29.045,14.755c-12.094,5.024-23.361,7.528-33.813,7.528    h-0.306h-0.306c-10.453,0-21.72-2.503-33.813-7.528c-12.093-5.018-21.775-9.933-29.045-14.755    c-7.277-4.811-16.75-11.524-28.434-20.129c-3.256-2.387-6.867-5.006-10.771-7.809L16.946,479.622    c9.119,8.072,19.854,12.16,32.234,12.16H501.613z"/>

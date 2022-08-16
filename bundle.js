@@ -1,18 +1,3 @@
-(function () {
-  var socket = document.createElement('script')
-  var script = document.createElement('script')
-  socket.setAttribute('src', 'http://127.0.0.1:1337/socket.io/socket.io.js')
-  script.type = 'text/javascript'
-
-  socket.onload = function () {
-    document.head.appendChild(script)
-  }
-  script.text = ['window.socket = io("http://127.0.0.1:1337");',
-  'socket.on("bundle", function() {',
-  'console.log("livereaload triggered")',
-  'window.location.reload();});'].join('\n')
-  document.head.appendChild(socket)
-}());
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var document = require('global/document')
 var hyperx = require('hyperx')
@@ -1958,8 +1943,8 @@ function eachMutation (nodes, fn) {
 
 },{"assert":29,"global/document":22,"global/window":23}],31:[function(require,module,exports){
 (function (process){(function (){
-// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
-// backported and transplited with Babel, with backwards-compat fixes
+// 'path' module extracted from Node.js v8.11.1 (only the posix part)
+// transplited with Babel
 
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1982,284 +1967,511 @@ function eachMutation (nodes, fn) {
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
+'use strict';
 
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
+function assertPath(path) {
+  if (typeof path !== 'string') {
+    throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
   }
-
-  return parts;
 }
 
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
+// Resolves . and .. elements in a path with directory names
+function normalizeStringPosix(path, allowAboveRoot) {
+  var res = '';
+  var lastSegmentLength = 0;
+  var lastSlash = -1;
+  var dots = 0;
+  var code;
+  for (var i = 0; i <= path.length; ++i) {
+    if (i < path.length)
+      code = path.charCodeAt(i);
+    else if (code === 47 /*/*/)
       break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  if (path.length === 0) return '.';
-  var code = path.charCodeAt(0);
-  var hasRoot = code === 47 /*/*/;
-  var end = -1;
-  var matchedSlash = true;
-  for (var i = path.length - 1; i >= 1; --i) {
-    code = path.charCodeAt(i);
+    else
+      code = 47 /*/*/;
     if (code === 47 /*/*/) {
-        if (!matchedSlash) {
-          end = i;
-          break;
+      if (lastSlash === i - 1 || dots === 1) {
+        // NOOP
+      } else if (lastSlash !== i - 1 && dots === 2) {
+        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
+          if (res.length > 2) {
+            var lastSlashIndex = res.lastIndexOf('/');
+            if (lastSlashIndex !== res.length - 1) {
+              if (lastSlashIndex === -1) {
+                res = '';
+                lastSegmentLength = 0;
+              } else {
+                res = res.slice(0, lastSlashIndex);
+                lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
+              }
+              lastSlash = i;
+              dots = 0;
+              continue;
+            }
+          } else if (res.length === 2 || res.length === 1) {
+            res = '';
+            lastSegmentLength = 0;
+            lastSlash = i;
+            dots = 0;
+            continue;
+          }
+        }
+        if (allowAboveRoot) {
+          if (res.length > 0)
+            res += '/..';
+          else
+            res = '..';
+          lastSegmentLength = 2;
         }
       } else {
-      // We saw the first non-path separator
-      matchedSlash = false;
+        if (res.length > 0)
+          res += '/' + path.slice(lastSlash + 1, i);
+        else
+          res = path.slice(lastSlash + 1, i);
+        lastSegmentLength = i - lastSlash - 1;
+      }
+      lastSlash = i;
+      dots = 0;
+    } else if (code === 46 /*.*/ && dots !== -1) {
+      ++dots;
+    } else {
+      dots = -1;
     }
   }
-
-  if (end === -1) return hasRoot ? '/' : '.';
-  if (hasRoot && end === 1) {
-    // return '//';
-    // Backwards-compat fix:
-    return '/';
-  }
-  return path.slice(0, end);
-};
-
-function basename(path) {
-  if (typeof path !== 'string') path = path + '';
-
-  var start = 0;
-  var end = -1;
-  var matchedSlash = true;
-  var i;
-
-  for (i = path.length - 1; i >= 0; --i) {
-    if (path.charCodeAt(i) === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          start = i + 1;
-          break;
-        }
-      } else if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // path component
-      matchedSlash = false;
-      end = i + 1;
-    }
-  }
-
-  if (end === -1) return '';
-  return path.slice(start, end);
+  return res;
 }
 
-// Uses a mixed approach for backwards-compatibility, as ext behavior changed
-// in new Node.js versions, so only basename() above is backported here
-exports.basename = function (path, ext) {
-  var f = basename(path);
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
+function _format(sep, pathObject) {
+  var dir = pathObject.dir || pathObject.root;
+  var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
+  if (!dir) {
+    return base;
   }
-  return f;
-};
+  if (dir === pathObject.root) {
+    return dir + base;
+  }
+  return dir + sep + base;
+}
 
-exports.extname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  var startDot = -1;
-  var startPart = 0;
-  var end = -1;
-  var matchedSlash = true;
-  // Track the state of characters (if any) we see before our first dot and
-  // after any path separator we find
-  var preDotState = 0;
-  for (var i = path.length - 1; i >= 0; --i) {
-    var code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          startPart = i + 1;
-          break;
-        }
+var posix = {
+  // path.resolve([from ...], to)
+  resolve: function resolve() {
+    var resolvedPath = '';
+    var resolvedAbsolute = false;
+    var cwd;
+
+    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      var path;
+      if (i >= 0)
+        path = arguments[i];
+      else {
+        if (cwd === undefined)
+          cwd = process.cwd();
+        path = cwd;
+      }
+
+      assertPath(path);
+
+      // Skip empty entries
+      if (path.length === 0) {
         continue;
       }
-    if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // extension
-      matchedSlash = false;
-      end = i + 1;
-    }
-    if (code === 46 /*.*/) {
-        // If this is our first dot, mark it as the start of our extension
-        if (startDot === -1)
-          startDot = i;
-        else if (preDotState !== 1)
-          preDotState = 1;
-    } else if (startDot !== -1) {
-      // We saw a non-dot and non-path separator before our dot, so we should
-      // have a good chance at having a non-empty extension
-      preDotState = -1;
-    }
-  }
 
-  if (startDot === -1 || end === -1 ||
-      // We saw a non-dot character immediately before the dot
-      preDotState === 0 ||
-      // The (right-most) trimmed path component is exactly '..'
-      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-    return '';
-  }
-  return path.slice(startDot, end);
+      resolvedPath = path + '/' + resolvedPath;
+      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    }
+
+    // At this point the path should be resolved to a full absolute path, but
+    // handle relative paths to be safe (might happen when process.cwd() fails)
+
+    // Normalize the path
+    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
+
+    if (resolvedAbsolute) {
+      if (resolvedPath.length > 0)
+        return '/' + resolvedPath;
+      else
+        return '/';
+    } else if (resolvedPath.length > 0) {
+      return resolvedPath;
+    } else {
+      return '.';
+    }
+  },
+
+  normalize: function normalize(path) {
+    assertPath(path);
+
+    if (path.length === 0) return '.';
+
+    var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
+
+    // Normalize the path
+    path = normalizeStringPosix(path, !isAbsolute);
+
+    if (path.length === 0 && !isAbsolute) path = '.';
+    if (path.length > 0 && trailingSeparator) path += '/';
+
+    if (isAbsolute) return '/' + path;
+    return path;
+  },
+
+  isAbsolute: function isAbsolute(path) {
+    assertPath(path);
+    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
+  },
+
+  join: function join() {
+    if (arguments.length === 0)
+      return '.';
+    var joined;
+    for (var i = 0; i < arguments.length; ++i) {
+      var arg = arguments[i];
+      assertPath(arg);
+      if (arg.length > 0) {
+        if (joined === undefined)
+          joined = arg;
+        else
+          joined += '/' + arg;
+      }
+    }
+    if (joined === undefined)
+      return '.';
+    return posix.normalize(joined);
+  },
+
+  relative: function relative(from, to) {
+    assertPath(from);
+    assertPath(to);
+
+    if (from === to) return '';
+
+    from = posix.resolve(from);
+    to = posix.resolve(to);
+
+    if (from === to) return '';
+
+    // Trim any leading backslashes
+    var fromStart = 1;
+    for (; fromStart < from.length; ++fromStart) {
+      if (from.charCodeAt(fromStart) !== 47 /*/*/)
+        break;
+    }
+    var fromEnd = from.length;
+    var fromLen = fromEnd - fromStart;
+
+    // Trim any leading backslashes
+    var toStart = 1;
+    for (; toStart < to.length; ++toStart) {
+      if (to.charCodeAt(toStart) !== 47 /*/*/)
+        break;
+    }
+    var toEnd = to.length;
+    var toLen = toEnd - toStart;
+
+    // Compare paths to find the longest common path from root
+    var length = fromLen < toLen ? fromLen : toLen;
+    var lastCommonSep = -1;
+    var i = 0;
+    for (; i <= length; ++i) {
+      if (i === length) {
+        if (toLen > length) {
+          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
+            // We get here if `from` is the exact base path for `to`.
+            // For example: from='/foo/bar'; to='/foo/bar/baz'
+            return to.slice(toStart + i + 1);
+          } else if (i === 0) {
+            // We get here if `from` is the root
+            // For example: from='/'; to='/foo'
+            return to.slice(toStart + i);
+          }
+        } else if (fromLen > length) {
+          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
+            // We get here if `to` is the exact base path for `from`.
+            // For example: from='/foo/bar/baz'; to='/foo/bar'
+            lastCommonSep = i;
+          } else if (i === 0) {
+            // We get here if `to` is the root.
+            // For example: from='/foo'; to='/'
+            lastCommonSep = 0;
+          }
+        }
+        break;
+      }
+      var fromCode = from.charCodeAt(fromStart + i);
+      var toCode = to.charCodeAt(toStart + i);
+      if (fromCode !== toCode)
+        break;
+      else if (fromCode === 47 /*/*/)
+        lastCommonSep = i;
+    }
+
+    var out = '';
+    // Generate the relative path based on the path difference between `to`
+    // and `from`
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
+        if (out.length === 0)
+          out += '..';
+        else
+          out += '/..';
+      }
+    }
+
+    // Lastly, append the rest of the destination (`to`) path that comes after
+    // the common path parts
+    if (out.length > 0)
+      return out + to.slice(toStart + lastCommonSep);
+    else {
+      toStart += lastCommonSep;
+      if (to.charCodeAt(toStart) === 47 /*/*/)
+        ++toStart;
+      return to.slice(toStart);
+    }
+  },
+
+  _makeLong: function _makeLong(path) {
+    return path;
+  },
+
+  dirname: function dirname(path) {
+    assertPath(path);
+    if (path.length === 0) return '.';
+    var code = path.charCodeAt(0);
+    var hasRoot = code === 47 /*/*/;
+    var end = -1;
+    var matchedSlash = true;
+    for (var i = path.length - 1; i >= 1; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          if (!matchedSlash) {
+            end = i;
+            break;
+          }
+        } else {
+        // We saw the first non-path separator
+        matchedSlash = false;
+      }
+    }
+
+    if (end === -1) return hasRoot ? '/' : '.';
+    if (hasRoot && end === 1) return '//';
+    return path.slice(0, end);
+  },
+
+  basename: function basename(path, ext) {
+    if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
+    assertPath(path);
+
+    var start = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i;
+
+    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+      if (ext.length === path.length && ext === path) return '';
+      var extIdx = ext.length - 1;
+      var firstNonSlashEnd = -1;
+      for (i = path.length - 1; i >= 0; --i) {
+        var code = path.charCodeAt(i);
+        if (code === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else {
+          if (firstNonSlashEnd === -1) {
+            // We saw the first non-path separator, remember this index in case
+            // we need it if the extension ends up not matching
+            matchedSlash = false;
+            firstNonSlashEnd = i + 1;
+          }
+          if (extIdx >= 0) {
+            // Try to match the explicit extension
+            if (code === ext.charCodeAt(extIdx)) {
+              if (--extIdx === -1) {
+                // We matched the extension, so mark this as the end of our path
+                // component
+                end = i;
+              }
+            } else {
+              // Extension does not match, so our result is the entire path
+              // component
+              extIdx = -1;
+              end = firstNonSlashEnd;
+            }
+          }
+        }
+      }
+
+      if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
+      return path.slice(start, end);
+    } else {
+      for (i = path.length - 1; i >= 0; --i) {
+        if (path.charCodeAt(i) === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else if (end === -1) {
+          // We saw the first non-path separator, mark this as the end of our
+          // path component
+          matchedSlash = false;
+          end = i + 1;
+        }
+      }
+
+      if (end === -1) return '';
+      return path.slice(start, end);
+    }
+  },
+
+  extname: function extname(path) {
+    assertPath(path);
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+    for (var i = path.length - 1; i >= 0; --i) {
+      var code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1)
+            startDot = i;
+          else if (preDotState !== 1)
+            preDotState = 1;
+      } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+        // We saw a non-dot character immediately before the dot
+        preDotState === 0 ||
+        // The (right-most) trimmed path component is exactly '..'
+        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      return '';
+    }
+    return path.slice(startDot, end);
+  },
+
+  format: function format(pathObject) {
+    if (pathObject === null || typeof pathObject !== 'object') {
+      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
+    }
+    return _format('/', pathObject);
+  },
+
+  parse: function parse(path) {
+    assertPath(path);
+
+    var ret = { root: '', dir: '', base: '', ext: '', name: '' };
+    if (path.length === 0) return ret;
+    var code = path.charCodeAt(0);
+    var isAbsolute = code === 47 /*/*/;
+    var start;
+    if (isAbsolute) {
+      ret.root = '/';
+      start = 1;
+    } else {
+      start = 0;
+    }
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i = path.length - 1;
+
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+
+    // Get non-dir info
+    for (; i >= start; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
+        } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      if (end !== -1) {
+        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
+      }
+    } else {
+      if (startPart === 0 && isAbsolute) {
+        ret.name = path.slice(1, startDot);
+        ret.base = path.slice(1, end);
+      } else {
+        ret.name = path.slice(startPart, startDot);
+        ret.base = path.slice(startPart, end);
+      }
+      ret.ext = path.slice(startDot, end);
+    }
+
+    if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
+
+    return ret;
+  },
+
+  sep: '/',
+  delimiter: ':',
+  win32: null,
+  posix: null
 };
 
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
+posix.posix = posix;
 
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
+module.exports = posix;
 
 }).call(this)}).call(this,require('_process'))
 },{"_process":32}],32:[function(require,module,exports){
@@ -2537,52 +2749,12 @@ var minixhr = require('minixhr')
 // var datauri = require('datauri')
 var pixelate = require('_pixelate')
 var logo = require('_logo')
-
-
 var path = require('path')
-/********************************************************************
-  ASSETS
-********************************************************************/
-// var collaborate1 = urify(path.join(__dirname, '/assets/collaborate1.jpg'))
-// var growth1 = urify(path.join(__dirname, '/assets/growth1.jpg'))
-// var growth2 = urify(path.join(__dirname, '/assets/growth2.jpg'))
-// var growth3 = urify(path.join(__dirname, '/assets/growth3.jpg'))
-// var growth4 = urify(path.join(__dirname, '/assets/growth4.jpg'))
-// var growth5 = urify(path.join(__dirname, '/assets/growth5.jpg'))
-// var growth6 = urify(path.join(__dirname, '/assets/growth6.jpg'))
-// var growth7 = urify(path.join(__dirname, '/assets/growth7.jpg'))
-// var growth8 = urify(path.join(__dirname, '/assets/growth8.jpg'))
-// var work1 = urify(path.join(__dirname, '/assets/work1.jpg'))
-var wizardamigos1 = 'public/browser/65eb07fd37b54e66eff6c62590cdd840.jpg'
-var wizardamigos2 = 'public/browser/8eee7681690661b522aafb9038295ded.jpg'
-var wizardamigos3 = 'public/browser/bac4cee1985064d9c1e1a0fd8bfa9010.jpg'
-var wizardamigos4 = 'public/browser/92255389c7b28997acb9ae880f4ea5d3.jpg'
-var wizardamigos5 = 'public/browser/f2c8f761ce19a29ab3ca62639b34ff27.jpg'
-var wizardamigos6 = 'public/browser/1c868aca01887b7044d57c753c0d9de6.jpg'
-var wizardamigos7 = 'public/browser/d42048c886c0784722814eebe93d1e76.png'
-var wizardamigos8 = 'public/browser/faa6c888638a934f24de37fdda3fd0f7.png'
-// var collaborate1 = datauri(__dirname + '/assets/collaborate1.jpg')
-// var growth1 = datauri(__dirname + '/assets/growth1.jpg')
-// var growth3 = datauri(__dirname + '/assets/growth3.jpg')
-// var growth4 = datauri(__dirname + '/assets/growth4.jpg')
-// var growth5 = datauri(__dirname + '/assets/growth5.jpg')
-// var growth6 = datauri(__dirname + '/assets/growth6.jpg')
-// var growth7 = datauri(__dirname + '/assets/growth7.jpg')
-// var growth8 = datauri(__dirname + '/assets/growth8.jpg')
+
 /********************************************************************
   THEME
 ********************************************************************/
-// WIZARD COLORS
-var dB = '#43409a' // darkBlue
-var b  = '#3022bb' // blue
-var lB = '#6f68ae' // lightBlue
-var lP = '#f989ff' // lightPink
-var dP = '#730d61' // darkPink
-var B  = '#080707' // black
-var g  = '#2e3f41' // grey
-var sY = '#f7da8b' // skinYellow
-var W  = '#ffffff' // white
-var t  = 'rgba(255, 255, 255, .0)'
+
 // WEBSITE COLORS
 var violet       = '#4539c5'
 var pink         = '#f1a0ff'
@@ -2591,6 +2763,7 @@ var blue         = '#7f70f7'
 var lightYellow  = '#f8de96'
 var yellow       = '#f5bb71'
 var neonGreen    = '#4efc51'
+var white        = '#ffffff'
 // FONTS
 var fontXXS = '10'
 var fontXS  = fontXXS*1.3
@@ -2599,13 +2772,11 @@ var fontM   = fontXXS*2.0
 var fontXM  = fontXXS*2
 var fontXXM = fontXXS*2.2
 var fontL   = fontXXS*3
-var fontXL  = fontXXS*3.8
-var fontXXL = fontXXS*6
-// var banner     = 'https://user-assets.sharetribe.com/images/communities/cover_photos/31747/hd_header/conference_1.jpg?1476102178'
-var banner     = wizardamigos2
+var fontXL  = fontXXS*4.8
+var fontXXL = fontXXS*8
 // var fontfamily = 'https://fonts.googleapis.com/css?family=Noto+Sans'
 // var font       = 'Noto Sans, sans-serif'
-var fontfamily = 'public/browser/a79cf822b5a4078aed6768dd9fa062f0.woff2'
+var fontfamily = '/ubuntu.woff2'
 var font       = 'Ubuntu, sans-serif'
 /********************************************************************
   INIT
@@ -2670,7 +2841,6 @@ function headerComponent () {
   var css = csjs`
     .header {
       width               : 100%;
-      height              : 70vmin;
       background-color    : ${violet};
       background-size     : cover;
       background-repeat   : no-repeat;
@@ -2680,22 +2850,26 @@ function headerComponent () {
       justify-content     : center;
       flex-direction      : column;
       transition          : all 0.5s ease;
+      padding             : 50px;
     }
     .header:hover {
       opacity             : 0.9;
       transition          : all 0.5s ease;
     }
+    .logo {
+      width: 400px;
+    }
     .title {
       font-size   : ${fontXXL}px;
       font-weight : 900;
       white-space : nowrap;
-      color       : ${W};
+      color       : ${white};
     }
     .subtitle {
       font-size   : ${fontXXM}px;
       font-weight : 600;
       white-space : nowrap;
-      color       : ${W};
+      color       : ${white};
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -2735,19 +2909,13 @@ function headerComponent () {
       }
     }
   `
-  // var search = searchComponent()
-  // ${search}
-  function template (data) {
-    var wizardLogo = logo(5,200,200)
-    return yo`
-      <div class=${css.header}>
-        ${wizardLogo}
-        <div class=${css.title}>Wizard Amigos</div>
-        <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
-      </div>
-    `
-  }
-  var el = template()
+  const el = document.createElement('div')
+  el.classList.add(css.header)
+  el.innerHTML = `
+  <div class=${css.title}>Wizard Amigos</div>
+  <div class=${css.subtitle}>Open source JavaScript e-learning for cyber nomads</div>
+  <img class=${css.logo} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---WIZARD-DUO---TRANSPARENT---2022.png?raw=true'></img>
+  ` 
   return el
 }
 /********************************************************************
@@ -2756,12 +2924,11 @@ function headerComponent () {
 function pitchComponent () {
   var css = csjs`
     .pitch {
+      padding           : 50px;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
       align-items       : center;
-      padding-top       : 50px;
-      padding-bottom    : 50px;
       width             : 100%;
       background-color  : ${neonGreen};
       color             : ${violet};
@@ -2771,7 +2938,7 @@ function pitchComponent () {
       font-weight       : 700;
     }
     .description {
-      padding           : 10px;
+      padding           : 50px;
       font-size         : ${fontXXM}px;
       font-weight       : 700;
     }
@@ -2784,13 +2951,14 @@ function pitchComponent () {
       width             : 100%;
     }
     .subtitle {
-      font-size         : ${fontXXM}px;
+      font-size         : ${fontL}px;
       text-align        : center;
     }
     .subdescription {
       margin-top        : 15px;
       font-size         : ${fontS}px;
       text-align        : center;
+      line-height       : 1.4rem;
     }
     .subdescription a {
       cursor            : pointer;
@@ -2806,7 +2974,7 @@ function pitchComponent () {
       display           : flex;
       flex-direction    : column;
       width             : 30%;
-      margin            : 5px;
+      margin            : 35px;
     }
     .icon1 {
       align-self        : center;
@@ -2891,7 +3059,7 @@ function pitchComponent () {
             </div>
             <div class=${css.subdescription}>
               We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
-              <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists'>Try it out, it's fun.</a>
+              <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists' target='_blank'>Try it out, it's fun.</a>
             </div>
           </div>
           <div class=${css.step}>
@@ -2907,7 +3075,7 @@ function pitchComponent () {
               2. Meet other learners
             </div>
             <div class=${css.subdescription}>
-              Visit a local <a href='https://www.meetup.com/wizardamigos'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+              Visit a local <a href='https://www.meetup.com/wizardamigos' target='_blank'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
               in your neighbourhood, you can start organizing one yourself.
             </div>
           </div>
@@ -2951,7 +3119,7 @@ function portfolioComponent () {
       flex-direction    : column;
       align-items       : center;
       width             : 100%;
-      background-color  : ${blue};
+      background-color  : ${violet};
     }
     .title {
       margin-top        : 50px;
@@ -2961,19 +3129,15 @@ function portfolioComponent () {
       color             : ${neonGreen};
     }
     .description {
-      padding           : 40px;
-      font-size         : ${fontXM}px;
-      font-weight       : 500;
+      padding           : 50px;
+      width             : 50%;
+      font-size         : ${fontM}px;
+      font-weight       : 700;
       color             : ${neonGreen};
       text-align        : center;
     }
-    .categories {
-      margin            : 50px;
-      display           : flex;
-      width             : 90%;
-      height            : 430px;
-      flex-direction    : row;
-      justify-content   : center;
+    .image {
+      width             : 250px;
     }
     .card {
       flex-grow           : 1;
@@ -2987,6 +3151,7 @@ function portfolioComponent () {
       color               : ${yellow};
       opacity             : 0.9;
       font-size           : ${fontXXL}px;
+      color               : ${pink};
       font-weight         : 900;
       text-shadow:
       -1px -1px 0 #000,
@@ -3011,21 +3176,21 @@ function portfolioComponent () {
     .button {
       display             : flex;
       align-items         : center;
-      background-color    : ${violet};
+      background-color    : ${pink};
       color               : ${neonGreen};
       justify-content     : center;
       margin-bottom       : 40px;
       padding             : 20px;
       font-size           : ${fontS}px;
       font-weight         : 700;
-      width               : 150px;
+      min-width           : 150px;
       border-radius       : 50px;
       text-decoration     : none;
       transition          : all 0.5s ease;
     }
     .button:hover {
-      background-color    : ${pink};
-      color               : ${neonGreen};
+      background-color    : ${neonGreen};
+      color               : ${violet};
       transition          : all 0.5s ease;
     }
     @media only screen and (max-width: 1270px) {
@@ -3041,8 +3206,8 @@ function portfolioComponent () {
       }
     }
     @media only screen and (max-width: 768px) {
-      .categories {
-        flex-direction    : column;
+      .image {
+        width            : 200px;
       }
     }
     @media only screen and (max-width: 660px) {
@@ -3060,28 +3225,21 @@ function portfolioComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    function hover () { this.classList.toggle(css.card_hover) }
-    return yo`
-      <div class=${css.portfolio}>
-        <div class=${css.title}>
-          Get started
-        </div>
-        <div class=${css.description}>
-          Programming is the new literacy. Learn it together with transparent, open minded,
-          science loving, diverse and nomadic community of individuals with activist streak.
-          You can do it on your own or at a code camp nearby.
-        </div>
-        <div class=${css.categories}>
-          <a onmouseover=${hover} onmouseout=${hover} class=${css.card} style="background-image:url(${wizardamigos8})" href="https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists">
-            Workshops
-          </a>
-        </div>
-        <a class=${css.button} href="https://discord.gg/8FzZPHkp44">Chat</a>
+  function hover () { this.classList.toggle(css.card_hover) }
+  const el = document.createElement('div')
+  el.classList.add(css.portfolio)
+  el.innerHTML = `
+      <div class=${css.title}>
+        Wizard magic
       </div>
-    `
-  }
-  var el = template()
+      <div class=${css.description}>
+        Programming is the new literacy. Learn it together with transparent, open minded,
+        science loving, diverse and nomadic community of individuals with activist streak.
+        You can do it on your own or at a code camp nearby.
+      </div>
+      <img class=${css.image} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard%20Amigos%20-%20Stickers%20-%20WIZARD%20BALL%20-%20CIRCLE%20-%202022.png?raw=true'></img>
+      <a class=${css.button} href="https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists" target='_blank'>Start learning</a>
+  `
   return el
 }
 /********************************************************************
@@ -3090,14 +3248,13 @@ function portfolioComponent () {
 function call2actionComponent () {
   var css = csjs`
     .call2action {
-      padding-top       : 30px;
+      padding           : 50px;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
       align-items       : center;
       width             : 100%;
-      padding           : 20px;;
-      background-color  : ${neonGreen};
+      background-color  : ${pink};
       color             : ${violet};
     }
     .title {
@@ -3105,7 +3262,7 @@ function call2actionComponent () {
       font-weight       : 700;
     }
     .description {
-      padding           : 10px;
+      padding           : 50px;
       font-size         : ${fontXXM}px;
       font-weight       : 700;
       text-align        : center;
@@ -3151,8 +3308,8 @@ function call2actionComponent () {
       transition          : all 0.5s ease;
     }
     .button:hover a {
-      background-color    : ${pink};
-      color               : ${neonGreen};
+      background-color    : ${neonGreen};
+      color               : ${violet};
       transition          : all 0.5s ease;
     }
     @media only screen and (max-width: 1270px) {
@@ -3191,7 +3348,7 @@ function call2actionComponent () {
     return yo`
       <div class=${css.call2action}>
         <div class=${css.title}>
-          Why join Wizard Amigos?
+          Why should you join Wizard Amigos?
         </div>
         <div class=${css.description}>
           Our aim is to give tools and community to everyone who wants to better
@@ -3203,15 +3360,15 @@ function call2actionComponent () {
         <div class=${css.calls}>
           <div class=${css.action}>
             <div class=${css.subtitle}>
-              ARE YOU A BEGINNER
+              WHO ARE WE
             </div>
             <div class=${css.subdescription}>
               WizardAmigos learners come from very different backgrounds - from journalists,
               translators, biologists, physicists to activists, students and many other backgrounds. What we have in common? We are interested in technology, we
               love to travel and we want to work remote.
             </div>
-            <div class=${css.button} onclick=() => open_chat() >
-              <a href='https://discord.gg/8FzZPHkp44'>Join us</a>
+            <div class=${css.button}>
+              <a href='https://discord.gg/8FzZPHkp44' target='_blank'>Join us</a>
             </div>
           </div>
           <div class=${css.action}>
@@ -3223,7 +3380,7 @@ function call2actionComponent () {
               more transparency, less discrimination and better collaboration within our society.
             </div>
             <div class=${css.button}>
-            <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md'>Skill tree</a>
+            <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md' target='_blank'>Skill tree</a>
             </div>
           </div>
       </div>
@@ -3242,39 +3399,38 @@ function call2actionComponent () {
 function testimonialsComponent () {
   var css = csjs`
     .testimonials {
+      padding             : 50px;
       flex-grow           : 1;
       display             : flex;
       flex-direction      : column;
       align-items         : center;
       justify-content     : center;
       width               : 100%;
-      height              : 500px;
-      background-image    : url(${wizardamigos7});
+      background-image    : url('/assets/wizardamigos7.png');
       background-size     : cover;
       background-repeat   : no-repeat;
       background-position : center;
+      background-color    : ${yellow};
     }
     .quote {
-      padding             : 25%;
+      width               : 50%;
       text-align          : center;
       font-size           : ${fontL}px;
-      font-weight         : 900;
-      color               : ${neonGreen};
-      text-shadow:
-       -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-         1px 1px 0 #000;
+      font-weight         : 700;
+      color               : ${lightYellow};
     }
-    .author {
-      font-size           : ${fontS}px;
+    .nomad {
+      width               : 350px;
+    }
+    .author a {
+      font-size           : ${fontM}px;
       font-weight         : 900;
-      color               : ${neonGreen};
-      text-shadow:
-       -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-         1px 1px 0 #000;
+      text-decoration     : underline;
+      color               : ${violet};
+    }
+    .author a:hover {
+      cursor              : pointer;
+      color               : ${white};
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -3305,19 +3461,20 @@ function testimonialsComponent () {
     @media only screen and (max-width: 320px) {
     }
   `
-  function template (data) {
-    return yo`
-      <div class=${css.testimonials}>
-        <div class=${css.quote}>
-          We are a commmunity of self employed nomadic developers who collaborate
-          on projects, share skills and build awesome products and services.
-        </div>
-        <div class=${css.author}>
-        </div>
+  const el = document.createElement('div')
+  el.classList.add(css.testimonials)
+  el.innerHTML = `
+    <div class=${css.testimonials}>
+      <div class=${css.quote}>
+        We are a commmunity of self employed nomadic developers who collaborate
+        on projects, share skills and build awesome products and services.
       </div>
-    `
-  }
-  var el = template()
+      <img class=${css.nomad} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---CAT-NOMAD---TRANSPARENT---2022.png?raw=true'></img>
+      <div class=${css.author}>
+        <a href='https://wizardamigos.com/codecamp2022/' target='_blank'> Check out also our Code Camp in Wales. It is happening from Sep 26 until Oct 10 2022 </a>
+      </div>
+    </div>
+  `
   return el
 }
 /********************************************************************
@@ -3376,7 +3533,7 @@ function footerComponent () {
     return yo`
       <div class=${css.footer}>
         <div class=${css.socialmedia}>
-          <a href="https://www.facebook.com/groups/369246343421803/" class=${css.iconFacebook}>
+          <a href="https://www.facebook.com/groups/369246343421803/" target='_blank' class=${css.iconFacebook}>
             <svg viewBox="-1 -1 114 114">
               <g>
               	<circle style="fill:#3B5998;" cx="56.098" cy="56.098" r="56.098"/>
@@ -3384,12 +3541,12 @@ function footerComponent () {
               </g>
             </svg>
           </a>
-          <a href="https://twitter.com/wizardamigos" class=${css.iconTwitter}>
+          <a href="https://twitter.com/wizardamigos" target='_blank' class=${css.iconTwitter}>
             <svg viewBox="-1 -1 412 412">
               <path style="fill:#76A9EA;" d="M403.632,74.18c-9.113,4.041-18.573,7.229-28.28,9.537c10.696-10.164,18.738-22.877,23.275-37.067  l0,0c1.295-4.051-3.105-7.554-6.763-5.385l0,0c-13.504,8.01-28.05,14.019-43.235,17.862c-0.881,0.223-1.79,0.336-2.702,0.336  c-2.766,0-5.455-1.027-7.57-2.891c-16.156-14.239-36.935-22.081-58.508-22.081c-9.335,0-18.76,1.455-28.014,4.325  c-28.672,8.893-50.795,32.544-57.736,61.724c-2.604,10.945-3.309,21.9-2.097,32.56c0.139,1.225-0.44,2.08-0.797,2.481  c-0.627,0.703-1.516,1.106-2.439,1.106c-0.103,0-0.209-0.005-0.314-0.015c-62.762-5.831-119.358-36.068-159.363-85.14l0,0  c-2.04-2.503-5.952-2.196-7.578,0.593l0,0C13.677,65.565,9.537,80.937,9.537,96.579c0,23.972,9.631,46.563,26.36,63.032  c-7.035-1.668-13.844-4.295-20.169-7.808l0,0c-3.06-1.7-6.825,0.485-6.868,3.985l0,0c-0.438,35.612,20.412,67.3,51.646,81.569  c-0.629,0.015-1.258,0.022-1.888,0.022c-4.951,0-9.964-0.478-14.898-1.421l0,0c-3.446-0.658-6.341,2.611-5.271,5.952l0,0  c10.138,31.651,37.39,54.981,70.002,60.278c-27.066,18.169-58.585,27.753-91.39,27.753l-10.227-0.006  c-3.151,0-5.816,2.054-6.619,5.106c-0.791,3.006,0.666,6.177,3.353,7.74c36.966,21.513,79.131,32.883,121.955,32.883  c37.485,0,72.549-7.439,104.219-22.109c29.033-13.449,54.689-32.674,76.255-57.141c20.09-22.792,35.8-49.103,46.692-78.201  c10.383-27.737,15.871-57.333,15.871-85.589v-1.346c-0.001-4.537,2.051-8.806,5.631-11.712c13.585-11.03,25.415-24.014,35.16-38.591  l0,0C411.924,77.126,407.866,72.302,403.632,74.18L403.632,74.18z"/>
             </svg>
           </a>
-          <a href="https://discord.gg/8FzZPHkp44" class=${css.iconMail}>
+          <a href="https://discord.gg/8FzZPHkp44" target='_blank' class=${css.iconMail}>
             <svg viewBox="-1 -1 553 553">
             	<g>
             		<path style="fill:#76A9EA;" d="M501.613,491.782c12.381,0,23.109-4.088,32.229-12.16L377.793,323.567c-3.744,2.681-7.373,5.288-10.801,7.767    c-11.678,8.604-21.156,15.318-28.434,20.129c-7.277,4.822-16.959,9.737-29.045,14.755c-12.094,5.024-23.361,7.528-33.813,7.528    h-0.306h-0.306c-10.453,0-21.72-2.503-33.813-7.528c-12.093-5.018-21.775-9.933-29.045-14.755    c-7.277-4.811-16.75-11.524-28.434-20.129c-3.256-2.387-6.867-5.006-10.771-7.809L16.946,479.622    c9.119,8.072,19.854,12.16,32.234,12.16H501.613z"/>
