@@ -1121,17 +1121,17 @@ function call2actionComponent () {
     <div class=${css.title}> Why should you join Wizard Amigos? </div>
     <div class=${css.description}>
       Our aim is to give tools and community to everyone who wants to better
-      understand technology and to work on their ideas.
-      Learn prototyping, how to use programming in science, how to build mobile and desktop apps,
-      and what posibilities can technology bring for your future. Wizard Amigos was born in
-      Berlin but is now a global, non-profit community.
+      understand the technology and work on their ideas.
+      Wizard Amigos was born in Berlin but is now a global, non-profit community.
+      Learn with us about the prototyping, how to use programming in science, how to build mobile and desktop apps,
+      and what posibilities can technology bring for your future. 
     </div>
     <div class=${css.calls}>
     <div class=${css.action}>
       <div class=${css.subtitle}> WHO ARE WE </div>
       <div class=${css.subdescription}>
         WizardAmigos learners come from very different backgrounds - from journalists,
-        translators, biologists, physicists to activists, students and many other backgrounds. What we have in common? We are interested in technology, we
+        translators, biologists, physicists to activists, students and many other backgrounds. What do we have in common? We are all interested in technology, we
         love to travel and we want to work remote.
       </div>
       <div class=${css.button}> <a href='https://discord.gg/8FzZPHkp44' target='_blank'>Join us</a> </div>
