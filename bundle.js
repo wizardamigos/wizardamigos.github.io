@@ -681,7 +681,7 @@ function headerComponent () {
   el.innerHTML = `
   <div class=${css.title}>Wizard Amigos</div>
   <div class=${css.subtitle}>Learning the magical literacy of the future</div>
-  <img class=${css.logo} src= https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---WIZARD-DUO---TRANSPARENT---2022.png?raw=true'></img>
+  <img class=${css.logo} src='src/assets/Wizard-Amigos---Stickers---WIZARD-DUO---TRANSPARENT---2022.png'></img>
   ` 
   return el
 }
@@ -1005,7 +1005,7 @@ function portfolioComponent () {
         science loving, diverse and nomadic community of individuals with activist streak.
         You can do it on your own or at a code camp nearby.
       </div>
-      <img class=${css.image} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard%20Amigos%20-%20Stickers%20-%20WIZARD%20BALL%20-%20CIRCLE%20-%202022.png?raw=true'></img>
+      <img class=${css.image} src='src/assets/Wizard Amigos - Stickers - WIZARD BALL - CIRCLE - 2022.png'></img>
       <a class=${css.button} href="https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists" target='_blank'>Start learning</a>
   `
   return el
@@ -1162,7 +1162,6 @@ function testimonialsComponent () {
       align-items         : center;
       justify-content     : center;
       width               : 100%;
-      background-image    : url('/assets/wizardamigos7.png');
       background-size     : cover;
       background-repeat   : no-repeat;
       background-position : center;
@@ -1225,7 +1224,7 @@ function testimonialsComponent () {
         We are a commmunity of self employed nomadic developers who collaborate
         on projects, share skills and build awesome products and services.
       </div>
-      <img class=${css.nomad} src='https://github.com/wizardamigos/assets/blob/main/sticker%20pngs/Wizard-Amigos---Stickers---CAT-NOMAD---TRANSPARENT---2022.png?raw=true'></img>
+      <img class=${css.nomad} src='src/assets/Wizard-Amigos---Stickers---CAT-NOMAD---TRANSPARENT---2022.png'></img>
       <div class=${css.author}>
         <a href='https://wizardamigos.com/codecamp2022/' target='_blank'> Check out also our Code Camp in Wales. It is happening from Sep 26 until Oct 10 2022 </a>
       </div>
