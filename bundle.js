@@ -571,8 +571,6 @@ var app = page()
     }
   `
   document.body.appendChild(app)
-
-new fairyDustCursor({colors: [violet, pink, grey, blue, lightYellow, yellow, neonGreen, white ]})
 /********************************************************************
   PAGE COMPONENT
 ********************************************************************/
@@ -693,13 +691,13 @@ function headerComponent () {
 function pitchComponent () {
   var css = csjs`
     .pitch {
-      padding           : 50px;
+      padding           : 5% 30%;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
       align-items       : center;
       width             : 100%;
-      background-color  : ${neonGreen};
+      background-color  : ${pink};
       color             : ${violet};
     }
     .title {
@@ -713,51 +711,43 @@ function pitchComponent () {
       font-size         : ${fontXXM}px;
       font-weight       : 700;
     }
-    .steps {
+    .action {
+      min-width         : 200px;
+      width             : 50%;
+      margin            : 20px;
       display           : flex;
-      flex-direction    : row;
-      padding           : 20px;
-      align-items       : stretch;
+      flex-direction    : column;
       justify-content   : center;
-      width             : 100%;
+      align-items       : center;
     }
     .subtitle {
-      font-size         : ${fontL}px;
+      font-size         : ${fontXXM}px;
       text-align        : center;
     }
     .subdescription {
       margin-top        : 15px;
       font-size         : ${fontS}px;
       text-align        : center;
-      line-height       : 1.4rem;
     }
-    .subdescription a {
-      cursor            : pointer;
-      text-decoration   : underline;
-      color             : ${blue};
-      transition        : all 0.5s ease;
-    }
-    .subdescription a:hover {
-      opacity           : 0.8;
+    .button a {
+      display             : flex;
+      align-items         : center;
+      justify-content     : center;
+      margin-top          : 15px;
+      padding             : 20px;
+      background-color    : ${blue};
+      color               : ${neonGreen};
+      font-size           : ${fontXS}px;
+      font-weight         : 700;
+      width               : 150px;
+      border-radius       : 50px;
+      text-decoration     : none;
       transition          : all 0.5s ease;
     }
-    .step {
-      display           : flex;
-      flex-direction    : column;
-      width             : 30%;
-      margin            : 35px;
-    }
-    .icon1 {
-      align-self        : center;
-      width             : 50px;
-    }
-    .icon2 {
-      align-self        : center;
-      width             : 50px;
-    }
-    .icon3 {
-      align-self        : center;
-      width             : 50px;
+    .button:hover a {
+      background-color    : ${neonGreen};
+      color               : ${violet};
+      transition          : all 0.5s ease;
     }
     @media only screen and (max-width: 1270px) {
     }
@@ -816,58 +806,27 @@ function pitchComponent () {
     JavaScript for nomads
   </div>
   <div class=${css.description}>
-    How does it work?
+    In the early 2014 we started Wizard Amigos in Berlin. We organized over 800 events, co-learning workshops and code camps since then. Before that we participated in several groups in Berlin (Hack and Tell, Open Knowledge, Open Tech School, Rails Girls and more).
   </div>
-  <div class=${css.steps}>
-    <div class=${css.step}>
-      <svg class=${css.icon1} viewBox="0 0 512 512">
-        <g>
-          <path style="fill:${violet};" d="M256,96C144.341,96,47.559,161.021,0,256c47.559,94.979,144.341,160,256,160c111.656,0,208.439-65.021,256-160   C464.441,161.021,367.656,96,256,96z M382.225,180.852c30.082,19.187,55.572,44.887,74.719,75.148   c-19.146,30.261-44.639,55.961-74.719,75.148C344.428,355.257,300.779,368,256,368c-44.78,0-88.428-12.743-126.225-36.852   c-30.08-19.188-55.57-44.888-74.717-75.148c19.146-30.262,44.637-55.962,74.717-75.148c1.959-1.25,3.938-2.461,5.929-3.65   C130.725,190.866,128,205.613,128,221c0,70.691,57.308,128,128,128c70.691,0,128-57.309,128-128   c0-15.387-2.725-30.134-7.703-43.799C378.285,178.39,380.266,179.602,382.225,180.852z M256,205c0,26.51-21.49,48-48,48   s-48-21.49-48-48s21.49-48,48-48S256,178.49,256,205z"/>
-        </g>
-      </svg>
-      <div class=${css.subtitle}>
-        1. Get to know the basics
-      </div>
-      <div class=${css.subdescription}>
-        We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection.<br>
-        <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists' target='_blank'>Try it out, it's fun.</a>
-      </div>
-    </div>
-    <div class=${css.step}>
-    <svg class=${css.icon2} viewBox="0 0 489.9 489.9">
-      <g>
-        <path style="fill:${violet};" d="M90.3,96.956c-3.8,3.9-3.8,10.2,0.2,14c3.9,3.8,10.2,3.8,14-0.2c35.8-36.7,83.8-57.2,135-57.8    c50-0.6,97.4,18,133.7,52.2l-18.2,0.2c-5.5,0.1-9.8,4.5-9.8,10c0.1,5.4,4.5,9.8,9.9,9.8h0.1l42.2-0.5c5.5-0.1,9.8-4.5,9.8-10    l-0.4-42.1c-0.1-5.4-4.5-9.8-9.9-9.8h-0.1c-5.5,0.1-9.8,4.5-9.8,10l0.2,18.4c-40.1-38-92.6-58.6-147.9-58    C182.7,33.956,129.8,56.556,90.3,96.956z"/>
-        <path style="fill:${violet};" d="M378.9,379.056c-35.8,36.7-83.8,57.2-135,57.8c-50,0.6-97.4-18-133.7-52.2l18.2-0.2    c5.5-0.1,9.8-4.5,9.8-10c-0.1-5.4-4.5-9.8-9.9-9.8h-0.1l-42.2,0.5c-5.5,0.1-9.8,4.5-9.8,10l0.5,42.2c0.1,5.4,4.5,9.8,9.9,9.8h0.1    c5.5-0.1,9.8-4.5,9.8-10l-0.2-18.4c39.5,37.4,90.9,58,145.4,58c0.8,0,1.7,0,2.5,0c56.5-0.7,109.5-23.3,149-63.7    c3.8-3.9,3.8-10.2-0.2-14C389,375.056,382.8,375.156,378.9,379.056z"/>
-        <path style="fill:${violet};" d="M78.2,240.256c0-3.3-1.7-6.4-4.4-8.2c-1.8-1.2-2.8-3.2-2.8-5.3v-36.1c0-12.5,10.1-22.6,22.6-22.6    h7.8c12.5,0,22.6,10.1,22.6,22.6v36.1c0,2.1-1.1,4.1-2.8,5.3c-2.8,1.8-4.4,4.9-4.4,8.2v34.8c0,4.4,2.5,8.4,6.5,10.3    c4.5,2.2,27.8,14,49.4,31.7c1.7,1.4,2.7,3.6,2.7,5.9v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7c0-8.2-3.6-15.9-10-21.2    c-18.9-15.6-39.2-26.9-48.6-31.8v-25.1c4.6-4.8,7.3-11.3,7.3-18.1v-36.1c0-23.4-19-42.4-42.4-42.4h-7.8c-23.4,0-42.4,19-42.4,42.4    v36.1c0,6.8,2.6,13.3,7.3,18.1v25.1c-9.5,4.9-29.7,16.3-48.6,31.8c-6.3,5.2-10,12.9-10,21.2v24.7c0,5.5,4.4,9.9,9.9,9.9    s9.9-4.4,9.9-9.9v-24.7c0-2.3,1-4.4,2.7-5.9c21.5-17.7,44.9-29.5,49.4-31.7c3.9-1.9,6.5-6,6.5-10.3v-34.8H78.2z"/>
-        <path style="fill:${violet};" d="M479.9,301.856c-18.9-15.6-39.2-26.9-48.6-31.8v-25.1c4.6-4.8,7.3-11.3,7.3-18.1v-36.1    c0-23.4-19-42.4-42.4-42.4h-7.8c-23.4,0-42.4,19-42.4,42.4v36.1c0,6.8,2.6,13.3,7.3,18.1v25c-9.5,4.9-29.7,16.3-48.6,31.8    c-6.3,5.2-10,12.9-10,21.2v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7c0-2.3,1-4.4,2.7-5.9c21.5-17.7,44.9-29.5,49.4-31.7    c3.9-1.9,6.4-6,6.4-10.3v-34.8c0-3.3-1.7-6.4-4.4-8.2c-1.8-1.2-2.8-3.2-2.8-5.3v-36.1c0-12.5,10.1-22.6,22.6-22.6h7.8    c12.5,0,22.6,10.1,22.6,22.6v36.1c0,2.1-1.1,4.1-2.8,5.3c-2.8,1.8-4.4,4.9-4.4,8.2v34.8c0,4.4,2.5,8.4,6.4,10.3    c4.5,2.2,27.9,14,49.4,31.7c1.7,1.4,2.7,3.6,2.7,5.9v24.7c0,5.5,4.4,9.9,9.9,9.9s9.9-4.4,9.9-9.9v-24.7    C489.8,314.756,486.2,307.056,479.9,301.856z"/>
-      </g>
-    </svg>
-      <div class=${css.subtitle}>
-        2. Meet other learners
-      </div>
-      <div class=${css.subdescription}>
-        Visit a local <a href='https://www.meetup.com/wizardamigos' target='_blank'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
-        in your neighbourhood, you can start organizing one yourself.
-      </div>
-    </div>
-    <div class=${css.step}>
-      <svg class=${css.icon3} viewBox="0 0 489.8 489.8">
-        <g>
-          <path style="fill:${violet};" d="M268.5,286.9h-11.6v-70.5v-9.1h47.7c6.6,0,12-5.4,12-12s-5.4-12-12-12h-47.7V66.1L281.8,91c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17l-45.3-45.3c-2.3-2.3-5.3-3.5-8.5-3.5s-6.2,1.3-8.5,3.5l-45.4,45.4c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5    s6.1-1.2,8.5-3.5l24.8-24.9v117.1h-11.6c-35.2,0-63.8,28.6-63.8,63.8s28.6,63.8,63.8,63.8h11.6v69.4v10.2h-49.3    c-6.6,0-12,5.4-12,12s5.4,12,12,12h49.3v38.1c0,6.6,5.4,12,12,12s12-5.4,12-12v-38.1h11.6c35.2,0,63.8-28.6,63.8-63.8    S303.7,286.9,268.5,286.9z M221.3,286.9c-21.9,0-39.8-17.9-39.8-39.8s17.9-39.8,39.8-39.8h11.6v9.1v70.5H221.3z M268.5,390.5    h-11.6v-10.2v-69.4h11.6c21.9,0,39.8,17.9,39.8,39.8C308.3,372.7,290.5,390.5,268.5,390.5z"/>
-          <path style="fill:${violet};" d="M437.2,281.3h-6.5v-52.4v-4.5h34.7c6.6,0,12-5.4,12-12s-5.4-12-12-12h-34.7v-82.7l14.9,14.9c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17l-35.4-35.4c-4.7-4.7-12.3-4.7-17,0l-35.5,35.5c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5s6.1-1.2,8.5-3.5    l14.9-14.9v82.5h-6.5c-28.9,0-52.5,23.5-52.5,52.5s23.5,52.5,52.5,52.5h6.5v51.6v5.3h-35.7c-6.6,0-12,5.4-12,12s5.4,12,12,12h35.9    v27.2c0,6.6,5.4,12,12,12s12-5.4,12-12v-27.2h6.5c28.9,0,52.5-23.5,52.5-52.5S466.2,281.3,437.2,281.3z M400.3,281.3    c-15.7,0-28.5-12.8-28.5-28.5s12.8-28.5,28.5-28.5h6.5v4.5v52.4h-6.5V281.3z M437.2,362.2h-6.5v-5.3v-51.6h6.5    c15.7,0,28.5,12.8,28.5,28.5C465.7,349.4,452.9,362.2,437.2,362.2z"/>
-          <path style="fill:${violet};" d="M89.5,281.3H83v-52.4v-4.5h34.7c6.6,0,12-5.4,12-12s-5.4-12-12-12H83v-82.7l14.9,14.9c4.7,4.7,12.3,4.7,17,0    s4.7-12.3,0-17L79.6,80.3c-4.7-4.7-12.3-4.7-17,0l-35.5,35.5c-4.7,4.7-4.7,12.3,0,17c2.3,2.3,5.4,3.5,8.5,3.5s6.1-1.2,8.5-3.5    L59,117.9v82.5h-6.5C23.6,200.4,0,223.9,0,252.9s23.5,52.5,52.5,52.5H59v51.5v5.3H23.2c-6.6,0-12,5.4-12,12s5.4,12,12,12h35.9    v27.2c0,6.6,5.4,12,12,12s12-5.4,12-12v-27.2h6.5c28.9,0,52.5-23.5,52.5-52.5S118.4,281.3,89.5,281.3z M52.6,281.3    c-15.7,0-28.5-12.8-28.5-28.5s12.8-28.5,28.5-28.5h6.5v4.5v52.4h-6.5V281.3z M89.5,362.2H83v-5.3v-51.6h6.5    c15.7,0,28.5,12.8,28.5,28.5C118,349.4,105.2,362.2,89.5,362.2z"/>
-        </g>
-      </svg>
-      <div class=${css.subtitle}>
-        3. Earn while you learn
-      </div>
-      <div class=${css.subdescription}>
-        Once you have the basic knowledge of JavaScript programming language,
-        you can join our remote internship program, where you will be able
-        to work together with experienced developers on different paid tasks.
-      </div>
-    </div>
+  <div class=${css.action}>
+  <div class=${css.subtitle}> WHO ARE WE </div>
+  <div class=${css.subdescription}>
+    WizardAmigos learners come from very different backgrounds - from journalists,
+    translators, biologists, physicists to activists, students and many other backgrounds. What do we have in common? We are all interested in technology, we
+    love to travel and we want to work remote.
   </div>
+  <div class=${css.button}> <a href='https://medium.com/nina-developerina/buliding-online-communities-coding-amigos-228fdafc77e7' target='_blank'>More</a> </div>
+</div>
+<div class=${css.action}>
+  <div class=${css.subtitle}> WHAT CAN I LEARN? </div>
+  <div class=${css.subdescription}>
+    In our community we are focusing on learning digital, financial, sustainability and entrepreneurial literacy. Our tools are native javascript, node modules and open source. We are also active citizens, working for
+    more transparency, abolishing discrimination and for in general better collaboration within our society.
+  </div>
+  <div class=${css.button}>
+  <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md' target='_blank'>Resources</a>
+  </div>
+</div>
   `
   return el
 }
@@ -882,6 +841,7 @@ function portfolioComponent () {
   // background-image  : url('data:image/svg+xml;base64,${btoa(svg.outerHTML)}');
   var css = csjs`
     .portfolio {
+      padding           : 5% 30%;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
@@ -900,7 +860,6 @@ function portfolioComponent () {
     }
     .description {
       padding           : 50px;
-      width             : 50%;
       font-size         : ${fontM}px;
       font-weight       : 700;
       color             : ${neonGreen};
@@ -1006,9 +965,19 @@ function portfolioComponent () {
         Programming is the new literacy. Learn it together with transparent, open minded,
         science loving, diverse and nomadic community of individuals with activist streak.
         You can do it on your own or at a code camp nearby.
+        <br>
+        <br>
+        You need to have your own computer. It doesn't have to be super powerful, but you need one and it should run on Linux or Mac OSX. If it runs on Windows, we will help you to install Linux.
+        <br>
+        <br>
+        Modern learning resources online are mostly written in English. It's very helpful if you are able to understand some basic English, but our mentors and community members speak German, English, Slovenian, Spanish, Chinese (and other languages) and they are happy to help you out anytime :-) 
+        If you are not sure whether this is for you, contact us and we are happy to talk to you.
+        <br>
+        <br>
+        We promise to make this learning journey exciting for all future Wizard Amigos. Our learning-by-doing approach will help you get to know the right magic spells to become an active problem solver. All our learning materials are open source and under a free license.
       </div>
       <img class=${css.image} src='src/assets/Wizard Amigos - Stickers - WIZARD BALL - CIRCLE - 2022.png'></img>
-      <a class=${css.button} href="https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists" target='_blank'>Start learning</a>
+      <a class=${css.button} href="https://discord.gg/8FzZPHkp44" target='_blank'>Enter</a>
   `
   return el
 }
@@ -1018,13 +987,13 @@ function portfolioComponent () {
 function call2actionComponent () {
   var css = csjs`
     .call2action {
-      padding           : 50px;
+      padding           : 5% 30%;
       flex-grow         : 1;
       display           : flex;
       flex-direction    : column;
       align-items       : center;
       width             : 100%;
-      background-color  : ${pink};
+      background-color  : ${neonGreen};
       color             : ${violet};
     }
     .title {
@@ -1085,9 +1054,59 @@ function call2actionComponent () {
       color               : ${violet};
       transition          : all 0.5s ease;
     }
+    .steps {
+      display           : flex;
+      flex-direction    : row;
+      padding           : 20px;
+      align-items       : stretch;
+      justify-content   : center;
+      width             : 100%;
+    }
+    .subtitle {
+      font-size         : ${fontL}px;
+      text-align        : center;
+    }
+    .subdescription {
+      margin-top        : 15px;
+      font-size         : ${fontS}px;
+      text-align        : center;
+      line-height       : 1.4rem;
+    }
+    .subdescription a {
+      cursor            : pointer;
+      text-decoration   : underline;
+      color             : ${blue};
+      transition        : all 0.5s ease;
+    }
+    .subdescription a:hover {
+      opacity           : 0.8;
+      transition          : all 0.5s ease;
+    }
+    .step {
+      display           : flex;
+      flex-direction    : column;
+      width             : 30%;
+      margin            : 35px;
+    }
+    .icon1 {
+      align-self        : center;
+      width             : 50px;
+    }
+    .icon2 {
+      align-self        : center;
+      width             : 50px;
+    }
+    .icon3 {
+      align-self        : center;
+      width             : 50px;
+    }
+
     @media only screen and (max-width: 1270px) {
     }
     @media only screen and (max-width: 1200px) {
+      .step {
+        min-width         : 300px;
+      }
     }
     @media only screen and (max-width: 1008px) {
       .title {
@@ -1096,10 +1115,32 @@ function call2actionComponent () {
       .description {
         font-size         : ${fontXM}px;
       }
+      .step {
+        min-width         : 220px;
+      }
+      .subtitle {
+        font-size         : ${fontM}px;
+      }
+      .subdescription {
+        font-size         : ${fontXS}px;
+      }
     }
     @media only screen and (max-width: 768px) {
       .description {
         font-size         : ${fontM}px;
+      }
+      .steps {
+        flex-direction    : column;
+      }
+      .step {
+        width             : 100%;
+        margin            : 10px;
+      }
+      .subtitle {
+        font-size         : ${fontXM}px;
+      }
+      .subdescription {
+        font-size         : ${fontS}px;
       }
     }
     @media only screen and (max-width: 660px) {
@@ -1129,25 +1170,38 @@ function call2actionComponent () {
       and what posibilities can technology bring for your future. 
     </div>
     <div class=${css.calls}>
-    <div class=${css.action}>
-      <div class=${css.subtitle}> WHO ARE WE </div>
-      <div class=${css.subdescription}>
-        WizardAmigos learners come from very different backgrounds - from journalists,
-        translators, biologists, physicists to activists, students and many other backgrounds. What do we have in common? We are all interested in technology, we
-        love to travel and we want to work remote.
+
+    <div class=${css.steps}>
+    <div class=${css.step}>
+      <div class=${css.subtitle}>
+        Wizardry
       </div>
-      <div class=${css.button}> <a href='https://discord.gg/8FzZPHkp44' target='_blank'>Join us</a> </div>
-    </div>
-    <div class=${css.action}>
-      <div class=${css.subtitle}> WHAT CAN I LEARN? </div>
       <div class=${css.subdescription}>
-        In our community we are focusing on learning Javascript, blockchain and P2P web and everything about cyber nomadic lifestyle. Our tools are native javascript, node modules and open source. We are also active citizens, working for
-        more transparency, less discrimination and better collaboration within our society.
-      </div>
-      <div class=${css.button}>
-      <a href='https://github.com/wizardamigos/skilltree/blob/master/README.md' target='_blank'>Skill tree</a>
+        We prepared a curriculum with video lessons and a support chat to help you if you get stuck. No coding experiences is neeed. All you need is a computer and internet connection. Try our latest workshop<br>
+        <a href='https://www.youtube.com/channel/UC2Mqy2KDqpa1M1iZ_x_KiOQ/playlists' target='_blank'>Try it out, it's fun.</a>
       </div>
     </div>
+    <div class=${css.step}>
+
+      <div class=${css.subtitle}>
+        Amigos
+      </div>
+      <div class=${css.subdescription}>
+        Visit a local <a href='https://www.meetup.com/wizardamigos' target='_blank'>meetup</a> and get to know other nomadic developers and learners from all over the world. If there is no local meetups
+        in your neighbourhood, you can start organizing one yourself.
+      </div>
+    </div>
+    <div class=${css.step}>
+      <div class=${css.subtitle}>
+        Mana
+      </div>
+      <div class=${css.subdescription}>
+        Once you have the basic knowledge of JavaScript programming language,
+        you can join our remote internship program, where you will be able
+        to work together with experienced developers on different tasks.
+      </div>
+    </div>
+  </div>
   `
   return el
 }
@@ -1319,192 +1373,5 @@ function footerComponent () {
   `
   return el
 }
-function fairyDustCursor(options) {
-  let possibleColors = (options && options.colors) || [
-    "#D61C59",
-    "#E7D84B",
-    "#1B8798",
-  ];
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
 
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-  const cursor = { x: width / 2, y: width / 2 };
-  const lastPos = { x: width / 2, y: width / 2 };
-  const particles = [];
-  const canvImages = [];
-  let canvas, context;
-
-  const char = "*";
-
-  function init() {
-    canvas = document.createElement("canvas");
-    context = canvas.getContext("2d");
-    canvas.style.top = "0px";
-    canvas.style.left = "0px";
-    canvas.style.pointerEvents = "none";
-
-    if (hasWrapperEl) {
-      canvas.style.position = "absolute";
-      element.appendChild(canvas);
-      canvas.width = element.clientWidth;
-      canvas.height = element.clientHeight;
-    } else {
-      canvas.style.position = "fixed";
-      element.appendChild(canvas);
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    context.font = "21px serif";
-    context.textBaseline = "middle";
-    context.textAlign = "center";
-
-    possibleColors.forEach((color) => {
-      let measurements = context.measureText(char);
-      let bgCanvas = document.createElement("canvas");
-      let bgContext = bgCanvas.getContext("2d");
-
-      bgCanvas.width = measurements.width;
-      bgCanvas.height =
-        measurements.actualBoundingBoxAscent +
-        measurements.actualBoundingBoxDescent;
-
-      bgContext.fillStyle = color;
-      bgContext.textAlign = "center";
-      bgContext.font = "21px serif";
-      bgContext.textBaseline = "middle";
-      bgContext.fillText(
-        char,
-        bgCanvas.width / 2,
-        measurements.actualBoundingBoxAscent
-      );
-
-      canvImages.push(bgCanvas);
-    });
-
-    bindEvents();
-    loop();
-  }
-
-  // Bind events that are needed
-  function bindEvents() {
-    element.addEventListener("mousemove", onMouseMove);
-    element.addEventListener("touchmove", onTouchMove, { passive: true });
-    element.addEventListener("touchstart", onTouchMove, { passive: true });
-    window.addEventListener("resize", onWindowResize);
-  }
-
-  function onWindowResize(e) {
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    if (hasWrapperEl) {
-      canvas.width = element.clientWidth;
-      canvas.height = element.clientHeight;
-    } else {
-      canvas.width = width;
-      canvas.height = height;
-    }
-  }
-
-  function onTouchMove(e) {
-    if (e.touches.length > 0) {
-      for (let i = 0; i < e.touches.length; i++) {
-        addParticle(
-          e.touches[i].clientX,
-          e.touches[i].clientY,
-          canvImages[Math.floor(Math.random() * canvImages.length)]
-        );
-      }
-    }
-  }
-
-  function onMouseMove(e) {
-    window.requestAnimationFrame(() => {
-      if (hasWrapperEl) {
-        const boundingRect = element.getBoundingClientRect();
-        cursor.x = e.clientX - boundingRect.left;
-        cursor.y = e.clientY - boundingRect.top;
-      } else {
-        cursor.x = e.clientX;
-        cursor.y = e.clientY;
-      }
-
-      const distBetweenPoints = Math.hypot(
-        cursor.x - lastPos.x,
-        cursor.y - lastPos.y
-      );
-
-      if (distBetweenPoints > 1.5) {
-        addParticle(
-          cursor.x,
-          cursor.y,
-          canvImages[Math.floor(Math.random() * possibleColors.length)]
-        );
-
-        lastPos.x = cursor.x;
-        lastPos.y = cursor.y;
-      }
-    });
-  }
-
-  function addParticle(x, y, color) {
-    particles.push(new Particle(x, y, color));
-  }
-
-  function updateParticles() {
-    context.clearRect(0, 0, width, height);
-
-    // Update
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context);
-    }
-
-    // Remove dead particles
-    for (let i = particles.length - 1; i >= 0; i--) {
-      if (particles[i].lifeSpan < 0) {
-        particles.splice(i, 1);
-      }
-    }
-  }
-
-  function loop() {
-    updateParticles();
-    requestAnimationFrame(loop);
-  }
-
-  function Particle(x, y, canvasItem) {
-    const lifeSpan = Math.floor(Math.random() * 30 + 60);
-    this.initialLifeSpan = lifeSpan; //
-    this.lifeSpan = lifeSpan; //ms
-    this.velocity = {
-      x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
-      y: Math.random() * 0.7 + 0.9,
-    };
-    this.position = { x: x, y: y };
-    this.canv = canvasItem;
-
-    this.update = function (context) {
-      this.position.x += this.velocity.x;
-      this.position.y += this.velocity.y;
-      this.lifeSpan--;
-
-      this.velocity.y += 0.02;
-
-      const scale = Math.max(this.lifeSpan / this.initialLifeSpan, 0);
-
-      context.drawImage(
-        this.canv,
-        this.position.x - (this.canv.width / 2) * scale,
-        this.position.y - this.canv.height / 2,
-        this.canv.width * scale,
-        this.canv.height * scale
-      );
-    };
-  }
-
-  init();
-}
 },{"csjs-inject":3}]},{},[21]);
