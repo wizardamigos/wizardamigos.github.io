@@ -707,9 +707,10 @@ function pitchComponent () {
       font-weight       : 100;
     }
     .description {
-      padding           : 50px;
+      padding           : 10px;
       font-size         : ${fontXXM}px;
       font-weight       : 700;
+      align-items       : center;
     }
     .action {
       min-width         : 200px;
@@ -757,10 +758,19 @@ function pitchComponent () {
       }
     }
     @media only screen and (max-width: 1008px) {
+      .pitch {
+        padding           : 5%;
+      }
       .step {
         min-width         : 220px;
       }
+      .title {
+        font-size         : ${fontXL}px;
+      }
       .subtitle {
+        font-size         : ${fontM}px;
+      }
+      .description {
         font-size         : ${fontM}px;
       }
       .subdescription {
@@ -775,22 +785,39 @@ function pitchComponent () {
         width             : 100%;
         margin            : 10px;
       }
+      .title {
+        font-size         : ${fontXL}px;
+      }
       .subtitle {
-        font-size         : ${fontXM}px;
+        font-size         : ${fontS}px;
+      }
+      .description {
+        font-size         : ${fontS}px;
       }
       .subdescription {
-        font-size         : ${fontXS}px;
+        font-size         : ${fontS}px;
       }
     }
     @media only screen and (max-width: 660px) {
+      .pitch {
+        padding           : 5%;
+      }
     }
     @media only screen and (max-width: 600px) {
+      .pitch {
+        padding           : 5%;
+      }
       .title {
-        font-size         : ${fontL}px;
+        font-size         : ${fontXL}px;
+      }
+      .subtitle {
+        font-size         : ${fontS}px;
       }
       .description {
-        font-size         : ${fontXM}px;
-        font-weight       : 600;
+        font-size         : ${fontS}px;
+      }
+      .subdescription {
+        font-size         : ${fontXS}px;
       }
     }
     @media only screen and (max-width: 480px) {
@@ -859,10 +886,20 @@ function portfolioComponent () {
       color             : ${neonGreen};
     }
     .description {
-      padding           : 50px;
-      font-size         : ${fontM}px;
+      padding           : 10px;
+      font-size         : ${fontXXM}px;
       font-weight       : 700;
       color             : ${neonGreen};
+      text-align        : center;
+    }
+    .subtitle {
+      font-size         : ${fontXXM}px;
+      text-align        : center;
+      line-height       : 1.4rem;
+    }
+    .subdescription {
+      margin-top        : 15px;
+      font-size         : ${fontS}px;
       text-align        : center;
     }
     .image {
@@ -927,27 +964,56 @@ function portfolioComponent () {
     @media only screen and (max-width: 1200px) {
     }
     @media only screen and (max-width: 1008px) {
+      .portfolio {
+        padding           : 5%;
+      }
       .title {
-        font-size        : ${fontL}px;
+        font-size         : ${fontXL}px;
+      }
+      .subtitle {
+        font-size         : ${fontM}px;
       }
       .description {
-        font-size        : ${fontM}px;
+        font-size         : ${fontM}px;
+      }
+      .subdescription {
+        font-size         : ${fontS}px;
       }
     }
     @media only screen and (max-width: 768px) {
+      .portfolio {
+        padding           : 5%;
+      }
       .image {
-        width            : 200px;
+        width             : 200px;
+      }
+      .title {
+        font-size         : ${fontXL}px;
+      }
+      .subtitle {
+        font-size         : ${fontS}px;
+      }
+      .description {
+        font-size         : ${fontXS}px;
+      }
+      .subdescription {
+        font-size         : ${fontS}px;
       }
     }
     @media only screen and (max-width: 660px) {
     }
     @media only screen and (max-width: 600px) {
       .title {
-        font-size         : ${fontL}px;
+        font-size         : ${fontXL}px;
+      }
+      .subtitle {
+        font-size         : ${fontS}px;
       }
       .description {
-        font-size         : ${fontXM}px;
-        font-weight       : 600;
+        font-size         : ${fontS}px;
+      }
+      .subdescription {
+        font-size         : ${fontXS}px;
       }
     }
     @media only screen and (max-width: 480px) {
@@ -999,16 +1065,35 @@ function call2actionComponent () {
     }
     .title {
       font-size         : ${fontXL}px;
-      font-size         : ${fontXL}px;
       font-family       : 'Magic School One', sans-serif;
       line-height       : 0.8;
       font-weight       : 100;
     }
     .description {
-      padding           : 50px;
+      padding           : 10px;
       font-size         : ${fontXXM}px;
       font-weight       : 700;
       text-align        : center;
+    }
+    .subtitle {
+      font-size         : ${fontXXM}px;
+      text-align        : center;
+      line-height       : 1.4rem;
+    }
+    .subdescription {
+      margin-top        : 15px;
+      font-size         : ${fontS}px;
+      text-align        : center;
+    }
+    .subdescription a {
+      cursor            : pointer;
+      text-decoration   : underline;
+      color             : ${blue};
+      transition        : all 0.5s ease;
+    }
+    .subdescription a:hover {
+      opacity           : 0.8;
+      transition          : all 0.5s ease;
     }
     .calls {
       margin            : 25px;
@@ -1025,15 +1110,6 @@ function call2actionComponent () {
       flex-direction    : column;
       justify-content   : center;
       align-items       : center;
-    }
-    .subtitle {
-      font-size         : ${fontXXM}px;
-      text-align        : center;
-    }
-    .subdescription {
-      margin-top        : 15px;
-      font-size         : ${fontS}px;
-      text-align        : center;
     }
     .button a {
       display             : flex;
@@ -1067,22 +1143,6 @@ function call2actionComponent () {
       font-size         : ${fontL}px;
       text-align        : center;
     }
-    .subdescription {
-      margin-top        : 15px;
-      font-size         : ${fontS}px;
-      text-align        : center;
-      line-height       : 1.4rem;
-    }
-    .subdescription a {
-      cursor            : pointer;
-      text-decoration   : underline;
-      color             : ${blue};
-      transition        : all 0.5s ease;
-    }
-    .subdescription a:hover {
-      opacity           : 0.8;
-      transition          : all 0.5s ease;
-    }
     .step {
       display           : flex;
       flex-direction    : column;
@@ -1110,25 +1170,40 @@ function call2actionComponent () {
       }
     }
     @media only screen and (max-width: 1008px) {
+      .call2action {
+        padding           : 5%;
+      }
       .title {
-        font-size         : ${fontL}px;
-      }
-      .description {
-        font-size         : ${fontXM}px;
-      }
-      .step {
-        min-width         : 220px;
+        font-size         : ${fontXL}px;
       }
       .subtitle {
         font-size         : ${fontM}px;
       }
+      .description {
+        font-size         : ${fontM}px;
+      }
       .subdescription {
-        font-size         : ${fontXS}px;
+        font-size         : ${fontS}px;
+      }
+      .step {
+        min-width         : 220px;
       }
     }
     @media only screen and (max-width: 768px) {
+      .call2action {
+        padding           : 5%;
+      }
+      .title {
+        font-size         : ${fontXL}px;
+      }
+      .subtitle {
+        font-size         : ${fontS}px;
+      }
       .description {
-        font-size         : ${fontM}px;
+        font-size         : ${fontS}px;
+      }
+      .subdescription {
+        font-size         : ${fontS}px;
       }
       .steps {
         flex-direction    : column;
@@ -1136,12 +1211,6 @@ function call2actionComponent () {
       .step {
         width             : 100%;
         margin            : 10px;
-      }
-      .subtitle {
-        font-size         : ${fontXM}px;
-      }
-      .subdescription {
-        font-size         : ${fontS}px;
       }
     }
     @media only screen and (max-width: 660px) {
@@ -1151,11 +1220,16 @@ function call2actionComponent () {
     }
     @media only screen and (max-width: 600px) {
       .title {
-        font-size         : ${fontL}px;
+        font-size         : ${fontXL}px;
+      }
+      .subtitle {
+        font-size         : ${fontS}px;
       }
       .description {
-        font-size         : ${fontXM}px;
-        font-weight       : 600;
+        font-size         : ${fontS}px;
+      }
+      .subdescription {
+        font-size         : ${fontXS}px;
       }
     }
     @media only screen and (max-width: 480px) {
@@ -1269,7 +1343,7 @@ function testimonialsComponent () {
         font-size         : ${fontL}px;
       }
       .description {
-        font-size         : ${fontXM}px;
+        font-size         : ${fontS}px;
         font-weight       : 600;
       }
     }
