@@ -243,7 +243,7 @@ function pitchComponent () {
         font-size         : ${fontM}px;
       }
       .subdescription {
-        font-size         : ${fontXS}px;
+        font-size         : ${fontS}px;
       }
     }
     @media only screen and (max-width: 768px) {
@@ -258,7 +258,7 @@ function pitchComponent () {
         font-size         : ${fontXM}px;
       }
       .subdescription {
-        font-size         : ${fontS}px;
+        font-size         : ${fontXS}px;
       }
     }
     @media only screen and (max-width: 660px) {
@@ -422,10 +422,11 @@ function portfolioComponent () {
     }
     @media only screen and (max-width: 600px) {
       .title {
-        font-size        : ${fontXM}px;
+        font-size         : ${fontL}px;
       }
       .description {
-        font-size        : ${fontXS}px;
+        font-size         : ${fontXM}px;
+        font-weight       : 600;
       }
     }
     @media only screen and (max-width: 480px) {
@@ -628,8 +629,12 @@ function call2actionComponent () {
       }
     }
     @media only screen and (max-width: 600px) {
+      .title {
+        font-size         : ${fontL}px;
+      }
       .description {
-        font-size         : ${fontXS}px;
+        font-size         : ${fontXM}px;
+        font-weight       : 600;
       }
     }
     @media only screen and (max-width: 480px) {
@@ -739,6 +744,13 @@ function testimonialsComponent () {
       .quote {
         font-size           : ${fontXXM}px;
       }
+      .title {
+        font-size         : ${fontL}px;
+      }
+      .description {
+        font-size         : ${fontXM}px;
+        font-weight       : 600;
+      }
     }
     @media only screen and (max-width: 480px) {
       .quote {
@@ -813,6 +825,13 @@ function footerComponent () {
     @media only screen and (max-width: 660px) {
     }
     @media only screen and (max-width: 600px) {
+      .title {
+        font-size         : ${fontL}px;
+      }
+      .description {
+        font-size         : ${fontXM}px;
+        font-weight       : 600;
+      }
     }
     @media only screen and (max-width: 480px) {
     }
