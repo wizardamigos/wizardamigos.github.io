@@ -312,7 +312,10 @@ function pitchComponent () {
     JavaScript for nomads
   </div>
   <div class=${css.description}>
-    In the early 2014 we started Wizard Amigos in Berlin. We organized over 800 events, co-learning workshops and code camps since then. Before that we participated in several groups in Berlin (Hack and Tell, Open Knowledge, Open Tech School, Rails Girls and more).
+    Wizard Amigos started in the early 2014 in Berlin. Since then we hosted almost 900 events, co-learning workshops and code camps to promote open source, open data and open organizing. 
+    Before starting Wizard Amigos we participated in several groups in Berlin (Hack and Tell, Open Knowledge, Open Tech School, Rails Girls, Refugee Lab and more) 
+    but in the upcoming years we also organized several events abroad and connected to the inspirational projects outside Berlin (g0v Taiwan, Dat ecosystem, Hacktion Lab, Mozilla community, Mesh networks to name a few).
+
   </div>
   <div class=${css.action}>
   <div class=${css.subtitle}> WHO ARE WE </div>
