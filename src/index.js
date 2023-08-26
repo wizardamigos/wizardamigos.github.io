@@ -850,7 +850,7 @@ function testimonialsComponent () {
       </div>
       <img class=${css.nomad} src='src/assets/Wizard-Amigos---Stickers---CAT-NOMAD---TRANSPARENT---2022.png'></img>
       <div class=${css.author}>
-        <a href='https://wizardamigos.com/codecamp2022/' target='_blank'> Check out also our Code Camp in Wales. It is happening from Sep 26 until Oct 10 2022 </a>
+        <a href='https://wizardamigos.com/codecamp2023/' target='_blank'> Want to join us for the Code Camp this year in Portugal? </a>
       </div>
     </div>
   `
