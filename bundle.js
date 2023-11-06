@@ -833,10 +833,21 @@ function pitchComponent () {
     JavaScript for nomads
   </div>
   <div class=${css.description}>
-    Wizard Amigos started in the early 2014 in Berlin. Since then we hosted almost 900 events, co-learning workshops and code camps to promote open source, open data and open organizing. 
-    Before starting Wizard Amigos we participated in several groups in Berlin (Hack and Tell, Open Knowledge, Open Tech School, Rails Girls, Refugee Lab and more) 
-    but in the upcoming years we also organized several events abroad and connected to the inspirational projects outside Berlin (g0v Taiwan, Dat ecosystem, Hacktion Lab, Mozilla community, Mesh networks to name a few).
-
+  <p>
+    Wizard Amigos is a global community of self-employed nomadic developers, technologists, creators, problem solvers, thinkers, activists, researchers, artists, and individuals from diverse backgrounds who share a common passion for technology and open collaboration. The community was founded in Berlin in 2014 and has since expanded its reach to welcome participants from around the world.
+  </p>
+  <p>
+    At its core, Wizard Amigos is dedicated to promoting open source, open data, and open organizing. The community is focused on fostering digital literacy, financial literacy, sustainability, and entrepreneurial skills. Members come together to learn, collaborate, and work on various projects and initiatives.
+  </p>
+  <p>
+  Wizard Amigos hosts a variety of events, including meetups, co-learning workshops, and code camps that provide opportunities for individuals to learn, share their skills, and collaborate on innovative projects. These events often revolve around topics such as P2P technology, federated systems, co-governance, and care for people and the future.
+  </p>
+  <p>
+  The community's unique approach encourages a hands-on, learning-by-doing style of education. All learning materials are open source and freely available, making knowledge accessible to everyone. Whether you're a seasoned developer or new to the tech world, Wizard Amigos welcomes individuals with a shared interest in technology, travel, and a desire to make a positive impact on society.
+  </p>
+  <p>
+    If you're looking to expand your technical skills, connect with a diverse and supportive community, or embark on a nomadic journey of learning and discovery, Wizard Amigos may be the perfect fit for you. Joining this community offers the opportunity to work with like-minded individuals and explore the exciting world of technology, open source, and collaborative problem-solving.
+  </p>
   </div>
   <div class=${css.action}>
   <div class=${css.subtitle}> WHO ARE WE </div>
