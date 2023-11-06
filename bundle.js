@@ -837,7 +837,10 @@ function pitchComponent () {
     Wizard Amigos is a global community of self-employed nomadic developers, technologists, creators, problem solvers, thinkers, activists, researchers, artists, and individuals from diverse backgrounds who share a common passion for technology and open collaboration. The community was founded in Berlin in 2014 and has since expanded its reach to welcome participants from around the world.
   </p>
   <p>
-    At its core, Wizard Amigos is dedicated to promoting open source, open data, and open organizing. The community is focused on fostering digital literacy, financial literacy, sustainability, and entrepreneurial skills. Members come together to learn, collaborate, and work on various projects and initiatives.
+  At its core, Wizard Amigos is dedicated to promoting open source, open data, and open organizing. The community is focused on fostering digital literacy, financial literacy, sustainability, and entrepreneurial skills. Members come together to learn, collaborate, and work on various projects and initiatives.
+  </p>
+  <p>
+  One key ingredient or foundational aspect in the community is, that everyone is trying to converge to a common stack as much as possible in all fields relevant to Wizard Amigos.
   </p>
   <p>
   Wizard Amigos hosts a variety of events, including meetups, co-learning workshops, and code camps that provide opportunities for individuals to learn, share their skills, and collaborate on innovative projects. These events often revolve around topics such as P2P technology, federated systems, co-governance, and care for people and the future.
